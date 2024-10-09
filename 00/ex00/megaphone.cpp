@@ -18,7 +18,6 @@ int main(int argc, char **argv)
     int i;
     int j;
     string  loud;
-    // char    c;
 
     if (argc == 1)
     {
@@ -31,8 +30,6 @@ int main(int argc, char **argv)
         i = 0;
         while (argv[j][i] != '\0')
         {
-            // c = toupper(argv[j][i]);
-            // loud += c;
             loud += toupper(argv[j][i]);
             i++;
         }
