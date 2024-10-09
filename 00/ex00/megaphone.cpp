@@ -10,24 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include <iostream>
-#include <cstdio>
 
-void    printUpper(char *str)
-{
-    printf("%s\n",str);
-}
+using namespace std;
 
 int main(int argc, char **argv)
 {
-    // char    *str;
-    // char    *aux;
+    int i;
+    int j;
+    string  loud;
+    // char    c;
 
-    (void)argc;
-    // while (++argv)
-    // {
-    //     aux = strjoin(str, argv);
-    //     if(!aux)
-    // }
-    printUpper(argv[1]);
+    if (argc == 1)
+    {
+        std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;        
+        return(0);
+    }
+        j = 1;
+    while (argv[j])
+    {
+        i = 0;
+        while (argv[j][i] != '\0')
+        {
+            // c = toupper(argv[j][i]);
+            // loud += c;
+            loud += toupper(argv[j][i]);
+            i++;
+        }
+        j++;
+    }
+    cout << loud << std::endl;
     return (0);
 }

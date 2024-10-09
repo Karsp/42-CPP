@@ -63,7 +63,7 @@ $(NAME): $(OBJS)
 	@echo "─▀█────██▀█▀██────█▀──$(NOCOLOR)"
 
 %.o: %.cpp
-	@echo "$(BLUE) Compiling files...$(NOCOLOR)"
+	@echo "$(BLUE)Compiling files...$(NOCOLOR)"
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
 -include $(DEPS)
