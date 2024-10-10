@@ -9,15 +9,26 @@
 /*   Updated: 2024/10/10 16:24:10 by daviles-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include <iostream>
+#include "Contact.hpp"
 
 #ifndef PHONEBOOK_H
 # define PHONEBOOK_H
 
 class PhoneBook
 {
+    private:
+        Contact _contact_list[8];
+        int     _list_size;
+        int     _next_contact;
+
     public:
-        Phonebook(void);
-        ~PhoneBook(void);
+        void            add_contact();
+        std::string     get_input(std::string input);
+        void            search_contact();
+        void            print_contact();
+        PhoneBook();
+        ~PhoneBook();
 };
 
 #endif

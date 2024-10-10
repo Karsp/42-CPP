@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = megaphone
+NAME = phonebook
 
 ##########################   COMPILING SETTINGS   #########################
 
@@ -21,7 +21,7 @@ RM = rm -f
 
 ###########################    FILES   ####################################
 
-SRCS =	megaphone.cpp
+SRCS =	PhoneBook.cpp
 OBJS = $(SRCS:.cpp=.o)	
 DEPS = $(SRCS:.cpp=.d)
 
@@ -73,7 +73,7 @@ clean:
 	@$(RM) $(OBJS) $(DEPS)
 
 fclean:	clean
-	@echo "$(RECYCLE_EMOJI)$(RED)Removing executable... $(NOCOLOR)$(CAT_EMOJI)"
+	@echo "$(CLEAN_EMOJI)$(RED)Removing executable... $(NOCOLOR)$(CAT_EMOJI)"
 	@$(RM) $(NAME)
 
 re: fclean all
