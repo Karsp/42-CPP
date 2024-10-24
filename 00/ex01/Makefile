@@ -21,7 +21,7 @@ RM = rm -f
 
 ###########################    FILES   ####################################
 
-SRCS =	PhoneBook.cpp
+SRCS =	PhoneBook.cpp Contact.cpp main.cpp
 OBJS = $(SRCS:.cpp=.o)	
 DEPS = $(SRCS:.cpp=.d)
 
