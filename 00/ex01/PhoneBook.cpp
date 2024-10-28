@@ -30,6 +30,9 @@ PhoneBook::~PhoneBook()
 void    PhoneBook::add_contact()
 {
     Contact new_contact;
+    // std::string first_name;
+    // std::string last_name;
+    // std::string nickname;
     // std::string secret;
     // int phone;
 
@@ -42,6 +45,30 @@ void    PhoneBook::add_contact()
 
     std::cout << "Please enter the Phone Number:" << std::endl;
 	std::cin >> new_contact.phone_number;
+
+// Input validation for phone number
+    // std::string phone_input;
+    // while (true) {
+    //     std::cout << "Please enter the Phone Number (numeric only):" << std::endl;
+    //     std::cin >> phone_input;
+        
+    //     if (is_numeric(phone_input)) {
+    //         new_contact.phone_number = phone_input; // Assign valid numeric input
+    //         break; // Exit the loop if input is valid
+    //     } else {
+    //         std::cout << "Invalid input. Please enter a valid phone number (numbers only)." << std::endl;
+    //     }
+    // }
+
+// #include <cctype> // For isdigit
+
+// // Function to check if the string is numeric
+// bool is_numeric(const std::string &str) {
+//     for (char const &c : str) {
+//         if (!std::isdigit(c)) return false; // Return false if a character is not a digit
+//     }
+//     return true; // Return true if all characters are digits
+// }
 
 
 
