@@ -22,7 +22,7 @@ class Contact
 		std::string nickname;
 		std::string	phone_number;
 		std::string darkest_secret;
-		// void    `	print_contact();
+		void    	print_contact();
 };
 
 #endif

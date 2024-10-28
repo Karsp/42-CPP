@@ -78,19 +78,10 @@ void    PhoneBook::add_contact()
         this->_list_size += 1;
         this->_next_contact += 1;
     }
-    // std::cout << "Your name " + first_name << std::endl;
+    std::cout << "\n--New contact added to Phonebook.--" << std::endl;
+    std::cout << "--this->_next_contact.-- " << this->_next_contact << std::endl;
+    std::cout << "--this->_list_size.-- " << this->_list_size << std::endl;
 }
-
-// // Function to check if the string is numeric
-// bool PhoneBook::is_numeric(const std::string &str) 
-// {
-//     for (size_t i = 0; i < str.length())
-//     {
-//         if (!std::isdigit(str[i]))
-//             return false; // Return false if a character is not a digit
-//     }
-//     return true; // Return true if all characters are digits
-// }
 
 
 void    PhoneBook::search_contact()
@@ -107,7 +98,7 @@ void    PhoneBook::search_contact()
         std::cout << "|   Index   |First Name|Last Name |Nickname  |" << std::endl;
     for (int i = 0; i < this->_list_size; i++)
     {
-        std::cout << "|" + this->_contact_list->first_name << std::setw(10) << "|" << std::endl;
+        std::cout << "|    " << i + 1 << "   |"  + this->_contact_list->first_name << std::setw(10) << "|" << std::endl;
         // std::cout << "|" + this->_contact_list->first_name << std::endl;
         // std::cout << "First Name" + this->_contact_list->first_name << std::endl;
         // std::cout << "Last Name" + this->_contact_list->last_name << std::endl;
@@ -115,7 +106,7 @@ void    PhoneBook::search_contact()
         // std::cout << "Darkest secret " + this->_contact_list->darkest_secret << std::endl;
 
     }    
-        std::cout << "Select a contact index to see details:";
+        std::cout << "Select a contact index to see details:"<< std::endl;
 		std::cin >> ContactIndex;
         
     while (!std::cin.good())
@@ -123,12 +114,13 @@ void    PhoneBook::search_contact()
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         //ask again
-        std::cout << "Select a contact index to see details:";
+        std::cout << "Invalid input, choose one number. Select a contact index to see details:"<< std::endl;
 		std::cin >> ContactIndex;
     }
-    std::cout << "Selected " + ContactIndex;
+	// std::cin.ignore('\n');
+    // std::cout << "The option selected " + ContactIndex << std::endl;
         // index = std::strtol(ContactIndex);
-        // this->_contact_list[index].print_contact();
+        this->_contact_list[ContactIndex].print_contact();
 
 }
 
@@ -152,11 +144,11 @@ std::string PhoneBook::truncateInfo(std::string str)
 
 void    PhoneBook::print_contact()
 {
-    std::cout << "First Name " + this->_contact_list->first_name << std::endl;
-    std::cout << "Last Name " + this->_contact_list->last_name << std::endl;
-    std::cout << "NickName " + this->_contact_list->nickname << std::endl;
-    std::cout << "Phone number" + this->_contact_list->phone_number << std::endl;
-    std::cout << "Darkest secret " + this->_contact_list->darkest_secret << std::endl;
+    // std::cout << "First Name " + this->_contact_list->first_name << std::endl;
+    // std::cout << "Last Name " + this->_contact_list->last_name << std::endl;
+    // std::cout << "NickName " + this->_contact_list->nickname << std::endl;
+    // std::cout << "Phone number" + this->_contact_list->phone_number << std::endl;
+    // std::cout << "Darkest secret " + this->_contact_list->darkest_secret << std::endl;
 }
 
 
