@@ -23,6 +23,7 @@ class Contact
 		std::string	phone_number;
 		std::string darkest_secret;
 		void    	print_contact();
+		void		print_search_contact();
 };
 
 #endif

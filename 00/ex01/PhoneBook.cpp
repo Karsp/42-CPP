@@ -69,14 +69,14 @@ void    PhoneBook::add_contact()
     std::cout << "Please enter the Darkest Secret:" << std::endl;
 	std::cin >> new_contact.darkest_secret;
     this->_contact_list[this->_next_contact] = new_contact;
-    if (this->_list_size > 7)
-        this->_list_size = 8;
-    if (this->_next_contact >= 7)
+    if (this->_next_contact == 8)
         this->_next_contact = 0;
     else
     {
         this->_list_size += 1;
         this->_next_contact += 1;
+        if (this->_list_size >= 8)
+            this->_list_size = 8;
     }
     std::cout << "\n--New contact added to Phonebook.--" << std::endl;
     std::cout << "--this->_next_contact.-- " << this->_next_contact << std::endl;
@@ -88,6 +88,7 @@ void    PhoneBook::search_contact()
 {
     // std::string ContactIndex = "";
     int ContactIndex = 0;
+    Contact contact;
     // int index = 0;
 
     if (this->_list_size == 0)
@@ -95,18 +96,14 @@ void    PhoneBook::search_contact()
         std::cout << "--There's no contact in Phonebook. Please create one.--" << std::endl;
         return ;
     }
-        std::cout << "|   Index   |First Name|Last Name |Nickname  |" << std::endl;
+        std::cout << "|   Index  |First Name|Last Name |Nickname  |" << std::endl;
     for (int i = 0; i < this->_list_size; i++)
     {
-        std::cout << "|    " << i + 1 << "   |"  + this->_contact_list->first_name << std::setw(10) << "|" << std::endl;
-        // std::cout << "|" + this->_contact_list->first_name << std::endl;
-        // std::cout << "First Name" + this->_contact_list->first_name << std::endl;
-        // std::cout << "Last Name" + this->_contact_list->last_name << std::endl;
-        // std::cout << "NickName " + this->_contact_list->nickname << std::endl;
-        // std::cout << "Darkest secret " + this->_contact_list->darkest_secret << std::endl;
-
+        contact = this->_contact_list[i];
+        std::cout << "|" << std::setw(10) << i + 1 << "|";
+        contact.print_search_contact();
     }    
-        std::cout << "Select a contact index to see details:"<< std::endl;
+        std::cout << "\n-- Select a contact index to see details:"<< std::endl;
 		std::cin >> ContactIndex;
         
     while (!std::cin.good())
@@ -120,7 +117,10 @@ void    PhoneBook::search_contact()
 	// std::cin.ignore('\n');
     // std::cout << "The option selected " + ContactIndex << std::endl;
         // index = std::strtol(ContactIndex);
-        this->_contact_list[ContactIndex].print_contact();
+        if (ContactIndex <= 0 && ContactIndex > this->_list_size)
+            std::cout << "Invalid index, please choose one listed number."<< std::endl;
+        else
+            this->_contact_list[ContactIndex - 1].print_contact();
 
 }
 
