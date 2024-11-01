@@ -19,11 +19,7 @@ int	main(void)
 	std::string	input;
 	PhoneBook	myPhonebook;
 
-	std::cout << "Phonebook started."<< std::endl;
-	
-	// std::cout << "Please select an option." << std::endl;
-	// std::cout << "-ADD\n-SEARCH\n-EXIT" << std::endl;
-	// std::cin >> input;
+	std::cout << "Hello there! Your Awesome Phonebook has started."<< std::endl;
 	while (true)
 	{
 		std::cout << "\n:: Please select an option ::" << std::endl;
@@ -46,8 +42,15 @@ int	main(void)
 			std::cout << ">> Exiting." << std::endl;
 			break;
 		}
+		else if (std::cin.eof())
+        {
+            std::cout << std::flush << std::endl;
+            std::cin.clear();
+			std::cout << ">> Exiting." << std::endl;
+			return (1);
+        }
 		else
-			std::cout << "XX Invalid option." << std::endl;
+			std::cout << "XX Invalid option. XX" << std::endl;
 		input = "";
 	}
 	return (0);

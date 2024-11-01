@@ -26,14 +26,6 @@ void    Contact::print_search_contact()
         std::cout << this->nickname.substr(0,9) << ".|";
     else
         std::cout << std::setw(10) << this->nickname << "|" << std::endl;
-    // if (this->phone_number.length() > 9)
-    //     std::cout << this->phone_number.substr(0,9) << ".|";
-    // else
-    //     std::cout << std::setw(10) << this->phone_number << "|";
-    // if (this->darkest_secret.length() > 9)
-    //     std::cout << this->darkest_secret.substr(0,9) << ".|";
-    // else
-        // std::cout << std::setw(10) << this->darkest_secret << "|" << std::endl;
 }
 
 void    Contact::print_contact()
