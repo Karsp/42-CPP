@@ -17,7 +17,6 @@
 int	main(void)
 {
 	std::string	input;
-	std::string	seeContact;
 	PhoneBook	myPhonebook;
 
 	std::cout << "Phonebook started."<< std::endl;

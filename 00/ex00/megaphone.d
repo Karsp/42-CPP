@@ -1,0 +1,1 @@
+megaphone.o: megaphone.cpp

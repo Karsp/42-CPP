@@ -25,24 +25,24 @@ void    Contact::print_search_contact()
     if (this->nickname.length() > 9)
         std::cout << this->nickname.substr(0,9) << ".|";
     else
-        std::cout << std::setw(10) << this->nickname << "|";
-    if (this->phone_number.length() > 9)
-        std::cout << this->phone_number.substr(0,9) << ".|";
-    else
-        std::cout << std::setw(10) << this->phone_number << "|";
-    if (this->darkest_secret.length() > 9)
-        std::cout << this->darkest_secret.substr(0,9) << ".|";
-    else
-        std::cout << std::setw(10) << this->darkest_secret << "|" << std::endl;
+        std::cout << std::setw(10) << this->nickname << "|" << std::endl;
+    // if (this->phone_number.length() > 9)
+    //     std::cout << this->phone_number.substr(0,9) << ".|";
+    // else
+    //     std::cout << std::setw(10) << this->phone_number << "|";
+    // if (this->darkest_secret.length() > 9)
+    //     std::cout << this->darkest_secret.substr(0,9) << ".|";
+    // else
+        // std::cout << std::setw(10) << this->darkest_secret << "|" << std::endl;
 }
 
 void    Contact::print_contact()
 {
     std::cout << "///////////////////////////////////" << std::endl;
-    std::cout << "First Name " + this->first_name << std::endl;
-    std::cout << "Last Name " + this->last_name << std::endl;
-    std::cout << "NickName " + this->nickname << std::endl;
-    std::cout << "Phone number" + this->phone_number << std::endl;
-    std::cout << "Darkest secret " + this->darkest_secret << std::endl;
+    std::cout << "First Name: " + this->first_name << std::endl;
+    std::cout << "Last Name: " + this->last_name << std::endl;
+    std::cout << "NickName: " + this->nickname << std::endl;
+    std::cout << "Phone number: " + this->phone_number << std::endl;
+    std::cout << "Darkest secret: " + this->darkest_secret << std::endl;
     std::cout << "///////////////////////////////////" << std::endl;
 }
