@@ -16,7 +16,6 @@
 #include <limits> // For check limits on check int
 #include <iomanip> //  needed for std::setw()
 
-// Create libft cpp?
 bool is_digits_only(const std::string& str) 
 {
     for (size_t i = 0; i < str.length(); ++i) 
@@ -27,11 +26,8 @@ bool is_digits_only(const std::string& str)
     return true;
 }
 
-
-
 PhoneBook::PhoneBook()
 {
-    // std::cout << "Constructor called" << std::endl;
     this->_list_size = 0;
     this->_next_contact = 0;
     return ;
@@ -39,7 +35,6 @@ PhoneBook::PhoneBook()
 
 PhoneBook::~PhoneBook()
 {
-    // std::cout << "Destructor called" << std::endl;
     return ;
 }
 
@@ -115,4 +110,3 @@ void    PhoneBook::search_contact()
     }
     this->_contact_list[ContactIndex - 1].print_contact();
 }
-
