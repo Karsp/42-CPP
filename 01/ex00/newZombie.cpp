@@ -9,5 +9,14 @@
 /*   Updated: 2024/11/05 16:17:56 by daviles-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "Zombie.hpp"
 
 
+Zombie* Zombie::newZombie( std::string name )
+{
+    Zombie *zombie;
+	
+	zombie = new Zombie;
+	zombie->name = name;
+	return (zombie);
+}
