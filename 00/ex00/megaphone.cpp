@@ -11,13 +11,11 @@
 /* ************************************************************************** */
 #include <iostream>
 
-using namespace std;
-
 int main(int argc, char **argv)
 {
     int i;
     int j;
-    string  loud;
+    std::string  loud;
 
     if (argc == 1)
     {
@@ -35,6 +33,6 @@ int main(int argc, char **argv)
         }
         j++;
     }
-    cout << loud << std::endl;
+    std::cout << loud << std::endl;
     return (0);
 }
