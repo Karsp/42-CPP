@@ -15,7 +15,7 @@ NAME = phonebook
 ##########################   COMPILING SETTINGS   #########################
 
 CC = c++
-CFLAGS = -Werror -Wextra -Wall -std=c++98 #-fsanitize=address
+CFLAGS = -Werror -Wextra -Wall -std=c++98 #-fsanitize=address -g3
 CPPFLAGS = -MMD -MP
 RM = rm -f
 

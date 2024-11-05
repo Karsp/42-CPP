@@ -57,6 +57,12 @@ void    PhoneBook::add_contact()
 	std::cin >> new_contact.phone_number;
     while (!std::cin.good() || new_contact.phone_number.length() >= 20 ||  !is_digits_only(new_contact.phone_number))
     {
+        if (std::cin.eof())
+        {
+            std::cout << std::flush << std::endl;
+            std::cin.clear();
+            break;
+        }
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::cout << "--Invalid input. Please enter a valid phone number (numbers only, max 20).--" << std::endl;
@@ -96,6 +102,12 @@ void    PhoneBook::search_contact()
     std::cin >> ContactIndex;
     while (!std::cin.good() || ContactIndex <= 0 || ContactIndex > this->_list_size)
     {
+         if (std::cin.eof())
+        {
+            std::cout << std::flush << std::endl;
+            std::cin.clear();
+            return ;
+        }
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::cout << "--Invalid index, please choose a number between 1 and " << this->_list_size << ": " << std::endl;
