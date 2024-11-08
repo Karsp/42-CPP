@@ -28,8 +28,8 @@ void    Weapon::setType(std::string typeName)
     this->type = typeName;
 }
 
-const std::string   Weapon::getType()
+const std::string   &Weapon::getType()
 {
-    return (this->type);
+    return (type);
 }
 

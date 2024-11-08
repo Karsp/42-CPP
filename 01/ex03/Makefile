@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = brain
+NAME = violence
 
 ##########################   COMPILING SETTINGS   #########################
 
@@ -21,7 +21,7 @@ RM = rm -f
 
 ###########################    FILES   ####################################
 
-SRCS =	main.cpp
+SRCS =	Weapon.cpp HumanA.cpp HumanB.cpp main.cpp
 OBJS = $(SRCS:.cpp=.o)	
 DEPS = $(SRCS:.cpp=.d)
 

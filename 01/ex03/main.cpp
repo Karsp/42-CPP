@@ -13,54 +13,63 @@
 #include "HumanA.hpp"
 #include "HumanB.hpp"
 
-#define RESET   "\033[0m"
-#define MAGENTA "\033[0;35m"
-#define GREEN "\033[32m"
-#define RED "\033[31m"
-
 int main()
 {
+    {
+        std::cout << "==== Testing HumanA with weapon ====" << std::endl;
+        Weapon club = Weapon("crude spiked club");
+        HumanA bob("Bob", club);
+        bob.attack();
+        club.setType("some other type of club");
+        bob.attack();
+    }
+   std::cout << std::endl;
+    {
+        std::cout << "==== Testing HumanB without weapon ====" << std::endl;
+        HumanB jim("Jim");
+        jim.attack(); // Jim no tiene arma todavía
+    }
+   std::cout << std::endl;
+    {
+        std::cout << "==== Testing HumanB with weapon ====" << std::endl;
+        Weapon club = Weapon("crude spiked club");
+        HumanB jim("Jim");
+        jim.setWeapon(club);
+        jim.attack();
+        club.setType("some other type of club");
+        jim.attack();
+    }
+   std::cout << std::endl;
+    {
+        std::cout << "==== Testing multiple weapons with HumanA ====" << std::endl;
+        Weapon sword = Weapon("sharp sword");
+        Weapon axe = Weapon("mighty axe");
+        HumanA alice("Alice", sword);
+        alice.attack();
+        sword.setType("golden sword");
+        alice.attack();
 
-    Weapon club = Weapon("crude spiked club");
-    HumanA bob("Bob", club);
-    bob.attack();
-    club.setType("some other type of club");
-    bob.attack();
+        std::cout << "Alice switches to another weapon!" << std::endl;
+        // Simulate Alice picking up a new weapon (manually changing reference)
+        sword.setType("silver axe");
+        alice.attack(); // Should still attack with the sword now named silver axe because reference hasn't changed
+    }
+   std::cout << std::endl;
+    {
+        std::cout << "==== Testing multiple weapons with HumanB ====" << std::endl;
+        Weapon sword = Weapon("sharp sword");
+        Weapon axe = Weapon("mighty axe");
+        HumanB charlie("Charlie");
+        charlie.setWeapon(sword);
+        charlie.attack();
+        sword.setType("golden sword");
+        charlie.attack();
 
-
-    Weapon club = Weapon("crude spiked club");
-    HumanB jim("Jim");
-    jim.setWeapon(club);
-    jim.attack();
-    club.setType("some other type of club");
-    jim.attack();
-
+        std::cout << "Charlie switches to another weapon!" << std::endl;
+        charlie.setWeapon(axe); // Now Charlie should use the axe
+        charlie.attack();
+        axe.setType("silver axe");
+        charlie.attack();
+    }
     return 0;
 }
-
-// int main()
-// {
-    
-//     std::string msg = "HI THIS IS BRAIN";
-//     std::string *stringPTR = &msg;
-//     std::string &stringREF = msg;
-
-
-//     std::cout << GREEN;
-//     std::cout << "--The memory address of" << std::endl;
-//     std::cout << "The string variable: "<< &msg << std::endl;
-//     std::cout << "Held by stringPTR: "<< &stringPTR << std::endl;
-//     std::cout << "Held by stringREF: "<< &stringREF << std::endl;
-//     std::cout << RESET;
-//     std::cout << std::endl;
-
-//     std::cout << MAGENTA;
-//     std::cout << "--The value of" << std::endl;
-//     std::cout << "The string variable: "<< msg << std::endl;
-//     std::cout << "The value pointed to by stringPTR: "<< *stringPTR << std::endl;
-//     std::cout << "The value pointed to by stringREF: "<< stringREF << std::endl;
-//     std::cout << RESET;
-//     std::cout << std::endl;
-
-//      return (0);
-// }
