@@ -11,22 +11,12 @@
 /* ************************************************************************** */
 #include <iostream>
 #include <fstream>
-// #include <string> 
-
-// void    ft_replace(std::string &line, size_t found, std::string strFind, std::string  strRepl)
-// {
-//     size_t  size = strFind.length;
-//     size_t  i = 0;
-
-//     line.erase(found, size);
-//     line.insert(found, strRepl);
-// }
 
 int main(int argc, char **argv)
 {
 	std::fstream infile;
-	std::fstream newfile;
 	std::string	line;
+	std::string	name = ".replace";
 	std::string	strFind;
 	std::string	strRepl;
     size_t      found;
@@ -38,15 +28,14 @@ int main(int argc, char **argv)
 		infile.open(argv[1]);
 		if (infile.is_open())
 		{
+            std::ofstream newfile ((argv[1] + name).c_str());
 			while (getline(infile, line))
 			{
-				std::cout << "line " <<  line << '\n';
                 found = line.find(strFind);
                 while (found != std::string::npos)
                 {
                     if (found != std::string::npos)
                     {
-                        std::cout << "first needle found at:" << found <<  '\n';
                         line.erase(found, strFind.length());
                         line.insert(found, strRepl);
                         found = line.find(strFind, found + 1);
@@ -54,10 +43,10 @@ int main(int argc, char **argv)
                     else
                         break;
                 }
-				std::cout << "line " <<  line << '\n';
+				newfile << line << std::endl;
 			}
+            newfile.close();
 		}
-
 		infile.close();
 	}
 	else
