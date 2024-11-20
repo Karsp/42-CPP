@@ -15,20 +15,38 @@
 int main(int argc, char **argv)
 {
 	std::fstream infile;
-	std::fstream newfile;
 	std::string	line;
+	std::string	name = ".replace";
+	std::string	strFind;
+	std::string	strRepl;
+    size_t      found;
 
 	if (argc == 4)
 	{
+        strFind = argv[2];
+        strRepl = argv[3];
 		infile.open(argv[1]);
 		if (infile.is_open())
 		{
+            std::ofstream newfile ((argv[1] + name).c_str());
 			while (getline(infile, line))
 			{
-				std::cout << line << '\n';
+                found = line.find(strFind);
+                while (found != std::string::npos)
+                {
+                    if (found != std::string::npos)
+                    {
+                        line.erase(found, strFind.length());
+                        line.insert(found, strRepl);
+                        found = line.find(strFind, found + 1);
+                    }
+                    else
+                        break;
+                }
+				newfile << line << std::endl;
 			}
+            newfile.close();
 		}
-
 		infile.close();
 	}
 	else
