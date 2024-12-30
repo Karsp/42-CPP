@@ -41,16 +41,44 @@ PhoneBook::~PhoneBook()
 void    PhoneBook::add_contact()
 {
     Contact new_contact;
+	std::string line;
 
-    std::cout << "--Please enter the First Name:" << std::endl;
-	std::cin >> new_contact.first_name;
-    std::cout << "--Please enter the Last Name:" << std::endl;
-	std::cin >> new_contact.last_name;
-    std::cout << "--Please enter the Nickname:" << std::endl;
-	std::cin >> new_contact.nickname;
+	line = "";
+
+		std::cout << "--Please enter the First Name:" << std::endl;
+	while (line.empty())
+	{
+		std::getline(std::cin, line);
+		if (std::cin.eof())
+			return;
+		new_contact.set_fn(line);
+
+	}
+	line = "";
+    	std::cout << "--Please enter the Last Name:" << std::endl;
+	while (line.empty())
+	{
+		std::getline(std::cin, line);
+		if (std::cin.eof())
+			return;
+		new_contact.set_ln(line);
+
+	}
+	line = "";
+    	std::cout << "--Please enter the Nickname:" << std::endl;
+	while (line.empty())
+	{
+		std::getline(std::cin, line);
+		if (std::cin.eof())
+			return;
+		new_contact.set_nn(line);
+
+	}
+	line = "";
+
     std::cout << "--Please enter the Phone Number:" << std::endl;
-	std::cin >> new_contact.phone_number;
-    while (!std::cin.good() || new_contact.phone_number.length() >= 20 ||  !is_digits_only(new_contact.phone_number))
+	std::cin >> line;
+    while (!std::cin.good() || line.length() >= 20 ||  !is_digits_only(line))
     {
         if (std::cin.eof())
         {
@@ -61,10 +89,20 @@ void    PhoneBook::add_contact()
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::cout << "--Invalid input. Please enter a valid phone number (numbers only, max 20).--" << std::endl;
-        std::cin >> new_contact.phone_number;
+        std::cin >> line;
     }
-    std::cout << "--Please enter the Darkest Secret:" << std::endl;
-	std::cin >> new_contact.darkest_secret;
+	new_contact.set_pn(line);
+	line = "";
+    	std::cout << "--Please enter the Darkest Secret:" << std::endl;
+	while (line.empty())
+	{
+		std::getline(std::cin, line);
+		if (std::cin.eof())
+			return;
+		new_contact.set_ds(line);
+
+	}
+	line = "";
     this->_contact_list[this->_next_contact] = new_contact;
     if (this->_next_contact >= 7)
         this->_next_contact = 0;

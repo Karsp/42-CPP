@@ -38,3 +38,52 @@ void    Contact::print_contact()
     std::cout << "Darkest secret: " + this->darkest_secret << std::endl;
     std::cout << "///////////////////////////////////" << std::endl;
 }
+
+void	Contact::set_fn(std::string line)
+{
+	this->first_name = line;
+}
+
+void	Contact::set_ln(std::string line)
+{
+	this->last_name = line;
+}
+
+void	Contact::set_nn(std::string line)
+{
+	this->nickname = line;
+}
+
+void	Contact::set_pn(std::string line)
+{
+	this->phone_number = line;
+}
+
+void	Contact::set_ds(std::string line)
+{
+	this->darkest_secret = line;
+}
+std::string Contact::get_fn(void) 
+{
+	return this->first_name;
+}
+
+std::string Contact::get_ln(void) 
+{
+	return this->last_name;
+}
+
+std::string Contact::get_nn(void) 
+{
+	return this->nickname;
+}
+
+std::string Contact::get_pn(void) 
+{
+	return this->phone_number;
+}
+
+std::string Contact::get_ds(void) 
+{
+	return this->darkest_secret;
+}
