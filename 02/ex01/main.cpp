@@ -9,25 +9,18 @@
 /*   Updated: 2024/11/08 14:20:02 by daviles-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "Harl.hpp"
+#include "Fixed.hpp"
 
-int main()
+int main( void ) 
 {
-	Harl harl_two;
 
-	std::cout << "Trying a debug log" << std::endl;
-	harl_two.complain("DEBUG");
+	Fixed a;
+	Fixed b( a );
+	Fixed c;
 
-	std::cout << "Let's try an info log" << std::endl;
-
-	harl_two.complain("INFO");
-
-	std::cout << "Now show me a warning log" << std::endl;
-	harl_two.complain("WARNING");
-	std::cout << "Now hit me with an error log" << std::endl;
-	harl_two.complain("ERROR");
-
-	std::cout << "very nice, now try an AWESOME complain" << std::endl;
-
-	harl_two.complain("AWESOME");
+	c = b;
+	std::cout << a.getRawBits() << std::endl;
+	std::cout << b.getRawBits() << std::endl;
+	std::cout << c.getRawBits() << std::endl;
+	return 0;
 }
