@@ -26,27 +26,26 @@ int main(int argc, char **argv)
         strFind = argv[2];
         strRepl = argv[3];
 		infile.open(argv[1]);
-		if (infile.is_open())
+		if (!infile.is_open())
+			return (std::cout << "Error reading file. Check permissions or file name." << std::endl, 1);
+		std::ofstream newfile ((argv[1] + name).c_str());
+		while (getline(infile, line))
 		{
-            std::ofstream newfile ((argv[1] + name).c_str());
-			while (getline(infile, line))
+			found = line.find(strFind);
+			while (found != std::string::npos)
 			{
-                found = line.find(strFind);
-                while (found != std::string::npos)
-                {
-                    if (found != std::string::npos)
-                    {
-                        line.erase(found, strFind.length());
-                        line.insert(found, strRepl);
-                        found = line.find(strFind, found + 1);
-                    }
-                    else
-                        break;
-                }
-				newfile << line << std::endl;
+				if (found != std::string::npos)
+				{
+					line.erase(found, strFind.length());
+					line.insert(found, strRepl);
+					found = line.find(strFind, found + 1);
+				}
+				else
+					break;
 			}
-            newfile.close();
+			newfile << line << std::endl;
 		}
+		newfile.close();
 		infile.close();
 	}
 	else
