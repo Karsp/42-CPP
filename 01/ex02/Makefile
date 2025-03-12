@@ -16,8 +16,7 @@ NAME = brain
 
 CC = c++
 CFLAGS = -Werror -Wextra -Wall #-fsanitize=address -g3
-CPPFLAGS = -std=c++
-98 
+CPPFLAGS = -std=c++98 
 RM = rm -f
 
 ###########################    FILES   ####################################
