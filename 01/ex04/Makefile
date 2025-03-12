@@ -15,8 +15,8 @@ NAME = sed
 ##########################   COMPILING SETTINGS   #########################
 
 CC = c++
-CFLAGS = -Werror -Wextra -Wall -std=c++98 #-fsanitize=address -g3
-CPPFLAGS = -MMD -MP
+CFLAGS = -Werror -Wextra -Wall #-fsanitize=address -g3
+CPPFLAGS = -std=c++98 
 RM = rm -f
 
 ###########################    FILES   ####################################
