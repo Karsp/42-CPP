@@ -11,23 +11,16 @@
 /* ************************************************************************** */
 #include "Harl.hpp"
 
-int main()
+int main(int argc, char**argv)
 {
-	Harl harl_two;
+	if (argc != 2)
+	{
+		std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
+	}
+	else
+	{
+		Harl _harl(argv[1]);
+	}
 
-	std::cout << "Trying a debug log" << std::endl;
-	harl_two.complain("DEBUG");
-
-	std::cout << "Let's try an info log" << std::endl;
-
-	harl_two.complain("INFO");
-
-	std::cout << "Now show me a warning log" << std::endl;
-	harl_two.complain("WARNING");
-	std::cout << "Now hit me with an error log" << std::endl;
-	harl_two.complain("ERROR");
-
-	std::cout << "very nice, now try an AWESOME complain" << std::endl;
-
-	harl_two.complain("AWESOME");
+	
 }
