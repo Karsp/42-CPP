@@ -6,13 +6,20 @@ class Fixed
 {
 private:
 	int					_val;
-	static int const	_fbits;
+	static int const	_bits = 8;
 
 public:
-	Fixed(/* args */);
-	Fixed (Fixed& other);
-	Fixed& operator=(Fixed& rhs);
-	~Fixed();
+/* Orthodox Canonical Form Requirements */
+	/* Constructor */
+	Fixed(void);
+	/* Copy Constructor */
+	Fixed (const Fixed& other);
+	/* Destructor */
+	~Fixed(void);
+/* Operators Overload */
+	/* Copy Assignment Operator */
+	Fixed& operator=(const Fixed& rhs);
+	
 	int getRawBits(void) const;
 	void setRawBits(int const raw);
 

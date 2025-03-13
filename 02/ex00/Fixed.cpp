@@ -1,6 +1,6 @@
 #include "Fixed.hpp"
 
-int const Fixed::_fbits = 8;
+// int const Fixed::_bits = 8;
 
 Fixed::Fixed()
 {
@@ -8,15 +8,16 @@ Fixed::Fixed()
 	this->_val = 0;
 }
 
-Fixed::Fixed(Fixed& other)
+Fixed::Fixed(const Fixed& other)
 {
 	std::cout << "Copy constructor called" << std::endl;
 	this->_val = other.getRawBits();
 }
 
 /// @brief The variable name rhs in the operator= function stands for right-hand 
-///		side. This is a common convention in programming, particularly in operator overloading, to represent the object on the right-hand side of the assignment operator (=).
-Fixed& Fixed::operator=(Fixed& rhs)
+///		side. This is a common convention in programming, particularly in operator overloading, 
+///     to represent the object on the right-hand side of the assignment operator (=).
+Fixed& Fixed::operator=(const Fixed& rhs)
 {
 	std::cout << "Copy assignment operator called" << std::endl;
 	this->_val = rhs.getRawBits();

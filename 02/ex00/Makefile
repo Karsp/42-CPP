@@ -15,8 +15,8 @@ NAME = fixed
 ##########################   COMPILING SETTINGS   #########################
 
 CC = c++
-CFLAGS = -Werror -Wextra -Wall -std=c++98 #-fsanitize=address -g3
-CPPFLAGS = -MMD -MP
+CFLAGS = -Werror -Wextra -Wall  #-fsanitize=address -g3
+CXXFLAGS = -std=c++98
 RM = rm -f
 
 ###########################    FILES   ####################################
@@ -64,7 +64,7 @@ $(NAME): $(OBJS)
 
 %.o: %.cpp
 	@echo "$(BLUE)Compiling files...$(NOCOLOR)"
-	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(CXXFLAGS) -c $< -o $@
 
 -include $(DEPS)
 

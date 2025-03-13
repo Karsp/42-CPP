@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daviles- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: daviles- <daviles-@student.madrid42.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/08 14:19:59 by daviles-          #+#    #+#             */
-/*   Updated: 2024/11/08 14:20:02 by daviles-         ###   ########.fr       */
+/*   Created: 2025/03/13 15:27:26 by daviles-          #+#    #+#             */
+/*   Updated: 2025/03/13 15:27:30 by daviles-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "Fixed.hpp"
@@ -17,7 +17,6 @@ int main( void )
 	Fixed const b( 10 );
 	Fixed const c( 42.42f );
 	Fixed const d( b );
-	
 	a = Fixed( 1234.4321f );
 	std::cout << "a is " << a << std::endl;
 	std::cout << "b is " << b << std::endl;
