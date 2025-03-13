@@ -38,10 +38,10 @@ class Fixed
 		Fixed	operator / (const Fixed& other);
 
 		/* Increment/Decrement Operators */
-		Fixed	operator ++ (int);
-		Fixed	operator ++ ();
-		Fixed	operator -- (int);
-		Fixed	operator -- ();
+		Fixed	operator ++ (); // Pre-increment (++obj)
+		Fixed	operator ++ (int); // Post-increment (obj++)
+		Fixed	operator -- ();  // Pre-decrement (--obj)
+		Fixed	operator -- (int); // Post-decrement (obj--)
 
 		static Fixed&	min(Fixed& a, Fixed& b);
 		static Fixed&	min(const Fixed& a, const Fixed& b);

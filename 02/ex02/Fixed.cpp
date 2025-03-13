@@ -13,9 +13,7 @@ Fixed::Fixed(const Fixed& other)
 	this->_val = other.getRawBits();
 }
 
-/// @brief Copy assignment operator
-// The variable name rhs in the operator= function stands for right-hand 
-///		side. This is a common convention in programming, particularly in operator overloading, to represent the object on the right-hand side of the assignment operator (=).
+/// Copy assignment operator
 Fixed& Fixed::operator=(const Fixed& rhs)
 {
 	std::cout << "Copy assignment operator called" << std::endl;
@@ -32,7 +30,6 @@ Fixed::Fixed(const int nb)
 }
 
 // float overload constructor
-//Round f is allowed in this excercise
 Fixed::Fixed(const float fl)
 {
 	std::cout << "Float constructor called" << std::endl;
@@ -45,11 +42,12 @@ Fixed::~Fixed()
 	std::cout << "Destructor called" << std::endl;
 }
 
+
+
 //functions
 
 int Fixed::getRawBits(void) const
 {
-	// std::cout << "getRawBits member function called" << std::endl;
 	return (this->_val);
 }
 
@@ -58,13 +56,11 @@ void	Fixed::setRawBits(int const raw)
 	this->_val = raw;
 }
 
-/// (1 << 8 equals 256) so it can also handle dividing to 256.
 float	Fixed::toFloat( void) const
 {
 	return (static_cast<float>(this->_val) / (1 << this->_bits));
 }
 
-// Right shift reduces the magnitude by dividing by a power of two
 int Fixed::toInt( void  ) const 
 {
 	return (this->_val >> this->_bits);
@@ -74,4 +70,144 @@ std::ostream& operator<<(std::ostream &out, const Fixed& other)
 {
 	out << other.toFloat();
 	return out;
+}
+
+// Comparison Operators
+
+bool	Fixed::operator>(const Fixed& other)
+{
+	if (this->_val > other._val)
+		return (true);
+	return (false);
+}
+
+bool	Fixed::operator<(const Fixed& other)
+{
+	if (this->_val < other._val)
+		return (true);
+	return (false);
+}
+
+bool	Fixed::operator>=(const Fixed& other)
+{
+	if (this->_val >= other._val)
+		return (true);
+	return (false);
+}
+
+bool	Fixed::operator<=(const Fixed& other)
+{
+	if (this->_val <= other._val)
+		return (true);
+	return (false);
+}
+
+bool	Fixed::operator==(const Fixed& other)
+{
+	if (this->_val == other._val)
+		return (true);
+	return (false);
+}
+
+bool	Fixed::operator!=(const Fixed& other)
+{
+	if (this->_val != other._val)
+		return (true);
+	return (false);
+}
+
+// Operator Overloading for Arithmetic
+
+Fixed	Fixed::operator+(const Fixed& other)
+{
+	Fixed	tmp(this->toFloat() + other.toFloat());
+
+	return (tmp);
+}
+
+Fixed	Fixed::operator-(const Fixed& other)
+{
+	Fixed	tmp(this->toFloat() - other.toFloat());
+	return (tmp);
+}
+
+Fixed	Fixed::operator*(const Fixed& other)
+{
+	Fixed	tmp(this->toFloat() * other.toFloat());
+	return (tmp);
+}
+
+Fixed	Fixed::operator/(const Fixed& other)
+{
+	if (other._val == 0)
+	{
+		std::cerr << "Error: Division by zero" << std::endl;
+        return Fixed(0);
+	}
+	Fixed	tmp(this->toFloat() / other.toFloat());
+	return (tmp);
+}
+
+// Pre-increment: ++obj (Increment first, return reference to updated object)
+Fixed Fixed::operator ++ () 
+{
+    this->_val += 1;
+    return *this;
+}
+
+// Post-increment: obj++ (Return old object, then increment)
+// Return the original (unchanged) object
+Fixed Fixed::operator++(int) 
+{
+    Fixed temp = *this;
+    this->_val += 1;
+    return temp;
+}
+
+// Pre-decrement: --obj (Increment first, return reference to updated object)
+Fixed Fixed::operator -- () 
+{
+    this->_val -= 1;
+    return *this;
+}
+
+// Post-decrement: obj-- (Return old object, then increment)
+// Return the original (unchanged) object
+Fixed Fixed::operator--(int) 
+{
+    Fixed temp = *this;
+    this->_val -= 1;
+    return temp;
+}
+
+Fixed&	Fixed::min(Fixed& a, Fixed& b)
+{
+	if (a._val < b._val)
+		return (a);
+	else
+		return (b);
+}
+
+Fixed&	Fixed::min(const Fixed& a, const Fixed& b)
+{
+	if (a._val < b._val)
+		return ((Fixed&)a);
+	else
+		return ((Fixed&)b);
+}
+
+Fixed& Fixed::max(Fixed &a, Fixed &b) 
+{
+    if (a._val > b._val)
+		return (a);
+	else
+		return (b);
+}
+
+Fixed& Fixed::max(const Fixed &a, const Fixed &b) 
+{
+    if (a._val > b._val)
+		return ((Fixed&)a);
+	else
+		return ((Fixed&)b);
 }
