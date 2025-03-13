@@ -2,21 +2,21 @@
 
 Fixed::Fixed()
 {
-	std::cout << "Default constructor called" << std::endl;
+	// std::cout << "Default constructor called" << std::endl;
 	this->_val = 0;
 }
 
 // Copy constructor
 Fixed::Fixed(const Fixed& other)
 {
-	std::cout << "Copy constructor called" << std::endl;
+	// std::cout << "Copy constructor called" << std::endl;
 	this->_val = other.getRawBits();
 }
 
 /// Copy assignment operator
 Fixed& Fixed::operator=(const Fixed& rhs)
 {
-	std::cout << "Copy assignment operator called" << std::endl;
+	// std::cout << "Copy assignment operator called" << std::endl;
 	if (this != &rhs) 
 		this->_val = rhs.getRawBits();
 	return (*this);
@@ -25,21 +25,21 @@ Fixed& Fixed::operator=(const Fixed& rhs)
 // int overload constructor
 Fixed::Fixed(const int nb)
 {
-	std::cout << "Int constructor called" << std::endl;
+	// std::cout << "Int constructor called" << std::endl;
 	this->setRawBits(nb * (1 << _bits));
 }
 
 // float overload constructor
 Fixed::Fixed(const float fl)
 {
-	std::cout << "Float constructor called" << std::endl;
+	// std::cout << "Float constructor called" << std::endl;
 	this->setRawBits(static_cast<int>(roundf(fl * (1 << _bits))));
 }
 
 
 Fixed::~Fixed()
 {
-	std::cout << "Destructor called" << std::endl;
+	// std::cout << "Destructor called" << std::endl;
 }
 
 
