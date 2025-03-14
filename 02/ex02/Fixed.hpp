@@ -19,7 +19,7 @@ class Fixed
 		/* Copy Constructor */
 		Fixed (const Fixed& other);
 		/* Destructor */
-		~Fixed(void);
+		~Fixed();
 	/* Operators Overload */
 		/* Copy Assignment Operator */
 		Fixed& operator=(const Fixed& rhs);
