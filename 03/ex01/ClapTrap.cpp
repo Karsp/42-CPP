@@ -12,33 +12,28 @@
 
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap(void)
+ClapTrap::ClapTrap(void):_name ("Deffie"),
+	_hp (10),
+	_ep (10),
+	_ad (0)
 {
 	std::cout << AZUL << "Default constructor called." << std::endl;
 	std::cout << RESET;
-	this->_name = "Deffie";
-	this->_hp = 10;
-	this->_ep = 10;
-	this->_ad = 0;
+	
 }
 
-ClapTrap::ClapTrap(std::string name)
+ClapTrap::ClapTrap(std::string name):_name (name),
+	_hp (10),	_ep (10),	_ad (0)
 {
 	std::cout << AZUL << "Overload constructor called." << std::endl;
 	std::cout << RESET;
-	this->_name = name;
-	this->_hp = 10;
-	this->_ep = 10;
-	this->_ad = 0;
 }
-ClapTrap::ClapTrap(const ClapTrap& other)
+
+ClapTrap::ClapTrap(const ClapTrap& other): _name (other._name),
+	_hp (other._hp),	_ep (other._ep),	_ad (other._ad)
 {
 	std::cout << AZUL << "Copy constructor called." << std::endl;
 	std::cout << RESET;
-	this->_name = other._name;
-	this->_hp = other._hp;
-	this->_ep = other._ep;
-	this->_ad = other._ad;
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap& other)
@@ -114,6 +109,24 @@ void	ClapTrap::beRepaired(unsigned int amount)
 std::string	ClapTrap::getName(void)
 { return (this->_name);}
 
+int	ClapTrap::getHP(void)
+{ return (this->_hp);}
+
+void	ClapTrap::setHP(int amount)
+{ 
+	std::cout << "ClapTrap " << this->_name << " set "  << amount << 
+	" health points." << std::endl;
+	this->_hp = amount;
+}
+int	ClapTrap::getEP(void)
+{ return (this->_ep);}
+
+void	ClapTrap::setEP(int amount)
+{ 
+	std::cout << "ClapTrap " << this->_name << " set "  << amount << 
+	" energy points." << std::endl;
+	this->_ep = amount;
+}
 int	ClapTrap::getAD(void)
 { return (this->_ad);}
 
