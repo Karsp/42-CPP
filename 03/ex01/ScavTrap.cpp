@@ -25,5 +25,16 @@ ScavTrap::ScavTrap(std::string name): ClapTrap(name)
 	this->setAD(20);
 }
 
+ScavTrap::ScavTrap(const ScavTrap& other): ClapTrap(other._name)
+{
+	std::cout << "ScavTrap copy constructor called" << std::endl;
+	
+}
+
+
+void	ScavTrap::guardGate()
+{
+	std::cout << "ScavTrap is now in Gate keeper mode." << std::endl;
+}
 
 
