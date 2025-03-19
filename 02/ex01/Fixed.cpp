@@ -1,9 +1,9 @@
 #include "Fixed.hpp"
 
-Fixed::Fixed()
+Fixed::Fixed(): _val(0)
 {
 	std::cout << "Default constructor called" << std::endl;
-	this->_val = 0;
+	
 }
 
 // Copy constructor
@@ -15,7 +15,10 @@ Fixed::Fixed(const Fixed& other)
 
 /// @brief Copy assignment operator
 // The variable name rhs in the operator= function stands for right-hand 
-///		side. This is a common convention in programming, particularly in operator overloading, to represent the object on the right-hand side of the assignment operator (=).
+///		side. This is a common convention in programming, particularly in operator overloading,
+// to represent the object on the right-hand side of the assignment operator (=).
+// When implementing a copy assignment operator in C++, checking for self-assignment 
+// is crucial to prevent data corruption, memory leaks, or undefined behavior.
 Fixed& Fixed::operator=(const Fixed& rhs)
 {
 	std::cout << "Copy assignment operator called" << std::endl;
