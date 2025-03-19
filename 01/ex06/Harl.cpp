@@ -76,26 +76,20 @@ void	Harl::filter_complain(std::string filter)
 			level=i;
 	}
 
-	while (level <= 3)
+	
+	switch (level)
 	{
-		switch (level)
-		{
 		case DEBUG:
-			(this->*ptr[level])();
-			break;
+			(this->*ptr[0])();
 		case INFO:
-			(this->*ptr[level])();
-			break;
+			(this->*ptr[1])();
 		case WARNING:
-			(this->*ptr[level])();
-			break;
+			(this->*ptr[2])();
 		case ERROR:
-			(this->*ptr[level])();
+			(this->*ptr[3])();
 			break;
 		default:
 			this->def();
 			return ;
-		}
-		level++;
 	}
 }
