@@ -51,15 +51,25 @@ int main(int argc, char **argv)
         strRepl = argv[3];
 		infile.open(argv[1]);
 		if (!infile.is_open())
+		{
+			infile.close();
 			return (std::cout << "Error reading file. Check permissions or file name." << std::endl, 1);
+		}
 		infile.seekg (0, infile.end);
 		int length = infile.tellg();
 		infile.seekg (0, infile.beg);
 		if (length == 0)
+		{
+			infile.close();
 			return (std::cout << "File is empty. There's nothing to replace." << std::endl, 1);
+		}
 		std::ofstream newfile ((argv[1] + name).c_str());
 		if (newfile.fail())
+		{
+			newfile.close();
+			infile.close();
 			return (std::cout << "Error creating file: " << ((argv[1] + name).c_str()) << " Check permissions or if file exist." << std::endl, 1);
+		}
 		line = my_replace(infile, strFind, strRepl);
 		newfile << line << std::endl;
 		newfile.close();
