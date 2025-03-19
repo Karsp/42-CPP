@@ -1,9 +1,8 @@
 #include "Fixed.hpp"
 
-Fixed::Fixed()
+Fixed::Fixed(): _val(0)
 {
 	// std::cout << "Default constructor called" << std::endl;
-	this->_val = 0;
 }
 
 // Copy constructor
@@ -56,6 +55,7 @@ void	Fixed::setRawBits(int const raw)
 	this->_val = raw;
 }
 
+// static_cast<float>(x); // Safer than (float)x
 float	Fixed::toFloat( void) const
 {
 	return (static_cast<float>(this->_val) / (1 << this->_bits));
@@ -180,6 +180,7 @@ Fixed Fixed::operator--(int)
     return temp;
 }
 
+// Const objects (or temporary values) cannot be passed to the function.
 Fixed&	Fixed::min(Fixed& a, Fixed& b)
 {
 	if (a._val < b._val)
@@ -187,13 +188,14 @@ Fixed&	Fixed::min(Fixed& a, Fixed& b)
 	else
 		return (b);
 }
-
-Fixed&	Fixed::min(const Fixed& a, const Fixed& b)
+// It's important to provide a const version of the min function to allow the function 
+// to accept and work with constant objects or temporary values. 
+const Fixed&	Fixed::min(const Fixed& a, const Fixed& b)
 {
 	if (a._val < b._val)
-		return ((Fixed&)a);
+		return (a);
 	else
-		return ((Fixed&)b);
+		return (b);
 }
 
 Fixed& Fixed::max(Fixed &a, Fixed &b) 
@@ -204,10 +206,10 @@ Fixed& Fixed::max(Fixed &a, Fixed &b)
 		return (b);
 }
 
-Fixed& Fixed::max(const Fixed &a, const Fixed &b) 
+const Fixed& Fixed::max(const Fixed &a, const Fixed &b) 
 {
     if (a._val > b._val)
-		return ((Fixed&)a);
+		return (a);
 	else
-		return ((Fixed&)b);
+		return (b);
 }
