@@ -23,7 +23,7 @@
 
 class ClapTrap
 {
-	private:
+	protected:
 		std::string _name;
 		int		_hp; //hit points
 		int		_ep; //energy points
@@ -40,6 +40,7 @@ class ClapTrap
 		void	takeDamage (unsigned int amount);
 		void	beRepaired (unsigned int amount);
 		std::string	getName(void);
+		void	setName(std::string name);
 		int		getHP(void);
 		void	setHP(int amount);
 		int		getEP(void);

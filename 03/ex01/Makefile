@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fixed
+NAME = scavtrap
 
 ##########################   COMPILING SETTINGS   #########################
 
@@ -21,7 +21,7 @@ RM = rm -f
 
 ###########################    FILES   ####################################
 
-SRCS =	main.cpp ClapTrap.cpp
+SRCS =	main.cpp ClapTrap.cpp ScavTrap.cpp
 OBJS = $(SRCS:.cpp=.o)	
 DEPS = $(SRCS:.cpp=.d)
 

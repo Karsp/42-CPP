@@ -109,6 +109,9 @@ void	ClapTrap::beRepaired(unsigned int amount)
 std::string	ClapTrap::getName(void)
 { return (this->_name);}
 
+void	ClapTrap::setName(std::string name)
+{ this->_name = name;}
+
 int	ClapTrap::getHP(void)
 { return (this->_hp);}
 
