@@ -16,9 +16,9 @@
 DiamondTrap::DiamondTrap(): ClapTrap("MonsTrap_clap_name"), ScavTrap(), FragTrap()
 {
 	this->DiamondTrap::_name = "MonsTrap";
-	this->_hp = FragTrap::_hp;
-	this->_ep = ScavTrap::_ep;
-	this->_ad = FragTrap::_ad;
+	this->_hp = this->FragTrap::_hp;
+	this->_ep = this->ScavTrap::_ep;
+	this->_ad = this->FragTrap::_ad;
 	this->ClapTrap::_name = "MonsTrap_clap_name";
 	std::cout <<  YELLOW << "DiamondTrap " << this->_name << " default constructor called" << RESET << std::endl;
 }
@@ -30,7 +30,7 @@ DiamondTrap::DiamondTrap(std::string name): ClapTrap(name + "_clap_name"), ScavT
 	this->_ep = ScavTrap::_ep;
 	this->_ad = FragTrap::_ad;
 	this->ClapTrap::_name = name + "_clap_name";
-	std::cout <<  YELLOW << "DiamondTrap " << this->_name << " default constructor called" << RESET << std::endl;
+	std::cout <<  YELLOW << "DiamondTrap " << this->_name << " Overload default constructor called" << RESET << std::endl;
 }
 
 DiamondTrap::DiamondTrap(const DiamondTrap& other)
@@ -66,6 +66,8 @@ void DiamondTrap::whoAmI()
               << "!" << std::endl;
 }
 
+std::string	DiamondTrap::getName(void)
+{ return (this->_name);}
 
 void	DiamondTrap::attack(const std::string& target)
 {
