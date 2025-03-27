@@ -28,6 +28,12 @@ int	main()
 	
 	Susan.attack(Morgan.getName());
 	Morgan.takeDamage(Susan.getAD());
+	
+	std::cout << std::endl;
+	
+	Morgan.guardGate();
+	Susan.guardGate();
+
 	std::cout << std::endl;
 	
 	for (size_t i = 0; i < 2; i++)
