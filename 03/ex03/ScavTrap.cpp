@@ -21,9 +21,8 @@ ScavTrap::ScavTrap()
 	std::cout <<  ROJO << "ScavTrap " << this->_name << " default constructor called" << RESET << std::endl;
 }
 
-ScavTrap::ScavTrap(std::string name)
+ScavTrap::ScavTrap(std::string name): ClapTrap(name)
 {
-	this->_name = name;
 	this->_hp = 100;
 	this->_ep = 50;
 	this->_ad = 20;
