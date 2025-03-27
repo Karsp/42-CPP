@@ -14,12 +14,12 @@
 # define _CLAPTRAP_HPP
 
 # include<iostream>
-# include<iostream>
 
-#define RESET   "\033[0m"
-#define AZUL "\033[34m" // Azul
-#define VERDE "\033[32m" // Verde
-#define ROJO "\033[31m" // Rojo
+# define RESET   "\033[0m"
+# define AZUL "\033[34m" // Azul
+# define VERDE "\033[32m" // Verde
+# define ROJO "\033[31m" // Rojo
+# define YELLOW "\033[0;33m" 
 
 class ClapTrap
 {
