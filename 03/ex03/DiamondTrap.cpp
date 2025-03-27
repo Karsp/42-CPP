@@ -16,18 +16,20 @@
 DiamondTrap::DiamondTrap(): ClapTrap("MonsTrap_clap_name"), ScavTrap(), FragTrap()
 {
 	this->DiamondTrap::_name = "MonsTrap";
-	this->_hp = FragTrap::getHP();
-	this->_ep = ScavTrap::getEP();
-	this->_ad = FragTrap::getAD();
+	this->_hp = FragTrap::_hp;
+	this->_ep = ScavTrap::_ep;
+	this->_ad = FragTrap::_ad;
+	this->ClapTrap::_name = "MonsTrap_clap_name";
 	std::cout <<  YELLOW << "DiamondTrap " << this->_name << " default constructor called" << RESET << std::endl;
 }
 
 DiamondTrap::DiamondTrap(std::string name): ClapTrap(name + "_clap_name"), ScavTrap(), FragTrap()
 {
 	this->DiamondTrap::_name = name;
-	this->_hp = FragTrap::getHP();
-	this->_ep = ScavTrap::getEP();
-	this->_ad = FragTrap::getAD();
+	this->_hp = FragTrap::_hp;
+	this->_ep = ScavTrap::_ep;
+	this->_ad = FragTrap::_ad;
+	this->ClapTrap::_name = name + "_clap_name";
 	std::cout <<  YELLOW << "DiamondTrap " << this->_name << " default constructor called" << RESET << std::endl;
 }
 
