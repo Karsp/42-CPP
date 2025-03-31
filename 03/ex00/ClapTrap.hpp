@@ -19,6 +19,8 @@
 # define AZUL "\033[34m" // Azul
 # define VERDE "\033[32m" // Verde
 # define ROJO "\033[31m" // Rojo
+# define YELLOW "\033[0;33m" 
+
 
 class ClapTrap
 {

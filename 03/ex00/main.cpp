@@ -48,7 +48,5 @@ int	main()
 	Yild.beRepaired(5);
 	std::cout << std::endl;
 	
-
-
 	return (0);
 }
