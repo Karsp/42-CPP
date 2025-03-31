@@ -21,6 +21,7 @@
 # define ROJO "\033[31m" // Rojo
 # define YELLOW "\033[0;33m" 
 
+
 class ClapTrap
 {
 	protected:
@@ -39,14 +40,6 @@ class ClapTrap
 		void	attack (const std::string& target);
 		void	takeDamage (unsigned int amount);
 		void	beRepaired (unsigned int amount);
-		std::string	getName(void);
-		void	setName(std::string name);
-		int		getHP(void);
-		void	setHP(int amount);
-		int		getEP(void);
-		void	setEP(int amount);
-		int		getAD(void);
-		void	setAD(int amount);
 };
 
 #endif

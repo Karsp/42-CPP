@@ -17,18 +17,18 @@ int	main()
 	ScavTrap Susan; //Scavei is default name
 	ScavTrap Morgan("Morgan");
 
+	std::string ScavTrap_1 = "Scavei";
+	std::string ScavTrap_2 = "Morgan";
 	std::cout << std::endl;
 	
+	Susan.attack(ScavTrap_2);
+	Morgan.takeDamage(20);
 
-	Susan.attack(Morgan.getName());
-	Morgan.takeDamage(Susan.getAD());
-	
 	std::cout << std::endl;
+	
+	Morgan.attack(ScavTrap_1);
+	Susan.takeDamage(20);
 
-	
-	Susan.attack(Morgan.getName());
-	Morgan.takeDamage(Susan.getAD());
-	
 	std::cout << std::endl;
 	
 	Morgan.guardGate();
@@ -44,17 +44,16 @@ int	main()
 	
 	for (size_t i = 0; i < 8; i++)
 	{
-		Susan.attack(Morgan.getName());
-		Morgan.takeDamage(Susan.getAD());
+		Susan.attack(ScavTrap_2);
+		Morgan.takeDamage(20);
 		std::cout << std::endl;
 	}
 	
-	Susan.attack(Morgan.getName());
 	std::cout << std::endl;
+
 	Morgan.beRepaired(5);
+
 	std::cout << std::endl;
 	
-
-
 	return (0);
 }
