@@ -13,7 +13,7 @@
 
 #include "FragTrap.hpp"
 
-FragTrap::FragTrap()
+FragTrap::FragTrap(): ClapTrap("Fragui")
 {
 	this->_name = "Fragui";
 	this->_hp = 100;
@@ -22,7 +22,7 @@ FragTrap::FragTrap()
 	std::cout <<  VERDE << "FragTrap " << this->_name << " default constructor called" << RESET << std::endl;
 }
 
-FragTrap::FragTrap(std::string name)
+FragTrap::FragTrap(std::string name): ClapTrap()
 {
 	this->_name = name;
 	this->_hp = 100;
@@ -65,54 +65,3 @@ void	FragTrap::highFivesGuys(void)
 	std::cout << "🔥 High-five time! If you're ready to celebrate success, give me a virtual high-five! ✋🙌" << std::endl;
 }
 
-
-void	FragTrap::attack(const std::string& target)
-{
-	if (this->_ep == 0)
-	{
-		std::cout << "FragTrap " << this->_name << " has no Energy Points left to Attack." << std::endl;
-		return ;
-	}	
-	std::cout << "FragTrap " << this->_name << " attacks "
-	<< target <<", causing " << this->_ad << " points of damage!"
-	<< std::endl;
-	
-	--this->_ep;
-	std::cout << this->_name << " has " << this->_ep << " EP left." << std::endl;
-}
-
-
-void	FragTrap::takeDamage(unsigned int amount)
-{
-	if (this->_hp <= 0)
-	{
-		std::cout << "FragTrap " << this->_name << " is dead." << std::endl;
-		return ;
-	}
-	this->_hp -= amount;
-	std::cout << "FragTrap " << this->_name << " received "
-	<< amount <<" points of damage!"
-	<< std::endl;
-	if (this->_hp <= 0)
-		std::cout << "FragTrap " << this->_name << " is dead." << std::endl;
-}
-
-void	FragTrap::beRepaired(unsigned int amount)
-{
-	if (this->_hp <= 0)
-	{
-		std::cout << "FragTrap " << this->_name << " is dead and cannot be repared." << std::endl;
-		return ;
-	}	
-	if (this->_ep == 0)
-	{
-		std::cout << "FragTrap " << this->_name << " has no Energy Points left to Be Repaired." << std::endl;
-		return ;
-	}
-	std::cout << "FragTrap " << this->_name << " use Be Repaired to recover "
-	<< amount <<" hit points!."	<< std::endl;
-	this->_hp += amount;
-	--this->_ep;
-	std::cout << this->_name << " has " << this->_ep << " EP left." << std::endl;
-	std::cout << this->_name << " has " << this->_hp << " HP left." << std::endl;
-}

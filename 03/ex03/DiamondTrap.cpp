@@ -13,7 +13,7 @@
 #include "DiamondTrap.hpp"
 
 
-DiamondTrap::DiamondTrap(): ScavTrap("MonsTrap_clap_name"), FragTrap()
+DiamondTrap::DiamondTrap(): ScavTrap("MonsTrap_clap_name"), FragTrap("MonsTrap_clap_name")
 {
 	this->DiamondTrap::_name = "MonsTrap";
 	this->_hp = this->FragTrap::_hp;
@@ -23,7 +23,7 @@ DiamondTrap::DiamondTrap(): ScavTrap("MonsTrap_clap_name"), FragTrap()
 	std::cout <<  YELLOW << "DiamondTrap " << this->_name << " default constructor called" << RESET << std::endl;
 }
 
-DiamondTrap::DiamondTrap(std::string name): ScavTrap(name), FragTrap()
+DiamondTrap::DiamondTrap(std::string name): ScavTrap(name+ "_clap_name"), FragTrap(name+ "_clap_name")
 {
 	this->DiamondTrap::_name = name;
 	this->_hp = FragTrap::_hp;
@@ -64,58 +64,4 @@ void DiamondTrap::whoAmI()
     std::cout << "I am DiamondTrap " << this->_name 
               << ", but my ClapTrap name is " << this->ClapTrap::_name 
               << "!" << std::endl;
-}
-
-std::string	DiamondTrap::getName(void)
-{ return (this->_name);}
-
-void	DiamondTrap::attack(const std::string& target)
-{
-	if (this->_ep == 0)
-	{
-		std::cout << "DiamondTrap " << this->_name << " has no Energy Points left to Attack." << std::endl;
-		return ;
-	}	
-	std::cout << "DiamondTrap " << this->_name << " attacks "
-	<< target <<", causing " << this->_ad << " points of damage!"
-	<< std::endl;
-	
-	--this->_ep;
-	std::cout << this->_name << " has " << this->_ep << " EP left." << std::endl;
-}
-
-
-void	DiamondTrap::takeDamage(unsigned int amount)
-{
-	if (this->_hp <= 0)
-	{
-		std::cout << "DiamondTrap " << this->_name << " is dead." << std::endl;
-		return ;
-	}
-	this->_hp -= amount;
-	std::cout << "DiamondTrap " << this->_name << " received "
-	<< amount <<" points of damage!"
-	<< std::endl;
-	if (this->_hp <= 0)
-		std::cout << "DiamondTrap " << this->_name << " is dead." << std::endl;
-}
-
-void	DiamondTrap::beRepaired(unsigned int amount)
-{
-	if (this->_hp <= 0)
-	{
-		std::cout << "DiamondTrap " << this->_name << " is dead and cannot be repared." << std::endl;
-		return ;
-	}	
-	if (this->_ep == 0)
-	{
-		std::cout << "DiamondTrap " << this->_name << " has no Energy Points left to Be Repaired." << std::endl;
-		return ;
-	}
-	std::cout << "DiamondTrap " << this->_name << " use Be Repaired to recover "
-	<< amount <<" hit points!."	<< std::endl;
-	this->_hp += amount;
-	--this->_ep;
-	std::cout << this->_name << " has " << this->_ep << " EP left." << std::endl;
-	std::cout << this->_name << " has " << this->_hp << " HP left." << std::endl;
 }

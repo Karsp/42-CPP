@@ -14,47 +14,39 @@
 
 int	main()
 {
-	DiamondTrap Didi; //Fragui is default name
+	DiamondTrap Didi; //Monstrap is default name
 	DiamondTrap Karen("Karen");
 
-	std::cout << std::endl;
-	
+	std::string FragTrap_1 = "Monstrap";
+	std::string FragTrap_2 = "Karen";
 
-	Didi.attack(Karen.getName());
-	Karen.takeDamage(Didi.getAD());
-	
+
+	Didi.attack(FragTrap_2);
+	Karen.takeDamage(30);
+
 	std::cout << std::endl;
 
 	
-	Didi.attack(Karen.getName());
-	Karen.takeDamage(Didi.getAD());
+	Karen.attack(FragTrap_1);
+	Didi.takeDamage(30);
+
 	
 	std::cout << std::endl;
 	
 	Didi.whoAmI();
 	Karen.whoAmI();
+	
+	std::cout << std::endl;
 
-	std::cout << std::endl;
-	
-	for (size_t i = 0; i < 2; i++)
-	{
-		Karen.beRepaired(5);
-		std::cout << std::endl;
-	}
-	
-	for (size_t i = 0; i < 8; i++)
-	{
-		Didi.attack(Karen.getName());
-		Karen.takeDamage(Didi.getAD());
-		std::cout << std::endl;
-	}
-	
-	Didi.attack(Karen.getName());
-	std::cout << std::endl;
 	Karen.beRepaired(5);
-	std::cout << std::endl;
-	
 
+	std::cout << std::endl;
+
+	std::cout << std::endl;
+
+	Karen.highFivesGuys();
+
+	std::cout << std::endl;
 
 	return (0);
 }

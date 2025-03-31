@@ -54,7 +54,7 @@ CAT_EMOJI=😸
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CXX) $(CFLAGS) $(OBJS) -o $(NAME)
+	@$(CXX) $(CFLAGS) $(CXXFLAGS) $(OBJS) -o $(NAME)
 	@echo "$(GREEN)Successful compilation! $(NOCOLOR)"
 	@echo "$(YELLOW)──▄────▄▄▄▄▄▄▄────▄───"
 	@echo "─▀▀▄─▄█████████▄─▄▀▀──"

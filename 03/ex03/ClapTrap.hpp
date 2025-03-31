@@ -31,23 +31,15 @@ class ClapTrap
 		int		_ad; //attack damage
 
 	public:
-		ClapTrap(void);
+		ClapTrap();
 		ClapTrap(std::string name);
 		ClapTrap(const ClapTrap &other);
-		virtual	~ClapTrap();
+		~ClapTrap();
 		ClapTrap& operator=(const ClapTrap& rhs);
 	
 		void	attack (const std::string& target);
 		void	takeDamage (unsigned int amount);
 		void	beRepaired (unsigned int amount);
-		std::string	getName(void);
-		void	setName(std::string name);
-		int		getHP(void);
-		void	setHP(int amount);
-		int		getEP(void);
-		void	setEP(int amount);
-		int		getAD(void);
-		void	setAD(int amount);
 };
 
 #endif
