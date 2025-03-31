@@ -12,33 +12,23 @@
 
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap(void)
+ClapTrap::ClapTrap(void): _name("Clappie"), _hp(10), _ep(10),_ad(0)
 {
-	std::cout << AZUL << "Default constructor called." << std::endl;
+	std::cout << AZUL << "ClapTrap " << this->_name << " default constructor called." << std::endl;
 	std::cout << RESET;
-	this->_name = "Deffie";
-	this->_hp = 10;
-	this->_ep = 10;
-	this->_ad = 0;
 }
 
-ClapTrap::ClapTrap(std::string name)
+ClapTrap::ClapTrap(std::string name):  _name(name), _hp(10), _ep(10),_ad(0)
 {
-	std::cout << AZUL << "Overload constructor called." << std::endl;
+	std::cout << AZUL << "ClapTrap " << this->_name << " overload constructor called." << std::endl;
 	std::cout << RESET;
-	this->_name = name;
-	this->_hp = 10;
-	this->_ep = 10;
-	this->_ad = 0;
 }
-ClapTrap::ClapTrap(const ClapTrap& other)
+ClapTrap::ClapTrap(const ClapTrap& other):	_name(other._name),	_hp(other._hp),	_ep(other._ep),
+	_ad(other._ad)
 {
-	std::cout << AZUL << "Copy constructor called." << std::endl;
+	std::cout << AZUL << "ClapTrap " << this->_name << " copy constructor called." << std::endl;
 	std::cout << RESET;
-	this->_name = other._name;
-	this->_hp = other._hp;
-	this->_ep = other._ep;
-	this->_ad = other._ad;
+
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap& other)
@@ -47,16 +37,16 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& other)
 	std::cout << RESET;
 	if (this == &other)
 		return *this;
-	this->_name = other._name;
-	this->_hp = other._hp;
-	this->_ep = other._ep;
-	this->_ad = other._ad;
+	_name = other._name;
+	_hp = other._hp;
+	_ep = other._ep;
+	_ad = other._ad;
 	return (*this);
 }
 
 ClapTrap::~ClapTrap()
 {
-	std::cout << AZUL << "Destructor called." << std::endl;
+	std::cout << AZUL << "ClapTrap " << _name << " destructor called." << std::endl;
 	std::cout << RESET;
 
 }
