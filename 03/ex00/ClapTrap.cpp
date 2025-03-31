@@ -53,6 +53,11 @@ ClapTrap::~ClapTrap()
 
 void	ClapTrap::attack(const std::string& target)
 {
+	if (this->_hp <= 0)
+	{
+		std::cout << "ClapTrap " << this->_name << " can't attack cause is dead." << std::endl;
+		return ;
+	}
 	if (this->_ep == 0)
 	{
 		std::cout << "ClapTrap " << this->_name << " has no Energy Points left to Attack." << std::endl;
@@ -101,15 +106,3 @@ void	ClapTrap::beRepaired(unsigned int amount)
 	std::cout << this->_name << " has " << this->_hp << " HP left." << std::endl;
 }
 
-std::string	ClapTrap::getName(void)
-{ return (this->_name);}
-
-int	ClapTrap::getAD(void)
-{ return (this->_ad);}
-
-void	ClapTrap::setAD(int amount)
-{ 
-	std::cout << "ClapTrap " << this->_name << " add "  << amount << 
-	" points of attack damage." << std::endl;
-	this->_ad = amount;
-}

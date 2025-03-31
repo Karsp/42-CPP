@@ -14,24 +14,20 @@
 
 int	main()
 {
-	ClapTrap Kirk; //Deffie is default name
+	ClapTrap Kirk; //Clappie is default name
 	ClapTrap Yild("Yild");
 
+	std::string ClapTrap_1 = "Clappie";
+	std::string ClapTrap_2 = "Yield";
 	std::cout << std::endl;
 	
-	Kirk.attack(Yild.getName());
-	Yild.takeDamage(Kirk.getAD());
+	Kirk.attack(ClapTrap_2);
+	Yild.takeDamage(0);
 	
 	std::cout << std::endl;
 	
-	// std::cout << COLOR;
-	Kirk.setAD(3);
-	// std::cout << RESET;
-
-	std::cout << std::endl;
-	
-	Kirk.attack(Yild.getName());
-	Yild.takeDamage(Kirk.getAD());
+	Yild.attack(ClapTrap_1);
+	Kirk.takeDamage(0);
 	std::cout << std::endl;
 	
 	for (size_t i = 0; i < 2; i++)
@@ -40,14 +36,14 @@ int	main()
 		std::cout << std::endl;
 	}
 	
-	for (size_t i = 0; i < 8; i++)
+	for (size_t i = 0; i < 9; i++)
 	{
-		Kirk.attack(Yild.getName());
-		Yild.takeDamage(Kirk.getAD());
+		Kirk.attack(ClapTrap_2);
+		Yild.takeDamage(0);
 		std::cout << std::endl;
 	}
 	
-	Kirk.attack(Yild.getName());
+	Kirk.attack(ClapTrap_2);
 	std::cout << std::endl;
 	Yild.beRepaired(5);
 	std::cout << std::endl;
