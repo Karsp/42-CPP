@@ -22,15 +22,19 @@ int	main()
 
 
 	Didi.attack(FragTrap_2);
-	Karen.takeDamage(30);
 
 	std::cout << std::endl;
 
+	Karen.takeDamage(30);
+
+	std::cout << std::endl;
 	
 	Karen.attack(FragTrap_1);
+
+	std::cout << std::endl;
+
 	Didi.takeDamage(30);
 
-	
 	std::cout << std::endl;
 	
 	Didi.whoAmI();
@@ -39,8 +43,6 @@ int	main()
 	std::cout << std::endl;
 
 	Karen.beRepaired(5);
-
-	std::cout << std::endl;
 
 	std::cout << std::endl;
 
