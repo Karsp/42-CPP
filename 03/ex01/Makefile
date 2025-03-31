@@ -15,7 +15,7 @@ NAME = scavtrap
 ##########################   COMPILING SETTINGS   #########################
 
 CXX = c++
-CFLAGS = -Werror -Wextra -Wall  #-fsanitize=address -g3
+CFLAGS = -Wall -Werror -Wextra  #-fsanitize=address -g3
 CXXFLAGS = -std=c++98
 RM = rm -f
 
