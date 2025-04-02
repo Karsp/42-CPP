@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   WorngAnimal.hpp                                    :+:      :+:    :+:   */
+/*   WrongAnimal.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daviles- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,30 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-	#include <iostream>
-	#ifndef WRONGANIMAL_HPP
-	# define WRONGANIMAL_HPP
+#include <iostream>
+#ifndef WRONGANIMAL_HPP
+# define WRONGANIMAL_HPP
 
-	# define RESET   "\033[0m"
-	# define BLUE "\033[34m"
-	# define GREEN "\033[32m"
-	# define RED "\033[31m"
-	# define YELLOW "\033[0;33m" 
+# define RESET   "\033[0m"
+# define BLUE "\033[34m"
+# define GREEN "\033[32m"
+# define RED "\033[31m"
+# define YELLOW "\033[0;33m" 
 
+class WrongAnimal
+{
+	protected:
+		std::string _type;
+	public:
+		WrongAnimal();
+		WrongAnimal(const WrongAnimal& other);
+		~WrongAnimal();
+		WrongAnimal& operator=(const WrongAnimal& rhs);
+		
+		std::string getType() const;
+		void	makeSound(void) const;
+};
 
-
-	class WorngAnimal
-	{
-		protected:
-			std::string _type;
-		public:
-			WorngAnimal();
-			WorngAnimal(const WorngAnimal& other);
-			~WorngAnimal();
-			WorngAnimal& operator=(const WorngAnimal& rhs);
-			
-			std::string getType() const;
-			void	makeSound(void) const;
-	};
-
-	#endif
+#endif
