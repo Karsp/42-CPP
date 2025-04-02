@@ -13,11 +13,11 @@
 
 #include "Cat.hpp"
 
-Cat::Cat()
+Cat::Cat(): Animal()
 {
-	std::cout << RED << "Default Constructor for Cat Class called" << RESET << std::endl;
 	_type = "Cat";
 	_brain = new Brain();
+	std::cout << RED << "Default Constructor for Cat Class called" << RESET << std::endl;
 
 }
 
@@ -35,8 +35,8 @@ Cat::Cat(const Cat& other) : Animal(other), _brain(new Brain(*other._brain))
 
 Cat::~Cat()
 {
-	std::cout << RED <<  "Destructor for Cat Class called" << RESET << std::endl;
 	delete _brain;
+	std::cout << RED <<  "Destructor for Cat Class called" << RESET << std::endl;
 
 }
 

@@ -12,11 +12,11 @@
 
 #include "Dog.hpp"
 
-Dog::Dog()
+Dog::Dog():Animal()
 {
-	std::cout << BLUE <<  "Default Constructor for Dog Class called" << RESET << std::endl;
 	_type = "Dog";
 	_brain = new Brain();
+	std::cout << BLUE <<  "Default Constructor for Dog Class called" << RESET << std::endl;
 
 }
 // Initialize on initializer list to prevent double message from brain.
@@ -35,8 +35,8 @@ Dog::Dog(const Dog& other): Animal(other), _brain(new Brain(*other._brain))
 
 Dog::~Dog()
 {
-	std::cout << BLUE <<  "Destructor for Dog Class called" << RESET << std::endl;
 	delete _brain;
+	std::cout << BLUE <<  "Destructor for Dog Class called" << RESET << std::endl;
 
 }
 

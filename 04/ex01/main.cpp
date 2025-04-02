@@ -19,31 +19,24 @@
 
 int main()
 {
-	size_t count = 10;
+	size_t count = 4;
 	const Animal* meta[count];
 
 try
 {
 	for (size_t i = 0; i < count; i++)
 	{
-		// meta[i] = new Animal();
 		if (i < count / 2)
-		{
 			meta[i] = new Dog();
-		}
 		else
-		{
 			meta[i] = new Cat();
-		}
 	}
 
 	std::cout << "\n>>>>>>>>>>>>>>>>>>>>>>\n" << std::endl;
 
 
 	for (size_t i = 0; i < count; i++)
-	{
 		std::cout << meta[i]->getType() << " " << std::endl;
-	}
 
 	std::cout << "\n>>>>>>>>>>>>>>>>>>>>>>\n" << std::endl;
 
