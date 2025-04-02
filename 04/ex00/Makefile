@@ -15,13 +15,13 @@ NAME = poly
 ##########################   COMPILING SETTINGS   #########################
 
 CXX = c++
-CFLAGS = -Wall -Werror -Wextra  #-fsanitize=address -g3
+CFLAGS = -Wall -Werror -Wextra  -fsanitize=address -g3
 CXXFLAGS = -std=c++98
 RM = rm -f
 
 ###########################    FILES   ####################################
 
-SRCS =	main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp DiamondTrap.cpp
+SRCS =	main.cpp Animal.cpp Dog.cpp Cat.cpp
 OBJS = $(SRCS:.cpp=.o)	
 DEPS = $(SRCS:.cpp=.d)
 

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.hpp                                         :+:      :+:    :+:   */
+/*   WorngAnimal.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daviles- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 	#include <iostream>
-	#ifndef ANIMAL_HPP
-	# define ANIMAL_HPP
+	#ifndef WRONGANIMAL_HPP
+	# define WRONGANIMAL_HPP
 
 	# define RESET   "\033[0m"
 	# define BLUE "\033[34m"
@@ -22,18 +22,18 @@
 
 
 
-	class Animal
+	class WorngAnimal
 	{
 		protected:
 			std::string _type;
 		public:
-			Animal();
-			Animal(const Animal& other);
-			virtual ~Animal();
-			Animal& operator=(const Animal& rhs);
+			WorngAnimal();
+			WorngAnimal(const WorngAnimal& other);
+			~WorngAnimal();
+			WorngAnimal& operator=(const WorngAnimal& rhs);
 			
 			std::string getType() const;
-			virtual void	makeSound(void) const;
+			void	makeSound(void) const;
 	};
 
 	#endif
