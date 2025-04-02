@@ -15,24 +15,28 @@
 
 Cat::Cat()
 {
+	std::cout << RED << "Default Constructor for Cat Class called" << RESET << std::endl;
 	_type = "Cat";
 	_brain = new Brain();
-	std::cout << RED << "Default Constructor for Cat Class called" << RESET << std::endl;
 
 }
 
-Cat::Cat(const Cat& other)
+// Initialize on initializer list to prevent double message from brain.
+Cat::Cat(const Cat& other) : Animal(other), _brain(new Brain(*other._brain)) 
 {
-	_type = other._type;
-	_brain = new Brain(*other._brain);
-	std::cout << RED <<  "Copy Constructor for Cat Class called" << RESET << std::endl;
-
+    std::cout << RED << "Copy Constructor for Cat Class called" << RESET << std::endl;
 }
+// Cat::Cat(const Cat& other)
+// {
+// 	std::cout << RED <<  "Copy Constructor for Cat Class called" << RESET << std::endl;
+// 	_type = other._type;
+// 	_brain = new Brain(*other._brain);
+// }
 
 Cat::~Cat()
 {
-	delete _brain;
 	std::cout << RED <<  "Destructor for Cat Class called" << RESET << std::endl;
+	delete _brain;
 
 }
 

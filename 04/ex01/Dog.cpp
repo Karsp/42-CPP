@@ -14,24 +14,29 @@
 
 Dog::Dog()
 {
+	std::cout << BLUE <<  "Default Constructor for Dog Class called" << RESET << std::endl;
 	_type = "Dog";
 	_brain = new Brain();
-	std::cout << BLUE <<  "Default Constructor for Dog Class called" << RESET << std::endl;
 
 }
-
-Dog::Dog(const Dog& other)
+// Initialize on initializer list to prevent double message from brain.
+Dog::Dog(const Dog& other): Animal(other), _brain(new Brain(*other._brain)) 
 {
-	_type = other._type;
-	_brain = new Brain(*other._brain);
-	std::cout << BLUE <<  "Copy Constructor for Dog Class called" << RESET << std::endl;
-
+    std::cout << BLUE << "Copy Constructor for Dog Class called" << RESET << std::endl;
 }
+
+// Dog::Dog(const Dog& other)
+// {
+// 	_type = other._type;
+// 	std::cout << BLUE <<  "Copy Constructor for Dog Class called" << RESET << std::endl;
+// 	_brain = new Brain(*other._brain);
+
+// }
 
 Dog::~Dog()
 {
-	delete _brain;
 	std::cout << BLUE <<  "Destructor for Dog Class called" << RESET << std::endl;
+	delete _brain;
 
 }
 
