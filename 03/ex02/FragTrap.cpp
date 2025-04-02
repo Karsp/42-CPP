@@ -60,6 +60,6 @@ FragTrap& FragTrap::operator=(const FragTrap& rhs)
 
 void	FragTrap::highFivesGuys(void)
 {
-	std::cout << "🔥 High-five time! If you're ready to celebrate success, give me a virtual high-five! ✋🙌" << std::endl;
+	std::cout << "FragTrap " << this->_name << " High-five time! Give me a virtual high-five! ✋🙌" << std::endl;
 }
 
