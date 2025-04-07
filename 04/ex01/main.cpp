@@ -42,23 +42,25 @@ try
 
 	// Check deep copy (copy a Dog)
     Dog originalDog;
+	std::cout << "\n>>>>   Calls copy constructor   >>>>>\n" << std::endl;
     Dog copiedDog = originalDog; // Calls copy constructor
+	std::cout << "\n>>>>   Calls assignment operator   >>>>>\n" << std::endl;
     copiedDog = originalDog; // Calls assignment operator
 
+	// std::cout << "\n>>>>>>>>>>>>>>>>>>>>>>\n" << std::endl;
+
+	// // Check deep copy (copy a Cat)
+    // Cat originalCat;
+    // Cat copiedCat = originalCat;
+    // copiedCat = originalCat;
+
 	std::cout << "\n>>>>>>>>>>>>>>>>>>>>>>\n" << std::endl;
 
-	// Check deep copy (copy a Cat)
-    Cat originalCat;
-    Cat copiedCat = originalCat;
-    copiedCat = originalCat;
-
-	std::cout << "\n>>>>>>>>>>>>>>>>>>>>>>\n" << std::endl;
-
-
-	// for (size_t i = 0; i < count; i++)
-	// {
-	// 	std::cout << meta[i]->makeSound() << " " << std::endl;
-	// }
+	for (size_t i = 0; i < count; i++)
+	{
+		meta[i]->makeSound();
+		std::cout << " " << std::endl;
+	}
 
 
 	std::cout << "\n>>>>>>>>>>>>>>>>>>>>>>\n" << std::endl;
