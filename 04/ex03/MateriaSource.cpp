@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   AMateria.cpp                                       :+:      :+:    :+:   */
+/*   MateriaSource.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daviles- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,18 +10,36 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "AMateria.hpp"
-#include "IMateriaSource.hpp"
+#include "MateriaSource.hpp"
 #include "Ice.hpp"
 
-AMateria::AMateria()
+MateriaSource::MateriaSource()
 {
-	std::cout << GREEN << "Default Constructor for AMateria Class called" << RESET << std::endl;
-
+	std::cout << GREEN << "Default Constructor for MateriaSource Class called." << RESET << std::endl;
+	size = 0;
 }
 
-AMateria::AMateria(std::string const &type)
+void	MateriaSource::learnMateria(AMateria* newMaterial)
 {
-	std::cout << GREEN << "Overload Constructor for AMateria Class called" << RESET << std::endl;
+	if (size >= 4)
+	{
+		std::cout << GREEN << "Max Materia source limit reached." << RESET << std::endl;
+		return;
+	}
+	source[size] = newMaterial;
+	++size;
+}
 
+AMateria*	MateriaSource::createMateria(std::string const &type)
+{
+	for (size_t i = 0; i < 4; i++)
+	{
+		if (type.compare(source[i]->getType().c_str()))
+		{
+			AMateria* created = new Ice();
+			return (created);
+		}
+	}
+	std::cout << GREEN << "No source match this Materia type." << RESET << std::endl;
+	return (0);
 }

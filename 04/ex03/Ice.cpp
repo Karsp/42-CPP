@@ -25,7 +25,7 @@ Ice::Ice(const Ice& other):	_type("Ice")
 
 Ice::~Ice()
 {
-	// delete _brain;
+	// delete ;
 	std::cout << BLUE <<  "Destructor for Ice Class called" << RESET << std::endl;
 
 }
@@ -43,4 +43,4 @@ Ice& Ice::operator=(const Ice& rhs)
 	// return (*this);
 }
 
-std::string	Ice::getType(void) const{return(_type);}
+std::string const & Ice::getType() const{return(_type);}

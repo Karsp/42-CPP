@@ -13,23 +13,23 @@
 #ifndef ICE_HPP
 # define ICE_HPP
 
-# include "Animal.hpp"
-# include "Brain.hpp"
+# include "AMateria.hpp"
 
-class Brain;
-
-class Ice: public Animal
+class Ice: public AMateria
 {
 	private:
 		std::string const _type;
+
 	public:
 		Ice();
+		// Ice(std::string const _type);
 		Ice(const Ice& other);
 		~Ice();
 		Ice& operator=(const Ice& rhs);
 
-		std::string getType() const;
-		virtual void	makeSound(void) const;
+		std::string const & getType() const; //Returns the materia type
+		virtual Ice* 		clone() const;
+		virtual void 		use(ICharacter& target);
 
 };
 
