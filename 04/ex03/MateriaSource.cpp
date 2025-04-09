@@ -16,25 +16,25 @@
 MateriaSource::MateriaSource()
 {
 	std::cout << GREEN << "Default Constructor for MateriaSource Class called." << RESET << std::endl;
-	size = 0;
+	_size = 0;
 }
 
 void	MateriaSource::learnMateria(AMateria* newMaterial)
 {
-	if (size >= 4)
+	if (_size >= 4)
 	{
 		std::cout << GREEN << "Max Materia source limit reached." << RESET << std::endl;
 		return;
 	}
-	source[size] = newMaterial;
-	++size;
+	_source[_size] = newMaterial;
+	++_size;
 }
 
 AMateria*	MateriaSource::createMateria(std::string const &type)
 {
 	for (size_t i = 0; i < 4; i++)
 	{
-		if (type.compare(source[i]->getType().c_str()))
+		if (type.compare(_source[i]->getType().c_str()))
 		{
 			AMateria* created = new Ice();
 			return (created);

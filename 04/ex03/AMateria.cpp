@@ -25,3 +25,23 @@ AMateria::AMateria(std::string const &type)
 	std::cout << GREEN << "Overload Constructor for AMateria Class called" << RESET << std::endl;
 
 }
+
+AMateria::AMateria(const AMateria& other):_type(other._type)
+{
+	std::cout << GREEN << "Copy Constructor for AMateria Class called" << RESET << std::endl;
+
+}
+
+AMateria::~AMateria()
+{
+	std::cout << GREEN << "Destructor for AMateria Class called" << RESET << std::endl;
+}
+
+AMateria& AMateria::operator=(const AMateria& rhs)
+{
+	std::cout << GREEN << "Copy assigment operator for AMateria Class called" << RESET << std::endl;
+
+	if (this != &rhs)
+		this->_type = rhs._type;
+	return (*this);
+}

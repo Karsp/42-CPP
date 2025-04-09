@@ -30,8 +30,8 @@ class IMateriaSource;
 class MateriaSource
 {
 	protected:
-		AMateria* source[4];
-		int		size;
+		AMateria* _source[4];
+		int		_size;
 
 	public:
 		MateriaSource();
