@@ -26,7 +26,7 @@
 class AMateria
 {
     protected:
-		AMateria* _type;
+		std::string const _type;
 
     public:
 		AMateria();

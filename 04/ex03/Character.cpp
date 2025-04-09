@@ -2,28 +2,52 @@
 
 Character::Character():_name("Name"),_size(0)
 {
-	
-
+	this->_bag = new AMateria*[BAG_SIZE];
+	for (size_t i = 0; i < BAG_SIZE; i++)
+	{
+		_bag[i] = NULL;
+	}
 }
 
 Character::Character(const std::string name): _name(name),_size(0)
 {
-
+	this->_bag = new AMateria*[BAG_SIZE];
+	for (size_t i = 0; i < BAG_SIZE; i++)
+	{
+		_bag[i] = NULL;
+	}
 }
 
 Character::~Character()
 {
+	
 	// Delete materias bag
+	for (size_t i = 0; i < _size; i++)
+	{
+		delete _bag[i];
+	}
+	// check map
+	// if the materia is equipped to another character?
+	for(std::map<std::string, AMateria**>::iterator it = this->_dropped_bag.begin(); it != this->_dropped_bag.end(); it++)
+	{
+		if (it->first == this->_name)
+		{
+			delete it->second;
+		}
+		
+	}
+	// delete _dropped_bag;
 }
 
 Character::Character(const Character& other):_name(other._name)
 {
 	// Delete first
+	this->_bag = new AMateria*[BAG_SIZE];
 	for (size_t i = 0; i < _size; i++)
 	{
-		_bag[i] = other._bag[i];
+		this->_bag[i] = other._bag[i]->clone(); //use amateria clone
 	}
-	_size = other._size;
+	this->_size = other._size;
 }
 Character& Character::operator=(const Character& rhs)
 {
@@ -33,7 +57,7 @@ Character& Character::operator=(const Character& rhs)
 	// Delete first
 	for (size_t i = 0; i < _size; i++)
 	{
-		_bag[i] = rhs._bag[i];
+		_bag[i] = rhs._bag[i]->clone();
 	}
 	_size = rhs._size;
 	return (*this);
@@ -50,7 +74,7 @@ void	Character::equip(AMateria* m)
 		std::cout << GREEN << this->_name << " equiped new " << m->getType() << RESET << std::endl;
 		return;
 	}
-	std::cout << GREEN << "Max Materia bag limit reached." << RESET << std::endl;
+	std::cout << RED << "Max Materia bag limit reached." << RESET << std::endl;
 
 }
 
@@ -59,25 +83,21 @@ void	Character::unequip(int idx)
 	if (idx >= 0 && idx <= _size && _bag[idx])
 	{
 		std::string materia = _bag[idx]->getType();
-		_dropped_bag[_name] = _bag[idx];
+		_dropped_bag[_name] = &_bag[idx];
 		_bag[idx] = NULL;
 		--_size;
 		std::cout << GREEN << this->_name << " unequiped " << materia << RESET << std::endl;
 		return;
 	}
-	std::cout << GREEN << "Index not found on Materia bag." << RESET << std::endl;
+	std::cout << RED << "Index not found on Materia bag." << RESET << std::endl;
 }
 
 void	Character::use(int idx, ICharacter& target) // working on this
 {
-	if (idx >= 0 && idx <= _size && _bag[idx])
-	{
-		std::string materia = _bag[idx]->getType();
-		_dropped_bag[_name] = _bag[idx];
-		_bag[idx] = NULL;
-		--_size;
-		std::cout << GREEN << this->_name << " unequiped " << materia << RESET << std::endl;
-		return;
-	}
-	std::cout << GREEN << "Index not found on Materia bag." << RESET << std::endl;
+	if (idx >= 0 && idx <= BAG_SIZE)
+		std::cout << RED << "Invalid index." << RESET << std::endl;
+	else if (_bag[idx])
+		_bag[idx]->use(target);
+	else
+		std::cout << RED << "No materia on this slot." << RESET << std::endl;
 }

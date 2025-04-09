@@ -6,6 +6,8 @@
 # include "ICharacter.hpp"
 # include "AMateria.hpp"
 
+# define BAG_SIZE 4
+
 class AMateria;
 
 
@@ -13,9 +15,9 @@ class Character
 {
 	private:
 		std::string _name;
-		AMateria* _bag[4];
+		AMateria** _bag;
 		int		_size;
-		std::map<std::string, AMateria*> _dropped_bag;
+		std::map<std::string, AMateria**> _dropped_bag;
 
 	public:
 		Character();

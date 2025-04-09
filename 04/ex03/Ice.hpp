@@ -18,7 +18,7 @@
 class Ice: public AMateria
 {
 	private:
-		std::string const _type;
+		// std::string const _type;
 
 	public:
 		Ice();
@@ -28,7 +28,7 @@ class Ice: public AMateria
 		Ice& operator=(const Ice& rhs);
 
 		std::string const & getType() const; //Returns the materia type
-		virtual Ice* 		clone() const;
+		virtual AMateria* 		clone() const;
 		virtual void 		use(ICharacter& target);
 
 };

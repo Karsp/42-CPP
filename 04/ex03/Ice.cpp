@@ -12,13 +12,13 @@
 
 #include "Ice.hpp"
 
-Ice::Ice():	_type("ice")
+Ice::Ice():	AMateria("ice")
 {
 	std::cout << BLUE <<  "Default Constructor for Ice Class called" << RESET << std::endl;
 
 }
 
-Ice::Ice(const Ice& other):_type(other._type)
+Ice::Ice(const Ice& other):AMateria(other._type)
 {
     std::cout << BLUE << "Copy Constructor for Ice Class called" << RESET << std::endl;
 }
@@ -39,12 +39,14 @@ Ice& Ice::operator=(const Ice& rhs)
 	// AMateria::operator=(rhs); // Copy base class attributes
 	// delete _type; // Delete old _brain
 	// this->_type = new Ice(*rhs._type);
-	// return (*this);
+	return (*this);
 }
 
-std::string const & Ice::getType() const{return(_type);}
+std::string const & Ice::getType() const{ return(_type); }
 
 void	Ice::use(ICharacter& target)
 {
 	std::cout << BLUE <<  "* shoots an ice bolt at " << target.getName() << " *" << RESET << std::endl;
 }
+
+AMateria* Ice::clone() const { 	return (new Ice()); }
