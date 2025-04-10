@@ -1,31 +1,39 @@
 #include "Character.hpp"
 
-Character::Character():_name("Name"),_size(0)
+Character::Character():_name("My Character"),_size(0)
 {
 	this->_bag = new AMateria*[BAG_SIZE];
-	for (size_t i = 0; i < BAG_SIZE; i++)
+	for (int i = 0; i < BAG_SIZE; i++)
 	{
 		_bag[i] = NULL;
 	}
+	std::cout << GREEN << "Default Constructor for Character Class called." << RESET << std::endl;
+
 }
 
 Character::Character(const std::string name): _name(name),_size(0)
 {
 	this->_bag = new AMateria*[BAG_SIZE];
-	for (size_t i = 0; i < BAG_SIZE; i++)
+	for (int i = 0; i < BAG_SIZE; i++)
 	{
 		_bag[i] = NULL;
 	}
+	std::cout << GREEN << "Overload Constructor for Character Class called." << RESET << std::endl;
+
 }
 
 Character::~Character()
 {
 	
 	// Delete materias bag
-	for (size_t i = 0; i < _size; i++)
+	for (int i = 0; i < _size; i++)
 	{
 		delete _bag[i];
 	}
+	delete[] _bag;
+
+
+
 	// check map
 	// if the materia is equipped to another character?
 	for(std::map<std::string, AMateria**>::iterator it = this->_dropped_bag.begin(); it != this->_dropped_bag.end(); it++)
@@ -37,13 +45,19 @@ Character::~Character()
 		
 	}
 	// delete _dropped_bag;
+
+
+
+	std::cout << GREEN << "Destructor for Character Class called." << RESET << std::endl;
+
 }
 
 Character::Character(const Character& other):_name(other._name)
 {
 	// Delete first
+	delete this->_bag;
 	this->_bag = new AMateria*[BAG_SIZE];
-	for (size_t i = 0; i < _size; i++)
+	for (int i = 0; i < _size; i++)
 	{
 		this->_bag[i] = other._bag[i]->clone(); //use amateria clone
 	}
@@ -55,7 +69,8 @@ Character& Character::operator=(const Character& rhs)
 		return (*this);
 	_name = rhs.getName();
 	// Delete first
-	for (size_t i = 0; i < _size; i++)
+	delete this->_bag;
+	for (int i = 0; i < _size; i++)
 	{
 		_bag[i] = rhs._bag[i]->clone();
 	}

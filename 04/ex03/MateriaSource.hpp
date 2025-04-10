@@ -19,7 +19,7 @@
 # define RED "\033[31m"
 # define YELLOW "\033[0;33m" 
 
-
+# define SOURCES_SIZE 4
 # include <iostream>
 # include "AMateria.hpp"
 # include "IMateriaSource.hpp"
@@ -27,10 +27,10 @@
 class AMateria;
 class IMateriaSource;
 
-class MateriaSource
+class MateriaSource: public IMateriaSource
 {
 	protected:
-		AMateria* _source[4];
+		AMateria** _sources;
 		int		_size;
 
 	public:

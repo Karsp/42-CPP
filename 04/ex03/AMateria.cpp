@@ -14,13 +14,13 @@
 #include "IMateriaSource.hpp"
 #include "Ice.hpp"
 
-AMateria::AMateria()
+AMateria::AMateria():_type("None")
 {
 	std::cout << GREEN << "Default Constructor for AMateria Class called" << RESET << std::endl;
 
 }
 
-AMateria::AMateria(std::string const &type)
+AMateria::AMateria(std::string const &type):_type(type)
 {
 	std::cout << GREEN << "Overload Constructor for AMateria Class called" << RESET << std::endl;
 
@@ -43,6 +43,7 @@ AMateria& AMateria::operator=(const AMateria& rhs)
 
 	// if (this != &rhs)
 	// 	this->_type = rhs._type;
+	(void)rhs;
 	return (*this);
 }
 
@@ -50,7 +51,7 @@ std::string const & AMateria::getType() const { return(this->_type);}
 
 void	AMateria::use(ICharacter &target)
 {
-	(void)target;
+	// (void)target;
 	// target.use();
 	std::cout << GREEN << "A non materia used by " << target.getName() << RESET << std::endl;
 	

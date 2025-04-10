@@ -1,45 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   AMateria.hpp                                       :+:      :+:    :+:   */
+/*   Dog.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daviles- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/07 16:09:25 by daviles-          #+#    #+#             */
-/*   Updated: 2025/04/07 16:09:26 by daviles-         ###   ########.fr       */
+/*   Created: 2025/03/27 17:45:59 by daviles-          #+#    #+#             */
+/*   Updated: 2025/03/27 17:46:02 by daviles-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AMATERRIA_HPP
-# define AMATERRIA_HPP
+#ifndef CURE_HPP
+# define CURE_HPP
 
-# define RESET   "\033[0m"
-# define BLUE "\033[34m"
-# define GREEN "\033[32m"
-# define RED "\033[31m"
-# define YELLOW "\033[0;33m" 
+# include "AMateria.hpp"
 
-
-# include <iostream>
-# include "ICharacter.hpp"
-
-class AMateria
+class Cure: public AMateria
 {
-    protected:
-		std::string const _type;
+	private:
+		// std::string const _type;
 
-    public:
-		AMateria();
-		AMateria(std::string const & type);
-		virtual		~AMateria();
-		AMateria(const AMateria& other);
-		AMateria& 	operator=(const AMateria& rhs);
-
+	public:
+		Cure();
+		// Cure(std::string const _type);
+		Cure(const Cure& other);
+		~Cure();
+		Cure& operator=(const Cure& rhs);
 
 		std::string const & getType() const; //Returns the materia type
-		virtual AMateria* 	clone() const = 0;
+		virtual AMateria
+		* 		clone() const;
 		virtual void 		use(ICharacter& target);
-};
 
+};
 
 #endif
