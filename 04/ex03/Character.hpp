@@ -17,7 +17,7 @@ class Character: public ICharacter
 		std::string _name;
 		AMateria** _bag;
 		int		_size;
-		std::map<std::string, AMateria**> _dropped_bag;
+		// AMateria*  _dropped_bag;
 
 	public:
 		Character();

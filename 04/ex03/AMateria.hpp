@@ -19,6 +19,9 @@
 # define RED "\033[31m"
 # define YELLOW "\033[0;33m" 
 
+# define EQUIPPED 1
+# define UNEQUIPPED 0
+
 
 # include <iostream>
 # include "ICharacter.hpp"
@@ -27,6 +30,7 @@ class AMateria
 {
     protected:
 		std::string const _type;
+		bool	_state;
 
     public:
 		AMateria();
@@ -35,10 +39,13 @@ class AMateria
 		AMateria(const AMateria& other);
 		AMateria& 	operator=(const AMateria& rhs);
 
-
 		std::string const & getType() const; //Returns the materia type
 		virtual AMateria* 	clone() const = 0;
 		virtual void 		use(ICharacter& target);
+
+		bool	getState();
+		void	setState(bool state);
+
 };
 
 

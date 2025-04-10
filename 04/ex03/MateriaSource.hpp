@@ -23,6 +23,9 @@
 # include <iostream>
 # include "AMateria.hpp"
 # include "IMateriaSource.hpp"
+# include "Cure.hpp"
+# include "Ice.hpp"
+
 
 class AMateria;
 class IMateriaSource;
@@ -41,6 +44,7 @@ class MateriaSource: public IMateriaSource
 
 		virtual void 		learnMateria(AMateria* newMaterial);
 		virtual AMateria* 	createMateria(std::string const & type);
+		void 				listKnownMaterias();
 };
 
 

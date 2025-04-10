@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "MateriaSource.hpp"
-#include "Ice.hpp"
+
 
 MateriaSource::MateriaSource()
 {
@@ -25,18 +25,14 @@ MateriaSource::MateriaSource()
 MateriaSource::MateriaSource(const MateriaSource& other)
 {
 	// Delete first
-	delete[] this->_sources;
-	this->_sources = new AMateria*[SOURCES_SIZE];
-	for (int i = 0; i < _size; i++)
-	{
-		this->_sources[i] = other._sources[i]->clone(); //use amateria clone
-	}
-	this->_size = other._size;
+	*this = other;
 }
 MateriaSource& MateriaSource::operator=(const MateriaSource& rhs)
 {
 	if (this != &rhs)
 		return (*this);
+	for (int i = 0; i < _size; i++)
+		delete this->_sources[i];
 	delete[] this->_sources;
 	// Delete first
 	for (int i = 0; i < _size; i++)
@@ -51,10 +47,10 @@ MateriaSource::~MateriaSource()
 {
 	
 	// Delete materias sources
-
-	for (int i = 0; i < _size; i++)
+	for (int i = 0; i < SOURCES_SIZE; i++)
 	{
-		delete _sources[i];
+		if (_sources[i])
+			delete _sources[i];
 	}
 	delete[] this->_sources;
 	std::cout << GREEN << "Destructor for MateriaSource Class called." << RESET << std::endl;
@@ -66,7 +62,7 @@ MateriaSource::~MateriaSource()
 
 void	MateriaSource::learnMateria(AMateria* newMaterial)
 {
-	if (_size >= 4)
+	if (_size >= SOURCES_SIZE)
 	{
 		std::cout << GREEN << "Max Materia source limit reached." << RESET << std::endl;
 		return;
@@ -77,14 +73,27 @@ void	MateriaSource::learnMateria(AMateria* newMaterial)
 
 AMateria*	MateriaSource::createMateria(std::string const &type)
 {
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < SOURCES_SIZE; i++)
 	{
 		if (type.compare(_sources[i]->getType().c_str()))
 		{
-			AMateria* created = new Ice();
-			return (created);
+			if (type.compare("ice"))
+				return (new Ice());
+			else if (type.compare("cure"))
+				return (new Cure());
+			else
+				break;
 		}
 	}
 	std::cout << GREEN << "No source match this Materia type." << RESET << std::endl;
 	return (0);
+}
+
+void MateriaSource::listKnownMaterias()
+{
+	for (int i = 0; i < SOURCES_SIZE; i++)
+	{
+		if (this->_sources[i])
+			std::cout << "- " << this->_sources[i]->getType() << std::endl;
+	}
 }

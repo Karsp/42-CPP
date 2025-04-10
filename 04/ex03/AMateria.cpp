@@ -41,8 +41,6 @@ AMateria& AMateria::operator=(const AMateria& rhs)
 {
 	std::cout << GREEN << "Copy assigment operator for AMateria Class called" << RESET << std::endl;
 
-	// if (this != &rhs)
-	// 	this->_type = rhs._type;
 	(void)rhs;
 	return (*this);
 }
@@ -56,3 +54,7 @@ void	AMateria::use(ICharacter &target)
 	std::cout << GREEN << "A non materia used by " << target.getName() << RESET << std::endl;
 	
 }
+
+bool AMateria::getState() { return(this->_state);}
+
+void AMateria::setState(bool state) { this->_state = state;}

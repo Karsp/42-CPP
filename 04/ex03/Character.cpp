@@ -8,7 +8,6 @@ Character::Character():_name("My Character"),_size(0)
 		_bag[i] = NULL;
 	}
 	std::cout << GREEN << "Default Constructor for Character Class called." << RESET << std::endl;
-
 }
 
 Character::Character(const std::string name): _name(name),_size(0)
@@ -36,14 +35,12 @@ Character::~Character()
 
 	// check map
 	// if the materia is equipped to another character?
-	for(std::map<std::string, AMateria**>::iterator it = this->_dropped_bag.begin(); it != this->_dropped_bag.end(); it++)
-	{
-		if (it->first == this->_name)
-		{
-			delete it->second;
-		}
-		
-	}
+	// 	for (int i = 0; i < _dropped_bag.size; i++)
+
+	// 		delete _dropped_bag[i];
+	// 	}
+	// delete[] _dropped_bag;
+
 	// delete _dropped_bag;
 
 
@@ -82,12 +79,24 @@ std::string const &Character::getName()const { return(this->_name);}
 
 void	Character::equip(AMateria* m)
 {
-	if (_size < 4)
+	if (_size < BAG_SIZE)
 	{
+		if (!_bag[_size])
+		{
+			if (m->getState() == EQUIPPED) 
+			{
+				std::cout << "Cannot equip materia (materia already equipped)" << std::endl;
+				return;
+			}
 		_bag[_size] = m;
+		m->setState(EQUIPPED);
 		++_size;
 		std::cout << GREEN << this->_name << " equiped new " << m->getType() << RESET << std::endl;
 		return;
+		}
+		
+
+		
 	}
 	std::cout << RED << "Max Materia bag limit reached." << RESET << std::endl;
 
@@ -95,10 +104,12 @@ void	Character::equip(AMateria* m)
 
 void	Character::unequip(int idx)
 {
-	if (idx >= 0 && idx <= _size && _bag[idx])
+	if (idx < 0 || idx > BAG_SIZE)
+		std::cout << RED << "Invalid index for Materia bag." << RESET << std::endl;
+	if (idx <= _size && _bag[idx])
 	{
 		std::string materia = _bag[idx]->getType();
-		_dropped_bag[_name] = &_bag[idx];
+		_bag[idx]->setState(UNEQUIPPED);
 		_bag[idx] = NULL;
 		--_size;
 		std::cout << GREEN << this->_name << " unequiped " << materia << RESET << std::endl;
@@ -109,7 +120,7 @@ void	Character::unequip(int idx)
 
 void	Character::use(int idx, ICharacter& target) // working on this
 {
-	if (idx >= 0 && idx <= BAG_SIZE)
+	if (idx < 0 || idx > BAG_SIZE)
 		std::cout << RED << "Invalid index." << RESET << std::endl;
 	else if (_bag[idx])
 		_bag[idx]->use(target);
