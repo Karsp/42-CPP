@@ -55,6 +55,6 @@ void	AMateria::use(ICharacter &target)
 	
 }
 
-bool AMateria::getState() { return(this->_state);}
+bool AMateria::getState() const { return(this->_state);}
 
 void AMateria::setState(bool state) { this->_state = state;}

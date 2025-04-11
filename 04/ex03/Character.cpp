@@ -54,7 +54,7 @@ Character::Character(const Character& other):_name(other._name)
 	// Delete first
 	delete this->_bag;
 	this->_bag = new AMateria*[BAG_SIZE];
-	for (int i = 0; i < _size; i++)
+	for (int i = 0; i < BAG_SIZE; i++)
 	{
 		this->_bag[i] = other._bag[i]->clone(); //use amateria clone
 	}
@@ -67,7 +67,7 @@ Character& Character::operator=(const Character& rhs)
 	_name = rhs.getName();
 	// Delete first
 	delete this->_bag;
-	for (int i = 0; i < _size; i++)
+	for (int i = 0; i < BAG_SIZE; i++)
 	{
 		_bag[i] = rhs._bag[i]->clone();
 	}
@@ -85,7 +85,7 @@ void	Character::equip(AMateria* m)
 		{
 			if (m->getState() == EQUIPPED) 
 			{
-				std::cout << "Cannot equip materia (materia already equipped)" << std::endl;
+				std::cout << RED << "Cannot equip materia (materia already equipped)" << RESET << std::endl;
 				return;
 			}
 		_bag[_size] = m;
@@ -94,9 +94,6 @@ void	Character::equip(AMateria* m)
 		std::cout << GREEN << this->_name << " equiped new " << m->getType() << RESET << std::endl;
 		return;
 		}
-		
-
-		
 	}
 	std::cout << RED << "Max Materia bag limit reached." << RESET << std::endl;
 
@@ -104,9 +101,9 @@ void	Character::equip(AMateria* m)
 
 void	Character::unequip(int idx)
 {
-	if (idx < 0 || idx > BAG_SIZE)
+	if (idx < 0 || idx >= BAG_SIZE)
 		std::cout << RED << "Invalid index for Materia bag." << RESET << std::endl;
-	if (idx <= _size && _bag[idx])
+	if (idx < _size && _bag[idx])
 	{
 		std::string materia = _bag[idx]->getType();
 		_bag[idx]->setState(UNEQUIPPED);
@@ -120,8 +117,8 @@ void	Character::unequip(int idx)
 
 void	Character::use(int idx, ICharacter& target) // working on this
 {
-	if (idx < 0 || idx > BAG_SIZE)
-		std::cout << RED << "Invalid index." << RESET << std::endl;
+	if (idx < 0 || idx >= BAG_SIZE)
+		std::cout << RED << "Can't use that slot. Invalid index." << RESET << std::endl;
 	else if (_bag[idx])
 		_bag[idx]->use(target);
 	else

@@ -43,7 +43,7 @@ class AMateria
 		virtual AMateria* 	clone() const = 0;
 		virtual void 		use(ICharacter& target);
 
-		bool	getState();
+		bool	getState() const;
 		void	setState(bool state);
 
 };
