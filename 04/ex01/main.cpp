@@ -22,10 +22,6 @@ int main()
 	size_t count = 4;
 	const Animal* meta[count];
 
-			meta[0] = new Animal();
-			meta[0]->makeSound();
-
-
 try
 {
 	for (size_t i = 0; i < count; i++)
