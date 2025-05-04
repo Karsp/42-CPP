@@ -25,11 +25,7 @@ public:
 	int 			getSignGrade() const;
 	int 			getExecGrade() const;
 	bool 			isSigned();
-	void 			setSignGrade(int const grade) const;
-	void 			setExecGrade(int const grade) const;
 	void			beSigned(Bureaucrat buro);
-	// void			incrementGrade();
-	// void			decrementGrade();
 
 	// Friend word It allows the operator<< function to access the private and 
 	// protected members of the Form class.

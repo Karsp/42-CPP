@@ -2,7 +2,7 @@
 
 
 Form::Form()
-:_name("Another Form"), _signGrade(150), _execGrade(150), _signed(0)
+:_name("Another Form"), _signed(0), _signGrade(150), _execGrade(150)
 {
 	std::cout << "Form default constructor called" << std::endl;
 
@@ -80,9 +80,9 @@ void Form::beSigned(Bureaucrat buro)
 std::ostream& operator<<(std::ostream &out, Form const &other)
 {
 	if (other._signed)
-		out << "Form "<< other.getName() << " is signed, form sign grade is " << other.getSignGrade() << " and was signed with grade ." << other.getExecGrade() << ".";
+		out << "Form "<< other.getName() << " is signed, form sign grade is " << other.getSignGrade() << " and was signed with grade ." << other.getExecGrade() << "." << std::endl;
 	else
-		out << "Form "<< other.getName() << " is not signed, form sign grade is " << other.getSignGrade() <<  ".";
+		out << "Form "<< other.getName() << " is not signed, form sign grade is " << other.getSignGrade() <<  "." << std::endl;
 
 	return out;
 }

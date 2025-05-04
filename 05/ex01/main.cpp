@@ -6,22 +6,22 @@ int main() {
 
 	std::cout << f;
 
-	std::cout << "==== ====" << std::endl;
-	std::cout << "Lets create a Buro that doesnt meet the requirements" << std::endl;
+	std::cout << "\n==== ====" << std::endl;
+	std::cout << "Lets create a Buro that doesnt meet the requirements"<< "\n"  <<  std::endl;
 
 	Bureaucrat b("carlos", 70);
 	std::cout << b << std::endl;
 	b.signForm(f);
-	std::cout << "==== ====" << std::endl;
+	std::cout << "\n==== ====" << std::endl;
 	std::cout << "That was expected" << std::endl;
-	std::cout << "Now lets create a buro that does meet the requirements" << std::endl;
-
+	std::cout << "Now lets create a buro that does meet the requirements"<< "\n"  << std::endl;
+	
 	Bureaucrat b2("carlos", 5);
 	std::cout << b2 << std::endl;
 	b2.signForm(f);
 	std::cout << f.getName() << ": isSigned(): " << f.isSigned() << std::endl;
-	std::cout << "==== ====" << std::endl;
-	std::cout << "Now lets create invalid forms" << std::endl;
+	std::cout << "\n==== ====" << std::endl;
+	std::cout << "Now lets create invalid forms"<< "\n"  << std::endl;
 
 	try {
 		Form f2("Form2", -24, 10);
@@ -49,8 +49,8 @@ int main() {
 	catch (std::exception& e) {
 		std::cout << e.what() << std::endl;
 	}
-	std::cout << "==== ====" << std::endl;
-	std::cout << "Last, but not least, lets sign a form three times" << std::endl;
+	std::cout << "\n==== ====" << std::endl;
+	std::cout << "Last, but not least, lets sign a form three times" << "\n" << std::endl;
 
 	Form form("lastForm", 100, 100);
 	b.signForm(form);
