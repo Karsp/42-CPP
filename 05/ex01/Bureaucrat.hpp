@@ -1,8 +1,11 @@
 #ifndef _BUREAUCRAT_HPP
 # define _BUREAUCRAT_HPP
 
-#include <iostream>
-#include <exception>
+# include <iostream>
+# include <exception>
+# include "Form.hpp"
+
+class Form;
 
 class Bureaucrat
 {
@@ -21,6 +24,8 @@ public:
 	int 			getGrade() const;
 	void			incrementGrade();
 	void			decrementGrade();
+
+	void			signForm(Form &form);
 
 	// It allows the operator<< function to access the private and 
 	// protected members of the Bureaucrat class.
