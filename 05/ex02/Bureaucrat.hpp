@@ -3,9 +3,9 @@
 
 # include <iostream>
 # include <exception>
-# include "Form.hpp"
+# include "AForm.hpp"
 
-class Form;
+class AForm;
 
 class Bureaucrat
 {
@@ -25,10 +25,10 @@ public:
 	void			incrementGrade();
 	void			decrementGrade();
 
-	void			signForm(Form &form);
+	void			signForm(AForm &AForm);
+	void			executeForm(AForm const & AForm) const;
 
-	// It allows the operator<< function to access the private and 
-	// protected members of the Bureaucrat class.
+
 	friend std::ostream& operator<<(std::ostream&, Bureaucrat const & other);
 
 	// Exceptions

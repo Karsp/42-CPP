@@ -21,7 +21,8 @@ RM = rm -f
 
 ###########################    FILES   ####################################
 
-SRCS =	main.cpp Bureaucrat.cpp Form.cpp 
+SRCS =	main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp
+
 OBJS = $(SRCS:.cpp=.o)	
 DEPS = $(SRCS:.cpp=.d)
 

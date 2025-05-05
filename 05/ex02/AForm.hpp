@@ -26,8 +26,8 @@ public:
 	int 			getExecGrade() const;
 	void			beSigned(Bureaucrat &buro);
 
-	// Friend word It allows the operator<< function to access the private and 
-	// protected members of the AForm class.
+	void	execute(Bureaucrat const & executor) const;
+
 	friend std::ostream& operator<<(std::ostream&, AForm const & other);
 
 	// Exceptions
@@ -57,6 +57,15 @@ public:
 		public:
 			AFormAlreadySignedException();
 			virtual ~AFormAlreadySignedException() throw();
+			virtual const char* what() const throw();
+	};
+
+	class AFormNotSignedException : public std::exception {
+		private:
+			std::string _msg;
+		public:
+			AFormNotSignedException();
+			virtual ~AFormNotSignedException() throw();
 			virtual const char* what() const throw();
 	};
 };
