@@ -24,8 +24,7 @@ public:
 	std::string const & getName() const;
 	int 			getSignGrade() const;
 	int 			getExecGrade() const;
-	bool 			isSigned();
-	void			beSigned(Bureaucrat buro);
+	void			beSigned(Bureaucrat &buro);
 
 	// Friend word It allows the operator<< function to access the private and 
 	// protected members of the Form class.

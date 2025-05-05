@@ -7,19 +7,19 @@ int main() {
 	std::cout << f;
 
 	std::cout << "\n==== ====" << std::endl;
-	std::cout << "Lets create a Buro that doesnt meet the requirements"<< "\n"  <<  std::endl;
+	std::cout << "Lets create a Buro that doesn't meet the requirements"<< "\n"  <<  std::endl;
 
-	Bureaucrat b("carlos", 70);
+	Bureaucrat b("Carlos", 70);
 	std::cout << b << std::endl;
 	b.signForm(f);
 	std::cout << "\n==== ====" << std::endl;
-	std::cout << "That was expected" << std::endl;
 	std::cout << "Now lets create a buro that does meet the requirements"<< "\n"  << std::endl;
 	
-	Bureaucrat b2("carlos", 5);
+	Bureaucrat b2("Marcos", 5);
 	std::cout << b2 << std::endl;
 	b2.signForm(f);
-	std::cout << f.getName() << ": isSigned(): " << f.isSigned() << std::endl;
+	std::cout << f;
+
 	std::cout << "\n==== ====" << std::endl;
 	std::cout << "Now lets create invalid forms"<< "\n"  << std::endl;
 
