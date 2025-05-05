@@ -50,40 +50,47 @@ int main() {
 	std::cout << "Now lets try another time"<< "\n"  << std::endl;
 	b2.executeForm(*f);
 
+	std::cout << " " << std::endl;
+
 	delete f;
 
 	std::cout << " " << std::endl;
 
-	// std::cout << "========== ==========" << std::endl;
-	// std::cout << "RobotomyRequestForm" << std::endl;
-	// std::cout << "========== ==========" << std::endl;
+	std::cout << "========== ==========" << std::endl;
+	std::cout << "RobotomyRequestForm" << std::endl;
+	std::cout << "========== ==========" << std::endl;
 
-	// AForm *f2;
-	// f2 = new RobotomyRequestForm();
+	AForm *f2;
+	f2 = new RobotomyRequestForm();
 	
-	// std::cout << *f2;
-	// std::cout << "Lets execute this form a couple of times" << std::endl;
-	// b2.signForm(*f2);
-	// b2.executeForm(*f2);
-	// b2.executeForm(*f2);
+	std::cout << *f2;
+	std::cout << "Lets execute this form a couple of times" << std::endl;
+	b2.signForm(*f2);
+	b2.executeForm(*f2);
+	b2.executeForm(*f2);
 	
-	// std::cout << "========== ==========" << std::endl;
-	// std::cout << "I know, animation are preatty awesome!!" << std::endl;
-	// std::cout << "========== ==========" << std::endl;
+	std::cout << "========== ==========" << std::endl;
+	std::cout << "I know, animation are preatty awesome!!" << std::endl;
+	std::cout << "========== ==========" << std::endl;
 
-	// delete f2;
+	delete f2;
 
 	std::cout << " " << std::endl;
 
 	std::cout << "========== ==========" << std::endl;
 	std::cout << "PresidentialPardonForm" << std::endl;
 	std::cout << "========== ==========" << std::endl;
+	std::cout << " " << std::endl;
 	
 	AForm *f3 = new PresidentialPardonForm();
 
 	std::cout << *f3;
-	b.signForm(*f3);
-	b.executeForm(*f3);
+	std::cout << " " << std::endl;
+
+	b2.signForm(*f3);
+	b2.executeForm(*f3);
+
+	std::cout << " " << std::endl;
 
 	delete f3;
 	

@@ -77,7 +77,6 @@ void	AForm::execute(Bureaucrat const & executor) const
 	{
 		if (executor.getGrade() > _execGrade)
 			throw AForm::GradeTooLowException();
-		std::cout << "Execute" << std::endl;
 		executeForm();
 	}
 	else
