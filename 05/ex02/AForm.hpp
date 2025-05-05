@@ -27,6 +27,7 @@ public:
 	void			beSigned(Bureaucrat &buro);
 
 	void	execute(Bureaucrat const & executor) const;
+	virtual void	executeForm() const = 0;
 
 	friend std::ostream& operator<<(std::ostream&, AForm const & other);
 

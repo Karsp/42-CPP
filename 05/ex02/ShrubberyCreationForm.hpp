@@ -4,6 +4,8 @@
 # include <iostream>
 # include "AForm.hpp"
 
+
+
 class ShrubberyCreationForm: public AForm
 {
 private:
@@ -16,6 +18,10 @@ public:
 
 	ShrubberyCreationForm & operator=(ShrubberyCreationForm const &rhs);
 
+	void	executeForm() const;
+
 };
+
+
 
 #endif

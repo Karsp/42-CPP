@@ -1,10 +1,14 @@
 #include "Bureaucrat.hpp"
 #include "AForm.hpp"
 #include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
 int main() {
 	AForm *f;
+	AForm *f2;
 	f = new ShrubberyCreationForm();
+	f2 = new RobotomyRequestForm();
 
 	std::cout << *f;
 
@@ -19,14 +23,17 @@ int main() {
 	
 	Bureaucrat b2("Marcos", 5);
 	std::cout << b2 << std::endl;
-	b2.signForm(*f);
-	std::cout << *f;
+	b2.signForm(*f2);
+	std::cout << *f2;
 	
 	
 	std::cout << "\n==== ====" << std::endl;
 	std::cout << "Lets try to execute it"<< "\n"  << std::endl;
-	b2.executeForm(*f);
-	std::cout << *f;
+	b2.executeForm(*f2);
+
+	std::cout << "\n==== ====" << std::endl;
+	std::cout << "Lets try another time"<< "\n"  << std::endl;
+	b2.executeForm(*f2);
 
 	// std::cout << "\n==== ====" << std::endl;
 	// std::cout << "Now lets create invalid forms"<< "\n"  << std::endl;
@@ -66,4 +73,5 @@ int main() {
 	// b.signForm(form);
 
 	delete f;
+	delete f2;
 }

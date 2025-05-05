@@ -8,6 +8,7 @@ class RobotomyRequestForm: public AForm
 {
 private:
 	std::string _target;
+	mutable bool _works;
 public:
 	RobotomyRequestForm();
 	RobotomyRequestForm(std::string const &target);
@@ -16,6 +17,12 @@ public:
 
 	RobotomyRequestForm & operator=(RobotomyRequestForm const &rhs);
 
+	void	executeForm() const;
+	void	animation() const;
+	void	changeWorks();
+
+
 };
 
 #endif
+
