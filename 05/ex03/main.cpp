@@ -40,13 +40,15 @@ int main()
 	AForm* f3 = intern.makeForm("presidential pardon", "carlos");
 	std::cout << *f3;
 
+	std::cout << " " << std::endl;
+
 	Bureaucrat b("Carlos", 150);
 	std::cout << b << std::endl;
 
 	std::cout << "\n==== Sign Falied ====" << std::endl;
-	b.signForm(*f);
+	b.signForm(*f3);
 	std::cout << "\n==== Executing a not signed form ====" << std::endl;
-	b.executeForm(*f);
+	b.executeForm(*f3);
 
 	std::cout << " " << std::endl;
 	
@@ -54,9 +56,14 @@ int main()
 	std::cout << b1 << std::endl;
 	
 	std::cout << "\n==== Sign Success ====" << std::endl;
-	b1.signForm(*f);
+	b1.signForm(*f3);
 	std::cout << "\n==== Not having enough grade to execute, but enough to sign ====" << std::endl;
-	b1.executeForm(*f);
+	b1.executeForm(*f3);
+
+	std::cout << "\n==== Sign and Excecution success ====" << std::endl;
+	b1.signForm(*f2);
+	b1.executeForm(*f2);
+
 
 	std::cout << " " << std::endl;
 

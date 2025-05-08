@@ -33,6 +33,7 @@ Intern::~Intern()
 
 AForm *Intern::makeForm(std::string const &formName, std::string const &target)
 {
+	AForm *tmp;
 	static const std::string _formList[] = {
 		"shrubbery creation",
 		"robotomy request",
@@ -53,16 +54,19 @@ AForm *Intern::makeForm(std::string const &formName, std::string const &target)
 	switch (id)
 	{
 	case SHRUBBERY:
+		tmp = new ShrubberyCreationForm(target);
 		std::cout << "Intern creates " << formName << "." << std::endl;
-		return (new ShrubberyCreationForm(target));
+		return (tmp);
 	
 	case ROBOTOMY:
+		tmp = new RobotomyRequestForm(target);
 		std::cout << "Intern creates " << formName << "." << std::endl;
-		return (new RobotomyRequestForm(target));
+		return (tmp);
 	
 	case PRESIDENTIAL:
+		tmp = new PresidentialPardonForm(target);
 		std::cout << "Intern creates " << formName << "." << std::endl;
-		return (new PresidentialPardonForm(target));
+		return (tmp);
 	
 	default:
 		std::cout << "Stupid Intern, stupid!!!! I only ask you a single thing, create a form named " << formName << "!" << std::endl;
