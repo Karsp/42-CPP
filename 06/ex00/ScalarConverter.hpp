@@ -3,6 +3,8 @@
 
 # include <iostream>
 # include <limits>
+# include <exception>
+# include <cstdlib>
 
 enum type {
 	CHAR,
@@ -20,8 +22,8 @@ class ScalarConverter
 		
 	public:
 		ScalarConverter(ScalarConverter const &copy);
-		~ScalarConverter();
 
+		~ScalarConverter();
 		ScalarConverter & operator=(ScalarConverter const &rhs);
 
 		static void convert(std::string &input);
@@ -33,6 +35,27 @@ class ScalarConverter
 		static bool isDouble(std::string &input);
 		static bool isPseudoLiteral(std::string &input);
 
+		static void	printChar(std::string &input);
+		static void	printInt(std::string &input);
+		static void	printFloat(std::string &input);
+		static void	printDouble(std::string &input);
+		static void	printPseudoLiteral(std::string &input);
+		
+		static char convertToChar(std::string &input);
+		static int convertToInt(std::string &input);
+		static float convertToFloat(std::string &input);
+		static double convertToDoubule(std::string &input);
+		static std::string convertToPseudoLiteral(std::string &input);
+
+		class	nonDisplayException : public std::exception {
+			public:
+				virtual const char* what() const throw();
+		};
+
+		class	impossibleException : public std::exception {
+			public:
+				virtual const char* what() const throw();
+		};
 };
 
 

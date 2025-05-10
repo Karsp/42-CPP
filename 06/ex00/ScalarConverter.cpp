@@ -29,7 +29,12 @@ ScalarConverter::~ScalarConverter()
 
 void ScalarConverter::convert(std::string &input)
 {
-	std::cout <<  checkType(input) << std::endl;
+	int type = checkType(input);
+
+	if (type == PSEUDOLIT)
+		printPseudoLiteral(input);
+		 
+	printChar(input);
 }
 
 enum type ScalarConverter::checkType(std::string &input)
@@ -119,4 +124,82 @@ bool ScalarConverter::isPseudoLiteral(std::string &input)
 			return (true);
 	}
 	return (false);
+}
+
+char ScalarConverter::convertToChar(std::string &input)
+{
+	char tmp;
+	int nmb ;
+
+	nmb = std::atoi(input.c_str());
+	// std::cout << "nmb " << nmb << std::endl;
+	if (!isprint(nmb) && !isascii(nmb))
+		throw nonDisplayException();
+	if (input.size() == 1)
+		tmp = static_cast<char>(*input.c_str());
+	else
+		tmp = static_cast<char>(nmb);
+	// std::cout << "tmp " << tmp << std::endl;
+	if (tmp == '\0')
+		throw impossibleException();
+	return (tmp);
+}
+
+void ScalarConverter::printChar(std::string &input)
+{
+	char tmp;
+
+	std::cout << "char: " ;
+	try
+	{
+		tmp = convertToChar(input);
+		std::cout << tmp << std::endl;
+
+	}
+	catch(const std::exception& e)	
+	{
+		std::cerr << e.what() << '\n';
+	}
+	// std::cout << "int: " << static_cast<int>(tmp) << std::endl;
+	// std::cout << "float: " << static_cast<float>(tmp) << ".0f" << std::endl;
+	// std::cout << "double: " << static_cast<int>(tmp) << ".0" << std::endl;
+}
+
+void ScalarConverter::printPseudoLiteral(std::string &input)
+{
+	std::string pseudoLiterals[] = {
+		"-inff",
+		"+inff",
+		"nanf",
+		"-inf",
+		"+inf",
+		"nan"
+	};
+	size_t idx = 0;
+	
+	for (size_t i = 0; i < 6; i++)
+	{
+		if (input == pseudoLiterals[i])
+		{
+			idx = i;
+			break;
+		}
+	}
+
+	std::cout << "char: impossible" << std::endl;
+	std::cout << "int: impossible" << std::endl;
+	std::cout << "float: " << pseudoLiterals[idx] << "f" << std::endl;
+	std::cout << "double: " << pseudoLiterals[idx] << std::endl;
+}
+
+const char* ScalarConverter::nonDisplayException::what() const throw()
+{
+	const char *tmp = "Non displayable";
+	return (tmp);
+}
+
+const char* ScalarConverter::impossibleException::what() const throw()
+{
+	const char *tmp = "impossible";
+	return (tmp);
 }
