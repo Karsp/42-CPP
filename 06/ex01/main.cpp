@@ -1,14 +1,13 @@
 #include "Serializer.hpp"
 
-int main(int argc, char **argv)
+int	main()
 {
-	if (argc != 2)
-	{
-		std::cout << "Invalid arguments." << std::endl;
-		return (0);
-	}
-	std::string input = argv[1];
-	ScalarConverter::convert(input);
-	return (0);
+	Data	hello;
 
+	// hello.a1= 777;
+	// hello.a2= -85;
+	// hello.a3= 25;
+
+	Data	*adeu = Serializer::deserialize(Serializer::serialize(&hello));
+	// std::cout << adeu->a1 << std::endl << adeu->a2 << std::endl << "hello:" << hello.a3 << std::endl;
 }
