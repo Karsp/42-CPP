@@ -31,11 +31,36 @@ void ScalarConverter::convert(std::string &input)
 {
 	int type = checkType(input);
 
+	// switch (type)
+	// {
+	// 	case CHAR:
+	// 		printChar(input);
+	// 		break;
+	
+	// 	case INT:
+	// 		printInt(input);
+	// 		break;
+	
+	// 	case PSEUDOLIT:
+	// 		printPseudoLiteral(input);
+	// 		break;
+
+	// }
+
+	std::cout << "Type: " << type << std::endl;
+
 	if (type == PSEUDOLIT)
+	{
 		printPseudoLiteral(input);
-		 
-	printChar(input);
+	}
+	else
+	{
+		printChar(input);
+		printInt(input);
+		printFloat(input);
+	}
 }
+
 
 enum type ScalarConverter::checkType(std::string &input)
 {
@@ -126,23 +151,57 @@ bool ScalarConverter::isPseudoLiteral(std::string &input)
 	return (false);
 }
 
+
 char ScalarConverter::convertToChar(std::string &input)
 {
 	char tmp;
 	int nmb ;
 
+	if (!isInt(input))
+		throw impossibleException();
+
 	nmb = std::atoi(input.c_str());
-	// std::cout << "nmb " << nmb << std::endl;
-	if (!isprint(nmb) && !isascii(nmb))
+	if (nmb < 0 || nmb > 127)
+		throw impossibleException();
+	else if (nmb < 32 || nmb > 63)
 		throw nonDisplayException();
 	if (input.size() == 1)
 		tmp = static_cast<char>(*input.c_str());
 	else
 		tmp = static_cast<char>(nmb);
-	// std::cout << "tmp " << tmp << std::endl;
 	if (tmp == '\0')
 		throw impossibleException();
 	return (tmp);
+}
+
+
+int ScalarConverter::convertToInt(std::string &input)
+{
+	long nmb ;
+
+	nmb = std::atol(input.c_str());
+	if (nmb > INT_MAX || nmb < INT_MIN)
+		throw impossibleException();
+	return (static_cast<int>(nmb));
+}
+
+
+float ScalarConverter::convertToFloat(std::string &input)
+{
+	const char *val = input.c_str();
+	char *endptr;
+
+	errno = 0;  // Reset errno before conversion
+	float nmb = std::strtof(val, &endptr);
+
+	
+	// std::cout << std::fixed << std::setprecision(1) << "nmb: " << nmb << std::endl;
+
+	if (*endptr != '\0' || errno != 0) 
+		throw impossibleException();
+
+	// if (nmb > FLT_MAX || nmb < FLT_MIN)
+	return (nmb);
 }
 
 void ScalarConverter::printChar(std::string &input)
@@ -160,9 +219,44 @@ void ScalarConverter::printChar(std::string &input)
 	{
 		std::cerr << e.what() << '\n';
 	}
-	// std::cout << "int: " << static_cast<int>(tmp) << std::endl;
-	// std::cout << "float: " << static_cast<float>(tmp) << ".0f" << std::endl;
-	// std::cout << "double: " << static_cast<int>(tmp) << ".0" << std::endl;
+}
+
+void ScalarConverter::printInt(std::string &input)
+{
+	int tmp;
+
+	std::cout << "int: " ;
+	try
+	{
+		tmp = convertToInt(input);
+		std::cout << tmp << std::endl;
+
+	}
+	catch(const std::exception& e)	
+	{
+		std::cerr << e.what() << '\n';
+	}
+}
+
+void ScalarConverter::printFloat(std::string &input)
+{
+	float tmp;
+
+	std::cout << "float: " ;
+	if (isFloat(input))
+	{
+		std::cout << input << std::endl;
+		return;
+	}
+	try
+	{
+		tmp = convertToFloat(input);
+		std::cout << std::fixed << std::setprecision(1) << "nmb: " << tmp << std::endl;
+	}
+	catch(const std::exception& e)	
+	{
+		std::cerr << e.what() << '\n';
+	}
 }
 
 void ScalarConverter::printPseudoLiteral(std::string &input)

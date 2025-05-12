@@ -5,6 +5,12 @@
 # include <limits>
 # include <exception>
 # include <cstdlib>
+# include <limits.h> // for INT_MAX, INT_MIN
+# include <iomanip> // for std::fixed and std::setprecision
+# include <cfloat>    // for FLT_MAX, FLT_MIN
+# include <cerrno> // for errno
+
+
 
 enum type {
 	CHAR,
