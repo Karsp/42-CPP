@@ -2,17 +2,11 @@
 # define _Serializer_HPP
 
 # include <iostream>
-# include <limits>
-# include <exception>
-# include <cstdlib>
-# include <limits.h> // for INT_MAX, INT_MIN
-# include <iomanip> // for std::fixed and std::setprecision
-# include <cfloat>    // for FLT_MAX, FLT_MIN
-# include <cerrno> // for errno
 
-
-
-class Data; 
+typedef struct {
+	char* ptr;
+	uintptr_t raw;
+}	Data;
 
 class Serializer
 {
@@ -27,18 +21,6 @@ class Serializer
 
 		static uintptr_t serialize(Data* ptr);
 		static Data* deserialize(uintptr_t raw);
-
-		
-
-		class	nonDisplayException : public std::exception {
-			public:
-				virtual const char* what() const throw();
-		};
-
-		class	impossibleException : public std::exception {
-			public:
-				virtual const char* what() const throw();
-		};
 };
 
 
