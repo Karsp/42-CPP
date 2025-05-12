@@ -31,8 +31,6 @@ void ScalarConverter::convert(std::string &input)
 {
 	int type = checkType(input);
 
-	// std::cout << "Type: " << type << std::endl;
-
 	if (type == PSEUDOLIT)
 	{
 		printPseudoLiteral(input);
@@ -230,7 +228,6 @@ void ScalarConverter::printChar(std::string &input)
 	{
 		tmp = convertToChar(input);
 		std::cout << "'" << tmp << "'" << std::endl;
-
 	}
 	catch(const std::exception& e)	
 	{
@@ -247,7 +244,6 @@ void ScalarConverter::printInt(std::string &input)
 	{
 		tmp = convertToInt(input);
 		std::cout << tmp << std::endl;
-
 	}
 	catch(const std::exception& e)	
 	{
