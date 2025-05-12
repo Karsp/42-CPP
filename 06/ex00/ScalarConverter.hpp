@@ -46,6 +46,7 @@ class ScalarConverter
 		static void	printFloat(std::string &input);
 		static void	printDouble(std::string &input);
 		static void	printPseudoLiteral(std::string &input);
+		static void	printUnknown();
 		
 		static char convertToChar(std::string &input);
 		static int convertToInt(std::string &input);
