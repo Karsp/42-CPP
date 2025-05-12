@@ -58,6 +58,7 @@ void ScalarConverter::convert(std::string &input)
 		printChar(input);
 		printInt(input);
 		printFloat(input);
+		printDouble(input);
 	}
 }
 
@@ -157,9 +158,13 @@ char ScalarConverter::convertToChar(std::string &input)
 	char tmp;
 	int nmb ;
 
-	if (!isInt(input))
-		throw impossibleException();
-
+	// if (!isInt(input))
+	// 	throw impossibleException();
+	if (isChar(input))
+		return (static_cast<char>(*input.c_str()));
+	// if (isFloat(input) || isDouble(input))
+	// 	nmb = std::atoi((input.substr(0, input.find('.'))).c_str());
+	// else
 	nmb = std::atoi(input.c_str());
 	if (nmb < 0 || nmb > 127)
 		throw impossibleException();
@@ -190,17 +195,29 @@ float ScalarConverter::convertToFloat(std::string &input)
 {
 	const char *val = input.c_str();
 	char *endptr;
-
 	errno = 0;  // Reset errno before conversion
 	float nmb = std::strtof(val, &endptr);
 
-	
-	// std::cout << std::fixed << std::setprecision(1) << "nmb: " << nmb << std::endl;
-
+	// std::cout << std::fixed << std::setprecision(1) << "FLT_MAX: " << FLT_MAX << std::endl;
 	if (*endptr != '\0' || errno != 0) 
 		throw impossibleException();
+	if (nmb > FLT_MAX || nmb < FLT_MIN)
+		throw impossibleException();
+	return (nmb);
+}
 
-	// if (nmb > FLT_MAX || nmb < FLT_MIN)
+double ScalarConverter::convertToDouble(std::string &input)
+{
+	const char *val = input.c_str();
+	char *endptr;
+	errno = 0;
+	double nmb = std::strtod(val, &endptr);
+
+	// std::cout << std::fixed << std::setprecision(1) << "FLT_MAX: " << FLT_MAX << std::endl;
+	if (*endptr != '\0' || errno != 0) 
+		throw impossibleException();
+	if (nmb > FLT_MAX || nmb < FLT_MIN)
+		throw impossibleException();
 	return (nmb);
 }
 
@@ -211,8 +228,9 @@ void ScalarConverter::printChar(std::string &input)
 	std::cout << "char: " ;
 	try
 	{
-		tmp = convertToChar(input);
-		std::cout << tmp << std::endl;
+		
+			tmp = convertToChar(input);
+		std::cout << "'" << tmp << "'" << std::endl;
 
 	}
 	catch(const std::exception& e)	
@@ -251,7 +269,28 @@ void ScalarConverter::printFloat(std::string &input)
 	try
 	{
 		tmp = convertToFloat(input);
-		std::cout << std::fixed << std::setprecision(1) << "nmb: " << tmp << std::endl;
+		std::cout << std::fixed << std::setprecision(1) << tmp << "f" << std::endl;
+	}
+	catch(const std::exception& e)	
+	{
+		std::cerr << e.what() << '\n';
+	}
+}
+
+void ScalarConverter::printDouble(std::string &input)
+{
+	double tmp;
+
+	std::cout << "double: " ;
+	if (isFloat(input))
+	{
+		std::cout << input.substr(0, (input.size() -1)) << std::endl;
+		return;
+	}
+	try
+	{
+		tmp = convertToDouble(input);
+		std::cout << std::fixed << std::setprecision(1) << tmp << std::endl;
 	}
 	catch(const std::exception& e)	
 	{

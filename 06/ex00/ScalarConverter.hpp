@@ -50,7 +50,7 @@ class ScalarConverter
 		static char convertToChar(std::string &input);
 		static int convertToInt(std::string &input);
 		static float convertToFloat(std::string &input);
-		static double convertToDoubule(std::string &input);
+		static double convertToDouble(std::string &input);
 		static std::string convertToPseudoLiteral(std::string &input);
 
 		class	nonDisplayException : public std::exception {
