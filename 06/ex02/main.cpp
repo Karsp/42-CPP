@@ -35,11 +35,11 @@ void identify(Base* p)
 		std::cout << "C" << std::endl;
 		return;
 	}
-	else 
-	{
-		std::cout << "Uknown type." << std::endl;
-		return;
-	}
+	// else 
+	// {
+	// 	std::cout << "Uknown type." << std::endl;
+	// 	return;
+	// }
 }
 
 
@@ -95,12 +95,19 @@ int	main()
 	test4 = generate();
 	test5 = generate();
 	
-	std::cout << "Testing identify function:" << std::endl;
+	std::cout << "Testing identify * function:" << std::endl;
 	identify(test1);
 	identify(test2);
 	identify(test3);
 	identify(test4);
 	identify(test5);
+
+	std::cout << "Testing identify & function:" << std::endl;
+	identify(*test1);
+	identify(*test2);
+	identify(*test3);
+	identify(*test4);
+	identify(*test5);
 
 
 	delete (test1);
