@@ -2,12 +2,12 @@
 
 int	main()
 {
-	Data	hello;
+	Data d;
+	std::cout << "Original Data object address \t" << &d << std::endl;
 
-	// hello.a1= 777;
-	// hello.a2= -85;
-	// hello.a3= 25;
+	uintptr_t ptr = Serializer::serialize(&d);
+	std::cout << "Serialized address: " << ptr << std::endl;
 
-	Data	*adeu = Serializer::deserialize(Serializer::serialize(&hello));
-	// std::cout << adeu->a1 << std::endl << adeu->a2 << std::endl << "hello:" << hello.a3 << std::endl;
+	Data* res = Serializer::deserialize(ptr);
+	std::cout << "Deserialized address: \t\t" << res << std::endl;
 }

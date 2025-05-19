@@ -2,10 +2,10 @@
 # define _Serializer_HPP
 
 # include <iostream>
+# include <stdint.h>
 
 typedef struct {
-	char* ptr;
-	uintptr_t raw;
+	char* value;
 }	Data;
 
 class Serializer
