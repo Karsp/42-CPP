@@ -1,81 +1,56 @@
-// #include "whatever.hpp"
-
-
 #include <cstddef>
-#include <iostream>
-
 #include "iter.hpp"
 
-class Test {
-	private:
-		int _age;
-	public:
-		Test();
-		Test(const Test&);
-		Test& operator=(const Test&);
-		~Test();
-		static void sayHello(Test&);
-};
-
-Test::~Test() {}
-
-Test::Test()
-	:_age(1)
+template <typename T> 
+void increment1(T &n) 
 {
-
-	std::cout << "constructor called" << std::endl;
-}
-
-Test::Test(const Test& other) {
-  *this = other;
-}
-
-Test& Test::operator=(const Test& rhs) {
-  if (this != &rhs) this->_age = rhs._age;
-  return *this;
-}
-
-
-void Test::sayHello(Test& a) {
-	std::cout << "Hello!! I am " << a._age << " years old" << std::endl;
-}
-
-void	incr(int& n) {
 	++n;
 }
 
-void print(int& n) {
+template <typename T> 
+void print(T &n) 
+{
   std::cout << n << " ";
 }
 
 int main() {
 	int arr[4] = {1, 2, 3, 4};
-	int i;
+	char charr[4] = {'a', 'G', '!', '4'};
 
 	std::cout << "=======================================================================" << std::endl;
-	std::cout << "Lets start with a simple test, array of 4 integers => foreach increment" << std::endl;
+	std::cout << "A basic test, print each value of an array of 4 integers" << std::endl;
 	std::cout << "=======================================================================" << std::endl;
-  	iter(arr, 4, &print);
+	iter(arr, 4, &print);
+	std::cout << std::endl;
+	
+	std::cout << "=======================================================================" << std::endl;
+	std::cout << "Now simple change on elements, increment 1 on each element" << std::endl;
+	std::cout << "=======================================================================" << std::endl;
+
+	iter(arr, 4, &increment1);
+	iter(arr, 4, &print);
 	std::cout << std::endl;
 
-	iter(arr, 4, &incr);
-
-  iter(arr, 4, &print);
-	std::cout << std::endl;
-
 
 	std::cout << "=======================================================================" << std::endl;
-	std::cout << "Now lets do something that is also quite generic, pass a null pointer" << std::endl;
+	std::cout << "Now lets try some errors, pass a null pointer" << std::endl;
 	std::cout << "=======================================================================" << std::endl;
 
-	iter((int*)NULL, 100, &incr);
+	iter((int*)NULL, 100, &increment1);
 
 	std::cout << "(no crash)" << std::endl;
 
 	std::cout << "=======================================================================" << std::endl;
-	std::cout << "Now, just for fun, lets create an array of instances of the Test class" << std::endl;
+	std::cout << "Now, lets try another type of elements. Try with an array of chars" << std::endl;
 	std::cout << "=======================================================================" << std::endl;
 
-	Test *t = new Test[5];
-	iter(t, 5, &(t[i].sayHello));
+	std::cout << "<<< Before >>>" << std::endl;
+	iter(charr, 4, &print);
+	std::cout << std::endl;
+
+	std::cout << "<<< After >>>" << std::endl;
+	iter(charr, 4, &increment1);
+	iter(charr, 4, &print);
+	std::cout << std::endl;
+
 }
