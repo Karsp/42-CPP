@@ -11,7 +11,7 @@ RM = rm -f
 
 ###########################    FILES   ####################################
 
-SRCS =	main.cpp whatever.cpp
+SRCS =	main.cpp 
 
 OBJS = $(SRCS:.cpp=.o)	
 DEPS = $(SRCS:.cpp=.d)
