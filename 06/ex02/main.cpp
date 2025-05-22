@@ -7,11 +7,6 @@
 
 Base * generate(void)
 {
-	// int res;
-	// srand(time(NULL));
-	// const int value = rand();
-	// res = value;
-
 	srand(time(NULL) - rand());
 	int res = rand() % 3;
 
@@ -41,11 +36,6 @@ void identify(Base* p)
 		std::cout << "C" << std::endl;
 		return;
 	}
-	// else 
-	// {
-	// 	std::cout << "Uknown type." << std::endl;
-	// 	return;
-	// }
 }
 
 
