@@ -7,7 +7,13 @@
 
 Base * generate(void)
 {
-	int res = rand();
+	// int res;
+	// srand(time(NULL));
+	// const int value = rand();
+	// res = value;
+
+	srand(time(NULL) - rand());
+	int res = rand() % 3;
 
 	if (res % 3 == 0)
 		return (new A());
