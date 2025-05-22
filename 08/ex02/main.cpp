@@ -1,99 +1,65 @@
+#include "MutantStack.hpp"
 
-#include <string>
-#include <iostream>
-#include <list>
-#include "Span.hpp"
-
-
-int main()
+int	main()
 {
-	Span sp3 = Span(5);
-	Span sp2 = Span(5);
-	Span sp1 = Span(5);
-	Span sp = Span(5);
+	std::cout << "---------------------my own tests----------------" << std::endl;
+	MutantStack<int>		hola;
+
+	hola.push(77);
+	hola.push(88);
+	hola.push(99);
+	MutantStack<int>::iterator	i = hola.begin();
+
 	
-	std::cout << "<<< Create and add elements to the Span sp >>>" << std::endl;
-	sp.addNumber(6);
-	sp.addNumber(3);
-	sp.addNumber(17);
-	sp.addNumber(9);
-	sp.addNumber(11);
-
-	std::cout << "<<< Span sp >>>" << std::endl;
-	sp.printSpan();
-
-	std::cout <<  std::endl;
-
-	std::cout << "<<< Shortest Span >>>" << std::endl;
-	std::cout << sp.shortestSpan() << std::endl;
-	
-	std::cout << "<<< Longest Span >>>" << std::endl;
-	std::cout << sp.longestSpan() << std::endl;
-
-	std::cout <<  std::endl;
-	
-	try
+	i++;//88
+	std::cout << *i << std::endl;
+	std::cout << *++i << std::endl;//99
+	std::cout << *i-- << std::endl;
+	std::cout << *i << std::endl;
+	std::cout << *--i << std::endl;
+	std::cout << "--------------------- 42 test main----------------" << std::endl;
+	MutantStack<int> mstack;
+	mstack.push(5);
+	mstack.push(17);
+	std::cout << mstack.top() << std::endl;
+	mstack.pop();
+	std::cout << mstack.size() << std::endl;
+	mstack.push(3);
+	mstack.push(5);
+	mstack.push(737);
+	//[...]
+	mstack.push(0);
+	MutantStack<int>::iterator it = mstack.begin();
+	MutantStack<int>::iterator ite = mstack.end();
+	++it;
+	--it;
+	while (it != ite)
 	{
-		std::cout << "<<< Try to add more elements than size on sp2 >>>" << std::endl;
-		sp2.addNumber(6);
-		sp2.addNumber(6);
-		sp2.addNumber(6);
-		sp2.addNumber(6);
-		sp2.addNumber(6);
-		sp2.addNumber(6);
+		std::cout << *it << std::endl;
+		++it;
 	}
-	catch(const std::exception& e)
+	std::stack<int> s(mstack);
+	std::cout << "--------------------- 42 changing the stack for list----------------" << std::endl;
+	std::list<int> mstack2;
+	mstack2.push_back(5);
+	mstack2.push_back(17);
+	std::cout << *--mstack2.end() << std::endl;
+	mstack2.pop_back();
+	std::cout << mstack2.size() << std::endl;
+	mstack2.push_back(3);
+	mstack2.push_back(5);
+	mstack2.push_back(737);
+	//[...]
+	mstack2.push_back(0);
+	std::list<int>::iterator it2 = mstack2.begin();
+	std::list<int>::iterator ite2 = mstack2.end();
+	++it2;
+	--it2;
+	while (it2 != ite2)
 	{
-		std::cerr << e.what() << '\n';
-		std::cout <<  std::endl;
+		std::cout << *it2 << std::endl;
+		++it2;
 	}
-
-	
-	int arr[] = {71, 12, 32};
-	int *first = arr;
-	int *last = arr + 3;
-	
-	std::cout << "<<< Add elements from Array to Span sp1 >>>" << std::endl;
-	sp1.addNumber(first, last);
-	
-	std::cout << "<<< Span sp1 >>>" << std::endl;
-	sp1.printSpan();
-
-	std::cout <<  std::endl;
-	
-	try
-	{
-		int arr2[] = {71, 12, 32,71, 12, 32};
-		int *first = arr2;
-		int *last = arr2 + 6;
-		
-		std::cout << "<<< Now try to add more elements than size from Array to Span sp1 >>>" << std::endl;
-		sp1.addNumber(first, last);
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-		std::cout <<  std::endl;
-	}
-	
-
-	std::vector<int> v;
-	v.push_back(6);
-	v.push_back(3);
-	v.push_back(17);
-	v.push_back(9);
-	v.push_back(11);
-	std::vector<int>::iterator it1 = v.begin();
-	std::vector<int>::iterator it2 = v.end();
-	
-	std::cout << "<<< Add elements from Vector to Span sp3 >>>" << std::endl;
-	sp3.addNumber(it1, it2);
-	
-	std::cout << "<<< Span sp3 >>>" << std::endl;
-	sp3.printSpan();
-
-	std::cout <<  std::endl;
-
 
 	return 0;
 }

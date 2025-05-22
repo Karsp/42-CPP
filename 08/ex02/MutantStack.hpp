@@ -8,39 +8,41 @@
 # include <vector>
 # include <exception>
 # include <iterator> //std::distance
+# include <stack>
+# include <deque>
 
-class MutantStack
+# include <iterator> // For std::forward_iterator_tag
+# include <cstddef>  // For std::ptrdiff_t
+
+template <typename T>
+class MutantStack : public std::stack<T>
 {
-	private:
-		unsigned int _size;
-		std::list<int> _MutantStack;
-
 	public:
-		MutantStack(unsigned int n);
-		~MutantStack();
+		// typedef typename std::stack<T>::container_type Container;
 
-		void addNumber(int nb);
-		
-		template <typename It>
-		void addNumber(It begin, It end)
+		// // Define the iterator based on the underlying container (e.g., deque)
+		// typedef typename Container::iterator iterator;
+
+		typedef std::deque<T> container_type;
+		typedef typename container_type::iterator iterator;
+		typedef typename container_type::const_iterator const_iterator;
+
+		MutantStack() {}
+
+		MutantStack(const MutantStack &copy)
+			: std::stack<T>(copy) {}
+
+		MutantStack &operator=(const MutantStack &rhs)
 		{
-			int dist = std::distance(begin, end);
-			
-			if (_MutantStack.size() + dist > _size)
-				throw std::runtime_error("Impossible to add number. MutantStack size is full.");
-			while (begin != end)
-			{
-				_MutantStack.push_back(*begin);
-				++begin;
-			}
+			if (this != &rhs)
+				std::stack<T>::operator=(rhs);
+			return *this;
 		}
 
-		int shortestMutantStack();
-		int longestMutantStack();
-		
-		void printMutantStack();
-		const std::list<int>& getMutantStack() const { return _MutantStack; }
+		~MutantStack() {}
 
+		iterator begin() { return this->c.begin(); }
+		iterator end()   { return this->c.end(); }
 };
 
 
