@@ -7,6 +7,7 @@
 # include <list>
 # include <vector>
 # include <exception>
+# include <iterator> //std::distance
 
 class Span
 {
@@ -19,8 +20,26 @@ class Span
 		~Span();
 
 		void addNumber(int nb);
+		
+		template <typename It>
+		void addNumber(It begin, It end)
+		{
+			int dist = std::distance(begin, end);
+			
+			if (_span.size() + dist > _size)
+				throw std::runtime_error("Impossible to add number. Span size is full.");
+			while (begin != end)
+			{
+				_span.push_back(*begin);
+				++begin;
+			}
+		}
+
 		int shortestSpan();
 		int longestSpan();
+		
+		void printSpan();
+		const std::list<int>& getSpan() const { return _span; }
 
 };
 

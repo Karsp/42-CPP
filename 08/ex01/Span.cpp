@@ -28,6 +28,9 @@ void Span::addNumber(int nb)
 		throw std::runtime_error("Impossible to add number. Span size is full.");
 	_span.push_back(nb);
 }
+
+
+
 	
 int Span::shortestSpan()
 {
@@ -39,14 +42,45 @@ int Span::shortestSpan()
 
 	for (std::list<int>::iterator it = _span.begin(); it != _span.end(); it++)
 	{
-		for (std::list<int>::iterator j = ++it; j != _span.end(); j++)
+		for (std::list<int>::iterator j = it; j != _span.end(); j++)
 		{
 			gap = (*it - *j);
+			// std::cout << "gap " << gap << " Min " << min << std::endl;
 			if (gap < 0)
 				gap *= -1;
-			if (gap != 0 && gap < min)
+			if (min == 0 || (gap != 0 && gap < min))
 				min = gap;
 		}
 	}
 	return (min);
+}
+	
+	
+int Span::longestSpan()
+{
+	if (_span.size() <= 1)
+		throw std::runtime_error("Not enough elements, no span can be found.");
+	
+	int	max = 0;
+	int	gap;
+
+	for (std::list<int>::iterator it = _span.begin(); it != _span.end(); it++)
+	{
+		for (std::list<int>::iterator j = it; j != _span.end(); j++)
+		{
+			gap = (*it - *j);
+			// std::cout << "gap " << gap << " max " << max << std::endl;
+			if (gap < 0)
+				gap *= -1;
+			if (max == 0 || (gap != 0 && gap > max))
+				max = gap;
+		}
+	}
+	return (max);
+}
+	
+void Span::printSpan()
+{
+	for (std::list<int>::iterator it = _span.begin(); it != _span.end(); it++)
+		std::cout << *it << std::endl;
 }
