@@ -1,8 +1,8 @@
 #include <iostream>
 
 
-template <typename T> 
-void iter(T *x, size_t size, void (*f)(T &)) 
+template <typename T, typename U> 
+void iter(T *x, size_t size, const U& f)
 {
 	if (!x || !f)
 		return ;

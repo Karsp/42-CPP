@@ -20,15 +20,15 @@ int main() {
 	std::cout << "=======================================================================" << std::endl;
 	std::cout << "A basic test, print each value of an array of 4 integers" << std::endl;
 	std::cout << "=======================================================================" << std::endl;
-	iter(arr, 4, &print);
+	iter(arr, 4, &print<int>);
 	std::cout << std::endl;
 	
 	std::cout << "=======================================================================" << std::endl;
 	std::cout << "Now simple change on elements, increment 1 on each element" << std::endl;
 	std::cout << "=======================================================================" << std::endl;
 
-	iter(arr, 4, &increment1);
-	iter(arr, 4, &print);
+	iter(arr, 4, &increment1<int>);
+	iter(arr, 4, &print<int>);
 	std::cout << std::endl;
 
 
@@ -36,7 +36,7 @@ int main() {
 	std::cout << "Now lets try some errors, pass a null pointer" << std::endl;
 	std::cout << "=======================================================================" << std::endl;
 
-	iter((int*)NULL, 100, &increment1);
+	iter((int*)NULL, 100, &increment1<int>);
 
 	std::cout << "(no crash)" << std::endl;
 
@@ -45,12 +45,12 @@ int main() {
 	std::cout << "=======================================================================" << std::endl;
 
 	std::cout << "<<< Before >>>" << std::endl;
-	iter(charr, 4, &print);
+	iter(charr, 4, &print<char>);
 	std::cout << std::endl;
 
 	std::cout << "<<< After >>>" << std::endl;
-	iter(charr, 4, &increment1);
-	iter(charr, 4, &print);
+	iter(charr, 4, &increment1<char>);
+	iter(charr, 4, &print<char>);
 	std::cout << std::endl;
 
 }
