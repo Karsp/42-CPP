@@ -18,11 +18,6 @@ template <typename T>
 class MutantStack : public std::stack<T>
 {
 	public:
-		// typedef typename std::stack<T>::container_type Container;
-
-		// // Define the iterator based on the underlying container (e.g., deque)
-		// typedef typename Container::iterator iterator;
-
 		typedef std::deque<T> container_type;
 		typedef typename container_type::iterator iterator;
 		typedef typename container_type::const_iterator const_iterator;
@@ -43,6 +38,20 @@ class MutantStack : public std::stack<T>
 
 		iterator begin() { return this->c.begin(); }
 		iterator end()   { return this->c.end(); }
+
+		void print() const
+		{
+			typename container_type::const_iterator it = this->c.begin();
+			typename container_type::const_iterator ite = this->c.end();
+
+			std::cout << "--\n";
+			while (it != ite)
+			{
+				std::cout << *it << "\n";
+				++it;
+			}
+			std::cout << "--" << std::endl;
+		}
 };
 
 

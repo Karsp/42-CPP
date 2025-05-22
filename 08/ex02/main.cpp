@@ -2,21 +2,40 @@
 
 int	main()
 {
-	std::cout << "---------------------my own tests----------------" << std::endl;
-	MutantStack<int>		hola;
+	std::cout << "<<< Create and fill the container with some values >>>" << std::endl;
+	MutantStack<int> mutant;
 
-	hola.push(77);
-	hola.push(88);
-	hola.push(99);
-	MutantStack<int>::iterator	i = hola.begin();
+	mutant.push(77);
+	mutant.push(88);
+	mutant.push(99);
 
+	mutant.print();
 	
+	std::cout <<  std::endl;
+
+	std::cout << "<<< Create an iterator instance and move through stack >>>" << std::endl;
+	MutantStack<int>::iterator	i = mutant.begin();
+	std::cout << "mutant.begin() " << *i << std::endl;
+	std::cout <<  std::endl;
+	
+	std::cout << "<<< Move one position forward >>>" << std::endl;
 	i++;//88
-	std::cout << *i << std::endl;
-	std::cout << *++i << std::endl;//99
-	std::cout << *i-- << std::endl;
-	std::cout << *i << std::endl;
-	std::cout << *--i << std::endl;
+	std::cout << "Use i++ to get to new position: " << *i << std::endl;
+	std::cout <<  std::endl;
+	
+	*++i;//99
+	std::cout << "Use *++i to get to new position: " << *i << std::endl;
+	std::cout <<  std::endl;
+	
+	*i--;
+	std::cout << "Use *i-- to get to new position: " << *i << std::endl;
+	std::cout <<  std::endl;
+	
+	*--i;
+	std::cout << "Use *--i to get to new position: " << *i << std::endl;
+	std::cout <<  std::endl;
+
+
 	std::cout << "--------------------- 42 test main----------------" << std::endl;
 	MutantStack<int> mstack;
 	mstack.push(5);
