@@ -22,6 +22,22 @@ Span::~Span()
 	_span.clear();
 }
 
+Span::Span(Span const &copy)
+{
+	std::cout << "Span copy constructor called" << std::endl;
+	*this = copy;
+}
+
+Span &Span::operator=(Span const &rhs)
+{
+	std::cout <<  "Copy assigment operator for Span Class called" << std::endl;
+	if (this != &rhs)
+	{
+		*this = rhs;
+	}
+	return (*this);	
+}
+
 void Span::addNumber(int nb)
 {
 	if (_span.size() + 1 > _size)
