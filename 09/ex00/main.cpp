@@ -21,19 +21,35 @@ void	file_to_map(std::fstream &file, std::map<std::string, int> &map, std::strin
 	std::string line;
 	std::string key;
 	std::string value;
+	bool		allowEmptyValue = true;
+	
+	getline(file, line);
+	
+	std::cout << "Line 1: " << line << std::endl;
+	if (line.find("exchange_rate", 0) != std::string::npos)
+		allowEmptyValue = false;
 
+
+	
 	while (getline(file, line))
 	{
-		// std::cout << "Line: " << line << std::endl;
+		std::cout << "Line: " << line << std::endl;
 		// if (line.find("date"))
 		// {
 		// 	getline(file, line);
 		// }	
-		key = line.substr(0, line.find(delimiter));
-		value = line.substr((line.find(delimiter) + 1), line.length());
-		map[key] = atoi(value.c_str());
-		// map[key] = std::stoi(value);
-		// std::cout << "Key: " << key << " Value: " << value << std::endl;
+		if (line.find(delimiter) != std::string::npos)
+		{
+			key = line.substr(0, line.find(delimiter));
+			value = line.substr((line.find(delimiter) + 1), line.length());
+			map[key] = atoi(value.c_str());
+		}
+		else if (allowEmptyValue == true)	
+		{
+			key = line.substr(0, line.length());
+			map[key] = "";
+		}
+		std::cout << "Key: " << key << " Value: " << value << std::endl;
 	}
 }
 
@@ -47,12 +63,15 @@ int main(int argc, char **argv)
 
     if (argc != 2)
         return (std::cout << "Bad input. Please enter a filename." << std::endl, 0);
+
     inFile.open(argv[1]);
 	if (!inFile.is_open())
         return (std::cout << "Error: could not open file." << std::endl, 0);
+
     dataFile.open("testdata.csv");
 	if (!dataFile.is_open())
         return (std::cout << "Error: could not open database file." << std::endl, 0);
+
 	file_to_map(dataFile, dataBase, ",");
 	file_to_map(inFile, fileData, "|");
 	itr = fileData.begin();
@@ -67,6 +86,9 @@ int main(int argc, char **argv)
 		std::cout << "database: " << itr->first << " Value: " << itr->second << std::endl;
 		itr++;
 	}
+
+	inFile.close();
+	dataFile.close();
 	return(0);
 }
 
