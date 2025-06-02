@@ -17,8 +17,9 @@
 # include <fstream>
 # include <map>
 # include <exception>
+# include <stdlib.h>
 
-# define DB "data.csv"
+# define DB "testdata.csv"
 
 class BitcoinExchange
 {
@@ -35,6 +36,7 @@ class BitcoinExchange
 		static void	isValidDate(std::string date);
 		static void	isValidValue(std::string value);
 		int			closer_date();
+		static bool	isEmpty(std::string value);
 		
 };
 
