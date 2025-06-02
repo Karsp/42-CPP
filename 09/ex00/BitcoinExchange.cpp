@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "BitcoinExchange.h"
 
-BitcoinExchange::BitcoinExchange(/* args */)
+BitcoinExchange::BitcoinExchange()
 {
 	std::fstream    dataFile;
 	std::map<std::string, int> dataBase;
@@ -23,11 +23,34 @@ BitcoinExchange::BitcoinExchange(/* args */)
 		if (!dataFile.is_open())
 			throw std::runtime_error("Error: could not open database file.");
 		fileToMap(dataFile, dataBase, ",");
+		_db = dataBase;
 	}
 	catch(const std::exception& e)
 	{
 		std::cerr << e.what() << '\n';
 	}
+	// std::cout << _db["2009-01-11"] << std::endl;
+}
+
+BitcoinExchange::BitcoinExchange(std::string file_path)
+{
+	std::fstream    dataFile;
+	std::map<std::string, int> dataBase;
+	std::map<std::string, int>:: iterator itr;
+	
+	dataFile.open(file_path.c_str());
+	try
+	{
+		if (!dataFile.is_open())
+			throw std::runtime_error("Error: could not open database file.");
+		fileToMap(dataFile, dataBase, ",");
+		_db = dataBase;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	// std::cout << _db["2009-01-11"] << std::endl;
 }
 
 
@@ -44,11 +67,13 @@ void	BitcoinExchange::fileToMap(std::fstream &file, std::map<std::string, int> &
 	std::string line;
 	std::string key;
 	std::string value;
-	// bool		allowEmptyValue = true;
+	bool		check_value = true;
 	
 	getline(file, line);
-	std::cout << "Line 1: " << line << std::endl;
-	if (line.find("exchange_rate", 0) == std::string::npos)
+	
+	if (line.find("exchange_rate", 0) != std::string::npos)
+		check_value = false;
+	if (line.find("date", 0) == std::string::npos)
 		file.seekg(0);
 
 	while (getline(file, line))
@@ -59,11 +84,12 @@ void	BitcoinExchange::fileToMap(std::fstream &file, std::map<std::string, int> &
 			value = line.substr((line.find(delimiter) + 1), line.length());
 			if (value.empty() || isEmpty(value))
 				throw std::runtime_error("File error: Empty value.");
-			// std::cout << "key: " << key << std::endl;
+			std::cout << "key: " << key << std::endl;
 			std::cout << "value: " << value << std::endl;
 
 			BitcoinExchange::isValidDate(key);
-			BitcoinExchange::isValidValue(value);
+			if (check_value)
+				BitcoinExchange::isValidValue(value);
 			map[key] = atoi(value.c_str());
 		}
 		else	
@@ -112,7 +138,7 @@ void	BitcoinExchange::isValidValue(std::string value)
 {
 	float 	v = atof(value.c_str());
 
-	std::cout << "int " << v << std::endl;
+	// std::cout << "int " << v << std::endl;
 	if (v < 0 || v > 1000)
 		throw std::runtime_error("Invalid value: value exceed the limits.");		
 
