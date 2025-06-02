@@ -66,6 +66,7 @@ int main(int argc, char **argv)
 
 
 	BitcoinExchange btc = BitcoinExchange();
+	// BitcoinExchange btc = BitcoinExchange("data.csv");
 
     // dataFile.open("testdata.csv");
 	// if (!dataFile.is_open())

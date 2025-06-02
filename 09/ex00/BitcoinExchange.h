@@ -28,6 +28,7 @@ class BitcoinExchange
 
 	public:
 		BitcoinExchange();
+		BitcoinExchange(std::string file_path);
 		BitcoinExchange(BitcoinExchange const &other);
 		BitcoinExchange & operator=(BitcoinExchange const &rhs);
 		~BitcoinExchange();
