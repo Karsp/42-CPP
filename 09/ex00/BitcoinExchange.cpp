@@ -24,6 +24,7 @@ BitcoinExchange::BitcoinExchange()
 			throw std::runtime_error("Error: could not open database file.");
 		fileToMap(dataFile, dataBase, ",");
 		_db = dataBase;
+		dataFile.close();
 	}
 	catch(const std::exception& e)
 	{
@@ -82,6 +83,10 @@ void	BitcoinExchange::fileToMap(std::fstream &file, std::map<std::string, int> &
 		{
 			key = line.substr(0, line.find(delimiter));
 			value = line.substr((line.find(delimiter) + 1), line.length());
+			//Trim spaces
+			key.erase(std::remove(key.begin(), key.end(), ' '), key.end());
+			value.erase(std::remove(value.begin(), value.end(), ' '), value.end());
+			
 			if (value.empty() || isEmpty(value))
 				throw std::runtime_error("File error: Empty value.");
 			std::cout << "key: " << key << std::endl;
@@ -105,6 +110,8 @@ void	BitcoinExchange::isValidDate(std::string date)
 	std::string tmp;
 	size_t pos;
 
+
+	// std::cout << "DATE " << date << "|" << std::endl;
 	pos = date.find('-');
 	if (pos == std::string::npos)
 		throw std::runtime_error("Invalid date: Missing separator.");
@@ -129,7 +136,7 @@ void	BitcoinExchange::isValidDate(std::string date)
 	tmp = date.substr(0, date.size());
 	if (tmp.size() != 2 || (atoi(tmp.c_str()) > 31 || atoi(tmp.c_str()) < 1))
 		throw std::runtime_error("Invalid date: Wrong day format or value.");		
-	// std::cout << "day " << tmp << std::endl;
+	// std::cout << "DAY " << tmp << std::endl;
 
 }
 
@@ -160,4 +167,9 @@ bool BitcoinExchange::isEmpty(std::string value)
 	if (spaces == value.size())
 		return true;
 	return false;
+}
+
+std::map<std::string, int> & BitcoinExchange::getDB()
+{
+	return (_db);
 }

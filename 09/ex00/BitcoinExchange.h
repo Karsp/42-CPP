@@ -18,6 +18,7 @@
 # include <map>
 # include <exception>
 # include <stdlib.h>
+# include <algorithm>
 
 # define DB "testdata.csv"
 
@@ -37,7 +38,12 @@ class BitcoinExchange
 		static void	isValidDate(std::string date);
 		static void	isValidValue(std::string value);
 		int			closer_date();
+		
+		void		convertBitcoinOnDate(std::map<std::string, int> &input);
+
 		static bool	isEmpty(std::string value);
+
+		std::map<std::string, int> & getDB();
 		
 };
 
