@@ -14,20 +14,28 @@
 # define _BITCOINEX
 
 # include <iostream>
+# include <fstream>
 # include <map>
+# include <exception>
+
+# define DB "data.csv"
 
 class BitcoinExchange
 {
-public:
-    BitcoinExchange();
-    BitcoinExchange(BitcoinExchange const &other);
-    BitcoinExchange & operator=(BitcoinExchange const &rhs);
-    ~BitcoinExchange();
+	private:
+		std::map<std::string, int> _db;
 
-    int is_valid_date();
-    int is_valid_value();
-	int closer_date();
-    
+	public:
+		BitcoinExchange();
+		BitcoinExchange(BitcoinExchange const &other);
+		BitcoinExchange & operator=(BitcoinExchange const &rhs);
+		~BitcoinExchange();
+
+		void	fileToMap(std::fstream &file, std::map<std::string, int> &map, std::string delimiter);
+		static void	isValidDate(std::string date);
+		static void	isValidValue(std::string value);
+		int			closer_date();
+		
 };
 
 

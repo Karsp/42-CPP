@@ -10,24 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "BitcoinExchange.h"
-#include <fstream>
-#include <map>
-#include <string>
 
-#include <stdlib.h>
 
-void	file_to_map(std::fstream &file, std::map<std::string, int> &map, std::string delimiter)
+void	fileToMap(std::fstream &file, std::map<std::string, int> &map, std::string delimiter)
 {
 	std::string line;
 	std::string key;
 	std::string value;
-	bool		allowEmptyValue = true;
+	// bool		allowEmptyValue = true;
 	
-	getline(file, line);
+	// getline(file, line);
 	
-	std::cout << "Line 1: " << line << std::endl;
-	if (line.find("exchange_rate", 0) != std::string::npos)
-		allowEmptyValue = false;
+	// std::cout << "Line 1: " << line << std::endl;
+	// if (line.find("exchange_rate", 0) != std::string::npos)
+	// 	allowEmptyValue = false;
 
 
 	
@@ -42,12 +38,13 @@ void	file_to_map(std::fstream &file, std::map<std::string, int> &map, std::strin
 		{
 			key = line.substr(0, line.find(delimiter));
 			value = line.substr((line.find(delimiter) + 1), line.length());
+			BitcoinExchange::isValidDate(key);
+			BitcoinExchange::isValidValue(value);
 			map[key] = atoi(value.c_str());
 		}
-		else if (allowEmptyValue == true)	
+		else	
 		{
-			key = line.substr(0, line.length());
-			map[key] = "";
+			throw std::runtime_error("File error: Empty value is not allowed.");
 		}
 		std::cout << "Key: " << key << " Value: " << value << std::endl;
 	}
@@ -72,8 +69,16 @@ int main(int argc, char **argv)
 	if (!dataFile.is_open())
         return (std::cout << "Error: could not open database file." << std::endl, 0);
 
-	file_to_map(dataFile, dataBase, ",");
-	file_to_map(inFile, fileData, "|");
+	try
+	{
+		fileToMap(dataFile, dataBase, ",");
+		fileToMap(inFile, fileData, "|");
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	
 	itr = fileData.begin();
 	while (itr != fileData.end())
 	{
