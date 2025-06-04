@@ -12,7 +12,7 @@
 #include "BitcoinExchange.h"
 
 
-// void	fileToMap(std::fstream &file, std::map<std::string, int> &map, std::string delimiter)
+// void	fileToMap(std::fstream &file, std::map<std::string, float> &map, std::string delimiter)
 // {
 // 	std::string line;
 // 	std::string key;
@@ -53,8 +53,8 @@
 int main(int argc, char **argv)
 {
     std::fstream    inFile;
-	std::map<std::string, int>:: iterator itr;
-	std::map<std::string, int> inputData;
+	std::map<std::string, float>:: iterator itr;
+	std::map<std::string, float> inputData;
 
     if (argc != 2)
         return (std::cout << "Bad input. Please enter a filename." << std::endl, 0);
@@ -71,6 +71,12 @@ int main(int argc, char **argv)
 		std::cout << "DB creation failed. Exiting program." << std::endl;
 		return (1);
 	}
+	itr = btc.getDB().begin();
+		while (itr != btc.getDB().end())
+		{
+			std::cout << "DB: " << itr->first << " Value: " << itr->second << std::endl;
+			itr++;
+		}
 	try
 	{
 		// std::cout << "HERE" << std::endl;
@@ -86,10 +92,12 @@ int main(int argc, char **argv)
 	catch(const std::exception& e)
 	{
 		std::cerr << e.what() << '\n';
+		std::cout << "Input file parsing failed. Exiting program." << std::endl;
+
 	}
 	
 
-	for (std::map<std::string, int>:: iterator itr = btc.getDB().begin(); itr != btc.getDB().end(); itr++)
+	for (std::map<std::string, float>:: iterator itr = btc.getDB().begin(); itr != btc.getDB().end(); itr++)
 	{
 		std::cout << "database: " << itr->first << " Value: " << itr->second << std::endl;
 

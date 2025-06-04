@@ -25,7 +25,7 @@
 class BitcoinExchange
 {
 	private:
-		std::map<std::string, int> _db;
+		std::map<std::string, float> _db;
 
 	public:
 		BitcoinExchange();
@@ -34,17 +34,17 @@ class BitcoinExchange
 		BitcoinExchange & operator=(BitcoinExchange const &rhs);
 		~BitcoinExchange();
 
-		void	fileToDB(std::fstream &file, std::map<std::string, int> &map, std::string delimiter);
-		void	fileToMap(std::fstream &file, std::map<std::string, int> &map, std::string delimiter);
+		void	fileToDB(std::fstream &file, std::map<std::string, float> &map, std::string delimiter);
+		void	fileToMap(std::fstream &file, std::map<std::string, float> &map, std::string delimiter);
 		static bool	isValidDate(std::string date);
 		static bool	isValidValue(std::string value);
 		int			closer_date();
 		
-		void		convertBitcoinOnDate(std::map<std::string, int> &input);
+		void		convertBitcoinOnDate(std::map<std::string, float> &input);
 
 		static bool	isEmpty(std::string value);
 
-		std::map<std::string, int> & getDB();
+		std::map<std::string, float> & getDB();
 		
 };
 

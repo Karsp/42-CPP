@@ -14,8 +14,8 @@
 BitcoinExchange::BitcoinExchange()
 {
 	std::fstream    dataFile;
-	std::map<std::string, int> dataBase;
-	std::map<std::string, int>:: iterator itr;
+	std::map<std::string, float> dataBase;
+	std::map<std::string, float>:: iterator itr;
 	
 	dataFile.open(DB);
 	try
@@ -37,8 +37,8 @@ BitcoinExchange::BitcoinExchange()
 BitcoinExchange::BitcoinExchange(std::string file_path)
 {
 	std::fstream    dataFile;
-	std::map<std::string, int> dataBase;
-	std::map<std::string, int>:: iterator itr;
+	std::map<std::string, float> dataBase;
+	std::map<std::string, float>:: iterator itr;
 	
 	dataFile.open(file_path.c_str());
 	try
@@ -65,7 +65,7 @@ BitcoinExchange::~BitcoinExchange()
 }
 
 
-void	BitcoinExchange::fileToDB(std::fstream &file, std::map<std::string, int> &map, std::string delimiter)
+void	BitcoinExchange::fileToDB(std::fstream &file, std::map<std::string, float> &map, std::string delimiter)
 {
 	std::string line;
 	std::string key;
@@ -99,7 +99,7 @@ void	BitcoinExchange::fileToDB(std::fstream &file, std::map<std::string, int> &m
 			if (check_value)
 				if (!BitcoinExchange::isValidValue(value))
 					throw std::runtime_error("Fatal error: Database creation error.");
-			map[key] = atoi(value.c_str());
+			map[key] = atof(value.c_str());
 		}
 		else	
 		{
@@ -109,17 +109,13 @@ void	BitcoinExchange::fileToDB(std::fstream &file, std::map<std::string, int> &m
 	}
 }
 
-void	BitcoinExchange::fileToMap(std::fstream &file, std::map<std::string, int> &map, std::string delimiter)
+void	BitcoinExchange::fileToMap(std::fstream &file, std::map<std::string, float> &map, std::string delimiter)
 {
 	std::string line;
 	std::string key;
 	std::string value;
-	bool		check_value = true;
 	
 	getline(file, line);
-	
-	if (line.find("exchange_rate", 0) != std::string::npos)
-		check_value = false;
 	if (line.find("date", 0) == std::string::npos)
 		file.seekg(0);
 
@@ -134,14 +130,15 @@ void	BitcoinExchange::fileToMap(std::fstream &file, std::map<std::string, int> &
 			value.erase(std::remove(value.begin(), value.end(), ' '), value.end());
 			
 			if (value.empty() || isEmpty(value))
-				throw std::runtime_error("File error: Empty value.");
-			std::cout << "key: " << key << std::endl;
-			std::cout << "value: " << value << std::endl;
+				throw std::runtime_error("File error: Empty value.");	
+				// std::cout << "Parsing error: Empty value on key: " << key << std::endl;
+			// std::cout << "key: " << key << std::endl;
+			// std::cout << "value: " << value << std::endl;
 
-			BitcoinExchange::isValidDate(key);
-			if (check_value)
-				BitcoinExchange::isValidValue(value);
-			map[key] = atoi(value.c_str());
+			// BitcoinExchange::isValidDate(key);
+			// if (check_value)
+			// 	BitcoinExchange::isValidValue(value);
+			map[key] = atof(value.c_str());
 		}
 		else	
 		{
@@ -224,7 +221,7 @@ bool	BitcoinExchange::isValidValue(std::string value)
 	return (true);
 }
 
-// void	BitcoinExchange::convertBitcoinOnDate(std::map<std::string, int> &input)
+// void	BitcoinExchange::convertBitcoinOnDate(std::map<std::string, float> &input)
 // {
 
 // }
@@ -247,7 +244,7 @@ bool BitcoinExchange::isEmpty(std::string value)
 	return false;
 }
 
-std::map<std::string, int> & BitcoinExchange::getDB()
+std::map<std::string, float> & BitcoinExchange::getDB()
 {
 	return (_db);
 }
