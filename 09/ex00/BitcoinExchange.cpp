@@ -24,6 +24,7 @@ BitcoinExchange::BitcoinExchange()
 			throw std::runtime_error("Error: could not open database file.");
 		fileToMap(dataFile, dataBase, ",");
 		_db = dataBase;
+		std::cout << ">> The database has been successfully loaded." << std::endl;
 		dataFile.close();
 	}
 	catch(const std::exception& e)
@@ -46,12 +47,13 @@ BitcoinExchange::BitcoinExchange(std::string file_path)
 			throw std::runtime_error("Error: could not open database file.");
 		fileToMap(dataFile, dataBase, ",");
 		_db = dataBase;
+		std::cout << ">> The database has been successfully loaded." << std::endl;
+		dataFile.close();
 	}
 	catch(const std::exception& e)
 	{
 		std::cerr << e.what() << '\n';
 	}
-	// std::cout << _db["2009-01-11"] << std::endl;
 }
 
 
@@ -114,28 +116,32 @@ void	BitcoinExchange::isValidDate(std::string date)
 	// std::cout << "DATE " << date << "|" << std::endl;
 	pos = date.find('-');
 	if (pos == std::string::npos)
-		throw std::runtime_error("Invalid date: Missing separator.");
+		std::cout << "Invalid date: '" << date << "' Missing separator." << std::endl;
+		// throw std::runtime_error("Invalid date: Missing separator.");
 	tmp = date.substr(0, pos);
 	// std::cout << "YEAR " << tmp << std::endl;
 	if (tmp.size() != 4 || (atoi(tmp.c_str()) > 2025 && atoi(tmp.c_str()) < 1900))
-		throw std::runtime_error("Invalid date: Wrong year format or value.");
+		std::cout << "Invalid date: '" << date << "' Wrong year format or value." << std::endl;
+		// throw std::runtime_error("Invalid date: ");
 	
 	date.erase(0, pos + 1);
 	
 	pos = date.find('-');
 	if (pos == std::string::npos)
-		throw std::runtime_error("Invalid date: Missing separator.");
+		std::cout << "Invalid date: '" << date << "' Missing separator." << std::endl;
+		// throw std::runtime_error("Invalid date: Missing separator.");
 
 	tmp = date.substr(0, pos);
 	// std::cout << "MONTH " << tmp << std::endl;
 	if (tmp.size() != 2 || (atoi(tmp.c_str()) > 12 || atoi(tmp.c_str()) < 1))
-		throw std::runtime_error("Invalid date: Wrong month format or value.");		
+		std::cout << "Invalid date: '" << date << "' Wrong month format or value." << std::endl;
 
 	date.erase(0, pos + 1);
 
 	tmp = date.substr(0, date.size());
 	if (tmp.size() != 2 || (atoi(tmp.c_str()) > 31 || atoi(tmp.c_str()) < 1))
-		throw std::runtime_error("Invalid date: Wrong day format or value.");		
+		std::cout << "Invalid date: '" << date << "' Wrong day format or value." << std::endl;
+		// throw std::runtime_error("Invalid date: Wrong day format or value.");		
 	// std::cout << "DAY " << tmp << std::endl;
 
 }
@@ -145,11 +151,19 @@ void	BitcoinExchange::isValidValue(std::string value)
 {
 	float 	v = atof(value.c_str());
 
-	// std::cout << "int " << v << std::endl;
-	if (v < 0 || v > 1000)
-		throw std::runtime_error("Invalid value: value exceed the limits.");		
+	// if (v < 0 || v > 1000)
+	// 	throw std::runtime_error("Invalid value: value exceed the limits.");		
+	if (v < 0 )
+		std::cout << "Error: '" << value << "' is not a positive number." << std::endl;
+	else if (v > 1000)
+		std::cout << "Error: '" << value << "' is a number too large." << std::endl;
 
 }
+
+// void	BitcoinExchange::convertBitcoinOnDate(std::map<std::string, int> &input)
+// {
+
+// }
 
 bool BitcoinExchange::isEmpty(std::string value)
 {
