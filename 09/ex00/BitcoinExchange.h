@@ -40,7 +40,7 @@ class BitcoinExchange
 		static bool	isValidValue(std::string value);
 		int			closer_date();
 		
-		void		convertBitcoinOnDate(std::map<std::string, float> &input);
+		void		convertBitcoinOnDate(std::string inputDate, float amount);
 
 		static bool	isEmpty(std::string value);
 

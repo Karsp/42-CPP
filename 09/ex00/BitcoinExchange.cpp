@@ -154,22 +154,18 @@ bool	BitcoinExchange::isValidDate(std::string date)
 	std::string tmp;
 	size_t pos;
 
-	// std::cout << "DATE " << date << "|" << std::endl;
 	pos = date.find('-');
 	if (pos == std::string::npos)
 	{
 		std::cout << "Invalid date: '" << date << "' Missing separator." << std::endl;
 		return (false);
 	}
-		// throw std::runtime_error("Invalid date: Missing separator.");
 	tmp = date.substr(0, pos);
-	// std::cout << "YEAR " << tmp << std::endl;
 	if (tmp.size() != 4 || (atoi(tmp.c_str()) > 2025 && atoi(tmp.c_str()) < 1900))
 	{
 		std::cout << "Invalid date: '" << date << "' Wrong year format or value." << std::endl;
 		return (false);
 	}
-		// throw std::runtime_error("Invalid date: ");
 	
 	date.erase(0, pos + 1);
 	
@@ -181,7 +177,6 @@ bool	BitcoinExchange::isValidDate(std::string date)
 	}
 
 	tmp = date.substr(0, pos);
-	// std::cout << "MONTH " << tmp << std::endl;
 	if (tmp.size() != 2 || (atoi(tmp.c_str()) > 12 || atoi(tmp.c_str()) < 1))
 	{
 		std::cout << "Invalid date: '" << date << "' Wrong month format or value." << std::endl;
@@ -196,8 +191,6 @@ bool	BitcoinExchange::isValidDate(std::string date)
 		std::cout << "Invalid date: '" << date << "' Wrong day format or value." << std::endl;
 		return (false);
 	}
-		// throw std::runtime_error("Invalid date: Wrong day format or value.");		
-	// std::cout << "DAY " << tmp << std::endl;
 	return (true);
 }
 
@@ -206,8 +199,6 @@ bool	BitcoinExchange::isValidValue(std::string value)
 {
 	float 	v = atof(value.c_str());
 
-	// if (v < 0 || v > 1000)
-	// 	throw std::runtime_error("Invalid value: value exceed the limits.");		
 	if (v < 0 )
 	{
 		std::cout << "Error: '" << value << "' is not a positive number." << std::endl;
@@ -221,10 +212,41 @@ bool	BitcoinExchange::isValidValue(std::string value)
 	return (true);
 }
 
-// void	BitcoinExchange::convertBitcoinOnDate(std::map<std::string, float> &input)
-// {
+// 2011-01-03 => 3 = 0.9
+void	BitcoinExchange::convertBitcoinOnDate(std::string inputDate, float amount)
+{
+	float	result;
+	std::map<std::string, float>::iterator it;
 
-// }
+	//check valid input
+	std::cout << "Input Date " << inputDate << std::endl;
+	if (_db.find(inputDate) != _db.end())
+	{
+		result = _db.find(inputDate)->second;
+		std::cout << "Found Date " << _db.find(inputDate)->first << std::endl;
+	}
+	else
+	{
+		it = _db.lower_bound(inputDate);
+		if (it != _db.end() && it->first == inputDate) 
+		{
+        std::cout << "Exact date found: " << it->first << " -> " << it->second << std::endl;
+		} else {
+			if (it != _db.begin()) {
+				--it; // move to the previous (lower) date
+				std::cout << "Nearest lower date: " << it->first << " -> " << it->second << std::endl;
+			} else {
+				std::cout << "No earlier date available." << std::endl;
+			}
+		}
+		result = it->second;
+	// std::cout << "Date " << it->first << std::endl;
+	}
+	result *= amount;
+
+	// std::cout << "Final Result " << result << std::endl;
+
+}
 
 bool BitcoinExchange::isEmpty(std::string value)
 {

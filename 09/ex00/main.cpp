@@ -79,13 +79,17 @@ int main(int argc, char **argv)
 		}
 	try
 	{
-		// std::cout << "HERE" << std::endl;
 		btc.fileToMap(inFile, inputData, "|");
-		// std::cout << "HERE 2" << std::endl;
+		std::cout << ">> The input file has been successfully loaded." << std::endl;
+
+
+
 		itr = inputData.begin();
 		while (itr != inputData.end())
 		{
-			std::cout << "MAP: " << itr->first << " Value: " << itr->second << std::endl;
+			// std::cout << "INPUT MAP: " << itr->first << " Value: " << itr->second << std::endl;
+			btc.convertBitcoinOnDate(itr->first, itr->second);
+			
 			itr++;
 		}
 	}
@@ -96,14 +100,6 @@ int main(int argc, char **argv)
 
 	}
 	
-
-	for (std::map<std::string, float>:: iterator itr = btc.getDB().begin(); itr != btc.getDB().end(); itr++)
-	{
-		std::cout << "database: " << itr->first << " Value: " << itr->second << std::endl;
-
-	}
-	
-
 	inFile.close();
 	return(0);
 }
