@@ -66,12 +66,16 @@ int main(int argc, char **argv)
 
 	BitcoinExchange btc = BitcoinExchange();
 	// BitcoinExchange btc = BitcoinExchange("data.csv");
-
+	if (btc.getDB().empty())
+	{
+		std::cout << "DB creation failed. Exiting program." << std::endl;
+		return (1);
+	}
 	try
 	{
-		std::cout << "HERE" << std::endl;
+		// std::cout << "HERE" << std::endl;
 		btc.fileToMap(inFile, inputData, "|");
-		std::cout << "HERE 2" << std::endl;
+		// std::cout << "HERE 2" << std::endl;
 		itr = inputData.begin();
 		while (itr != inputData.end())
 		{

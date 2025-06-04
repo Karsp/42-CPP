@@ -34,9 +34,10 @@ class BitcoinExchange
 		BitcoinExchange & operator=(BitcoinExchange const &rhs);
 		~BitcoinExchange();
 
+		void	fileToDB(std::fstream &file, std::map<std::string, int> &map, std::string delimiter);
 		void	fileToMap(std::fstream &file, std::map<std::string, int> &map, std::string delimiter);
-		static void	isValidDate(std::string date);
-		static void	isValidValue(std::string value);
+		static bool	isValidDate(std::string date);
+		static bool	isValidValue(std::string value);
 		int			closer_date();
 		
 		void		convertBitcoinOnDate(std::map<std::string, int> &input);
