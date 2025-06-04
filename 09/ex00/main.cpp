@@ -53,9 +53,8 @@
 int main(int argc, char **argv)
 {
     std::fstream    inFile;
-    std::fstream    dataFile;
 	std::map<std::string, int>:: iterator itr;
-	std::map<std::string, int> fileData;
+	std::map<std::string, int> inputData;
 
     if (argc != 2)
         return (std::cout << "Bad input. Please enter a filename." << std::endl, 0);
@@ -67,36 +66,37 @@ int main(int argc, char **argv)
 
 	BitcoinExchange btc = BitcoinExchange();
 	// BitcoinExchange btc = BitcoinExchange("data.csv");
-
-    // dataFile.open("testdata.csv");
-	// if (!dataFile.is_open())
-    //     return (std::cout << "Error: could not open database file." << std::endl, 0);
-
-	// try
-	// {
-	// 	fileToMap(dataFile, dataBase, ",");
-	// 	fileToMap(inFile, fileData, "|");
-	// }
-	// catch(const std::exception& e)
-	// {
-	// 	std::cerr << e.what() << '\n';
-	// }
+	if (btc.getDB().empty())
+	{
+		std::cout << "DB creation failed. Exiting program." << std::endl;
+		return (1);
+	}
+	try
+	{
+		// std::cout << "HERE" << std::endl;
+		btc.fileToMap(inFile, inputData, "|");
+		// std::cout << "HERE 2" << std::endl;
+		itr = inputData.begin();
+		while (itr != inputData.end())
+		{
+			std::cout << "MAP: " << itr->first << " Value: " << itr->second << std::endl;
+			itr++;
+		}
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
 	
-	// itr = fileData.begin();
-	// while (itr != fileData.end())
-	// {
-	// 	std::cout << "MAP: " << itr->first << " Value: " << itr->second << std::endl;
-	// 	itr++;
-	// }
-	// itr = dataBase.begin();
-	// while (itr != dataBase.end())
-	// {
-	// 	std::cout << "database: " << itr->first << " Value: " << itr->second << std::endl;
-	// 	itr++;
-	// }
 
-	// inFile.close();
-	// dataFile.close();
+	for (std::map<std::string, int>:: iterator itr = btc.getDB().begin(); itr != btc.getDB().end(); itr++)
+	{
+		std::cout << "database: " << itr->first << " Value: " << itr->second << std::endl;
+
+	}
+	
+
+	inFile.close();
 	return(0);
 }
 
