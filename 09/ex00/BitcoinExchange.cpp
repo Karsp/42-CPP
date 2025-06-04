@@ -97,7 +97,7 @@ void	BitcoinExchange::fileToDB(std::fstream &file, std::map<std::string, float> 
 			if (!BitcoinExchange::isValidDate(key))
 				throw std::runtime_error("Fatal error: Database creation error.");
 			if (check_value)
-				if (!BitcoinExchange::isValidValue(value))
+				if (!BitcoinExchange::isValidValue(atof(value.c_str())))
 					throw std::runtime_error("Fatal error: Database creation error.");
 			map[key] = atof(value.c_str());
 		}
@@ -109,7 +109,7 @@ void	BitcoinExchange::fileToDB(std::fstream &file, std::map<std::string, float> 
 	}
 }
 
-void	BitcoinExchange::fileToMap(std::fstream &file, std::map<std::string, float> &map, std::string delimiter)
+void	BitcoinExchange::fileToMap(std::fstream &file, std::multimap<std::string, float> &map, std::string delimiter)
 {
 	std::string line;
 	std::string key;
@@ -138,7 +138,8 @@ void	BitcoinExchange::fileToMap(std::fstream &file, std::map<std::string, float>
 			// BitcoinExchange::isValidDate(key);
 			// if (check_value)
 			// 	BitcoinExchange::isValidValue(value);
-			map[key] = atof(value.c_str());
+			// map[key] = atof(value.c_str());
+			map.insert(std::make_pair(key, atof(value.c_str())));
 		}
 		else	
 		{
@@ -195,18 +196,16 @@ bool	BitcoinExchange::isValidDate(std::string date)
 }
 
 // A valid value must be either a float or a positive integer, between 0 and 1000
-bool	BitcoinExchange::isValidValue(std::string value)
+bool	BitcoinExchange::isValidValue(float value)
 {
-	float 	v = atof(value.c_str());
-
-	if (v < 0 )
+	if (value < 0 )
 	{
-		std::cout << "Error: '" << value << "' is not a positive number." << std::endl;
+		std::cout << "Error: not a positive number." << std::endl;
 		return (false);
 	}
-	else if (v > 1000)
+	else if (value > 1000)
 	{
-		std::cout << "Error: '" << value << "' is a number too large." << std::endl;
+		std::cout << "Error: number too large." << std::endl;
 		return (false);
 	}
 	return (true);
@@ -216,34 +215,44 @@ bool	BitcoinExchange::isValidValue(std::string value)
 void	BitcoinExchange::convertBitcoinOnDate(std::string inputDate, float amount)
 {
 	float	result;
-	std::map<std::string, float>::iterator it;
+	std::multimap<std::string, float>::iterator it;
 
 	//check valid input
-	std::cout << "Input Date " << inputDate << std::endl;
+	if (!isValidDate(inputDate) || !isValidValue(amount))
+		return ;
+
+	std::cout << "Input Date " << inputDate << " amount: " << amount  << std::endl;
 	if (_db.find(inputDate) != _db.end())
 	{
 		result = _db.find(inputDate)->second;
-		std::cout << "Found Date " << _db.find(inputDate)->first << std::endl;
+		// std::cout << "Found Date " << _db.find(inputDate)->first << std::endl;
 	}
 	else
 	{
 		it = _db.lower_bound(inputDate);
 		if (it != _db.end() && it->first == inputDate) 
 		{
-        std::cout << "Exact date found: " << it->first << " -> " << it->second << std::endl;
-		} else {
-			if (it != _db.begin()) {
-				--it; // move to the previous (lower) date
-				std::cout << "Nearest lower date: " << it->first << " -> " << it->second << std::endl;
-			} else {
-				std::cout << "No earlier date available." << std::endl;
+			result = it->second;
+	        // std::cout << "Exact date found: " << it->first << " -> " << it->second << std::endl;
+		}
+		else 
+		{
+			if (it != _db.begin()) 
+			{
+				--it;
+				result = it->second;
+				// std::cout << "Nearest lower date: " << it->first << " -> " << it->second << std::endl;
+			} else 
+			{
+				std::cout << "No exact ot earlier date available for conversion." << std::endl;
+				return;
 			}
 		}
-		result = it->second;
-	// std::cout << "Date " << it->first << std::endl;
+		// result = it->second;
 	}
 	result *= amount;
 
+	std::cout << it->first << " => " << amount << " = " << result << std::endl;
 	// std::cout << "Final Result " << result << std::endl;
 
 }

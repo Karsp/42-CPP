@@ -11,50 +11,12 @@
 /* ************************************************************************** */
 #include "BitcoinExchange.h"
 
-
-// void	fileToMap(std::fstream &file, std::map<std::string, float> &map, std::string delimiter)
-// {
-// 	std::string line;
-// 	std::string key;
-// 	std::string value;
-// 	// bool		allowEmptyValue = true;
-	
-// 	// getline(file, line);
-	
-// 	// std::cout << "Line 1: " << line << std::endl;
-// 	// if (line.find("exchange_rate", 0) != std::string::npos)
-// 	// 	allowEmptyValue = false;
-
-
-	
-// 	while (getline(file, line))
-// 	{
-// 		std::cout << "Line: " << line << std::endl;
-// 		// if (line.find("date"))
-// 		// {
-// 		// 	getline(file, line);
-// 		// }	
-// 		if (line.find(delimiter) != std::string::npos)
-// 		{
-// 			key = line.substr(0, line.find(delimiter));
-// 			value = line.substr((line.find(delimiter) + 1), line.length());
-// 			BitcoinExchange::isValidDate(key);
-// 			BitcoinExchange::isValidValue(value);
-// 			map[key] = atoi(value.c_str());
-// 		}
-// 		else	
-// 		{
-// 			throw std::runtime_error("File error: Empty value is not allowed.");
-// 		}
-// 		std::cout << "Key: " << key << " Value: " << value << std::endl;
-// 	}
-// }
-
 int main(int argc, char **argv)
 {
     std::fstream    inFile;
 	std::map<std::string, float>:: iterator itr;
-	std::map<std::string, float> inputData;
+	std::multimap<std::string, float>:: iterator itr2;
+	std::multimap<std::string, float> inputData;
 
     if (argc != 2)
         return (std::cout << "Bad input. Please enter a filename." << std::endl, 0);
@@ -84,13 +46,13 @@ int main(int argc, char **argv)
 
 
 
-		itr = inputData.begin();
-		while (itr != inputData.end())
+		itr2 = inputData.begin();
+		while (itr2 != inputData.end())
 		{
-			// std::cout << "INPUT MAP: " << itr->first << " Value: " << itr->second << std::endl;
-			btc.convertBitcoinOnDate(itr->first, itr->second);
+			// std::cout << "INPUT MAP: " << itr2->first << " Value: " << itr2->second << std::endl;
+			btc.convertBitcoinOnDate(itr2->first, itr2->second);
 			
-			itr++;
+			itr2++;
 		}
 	}
 	catch(const std::exception& e)

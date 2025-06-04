@@ -35,9 +35,9 @@ class BitcoinExchange
 		~BitcoinExchange();
 
 		void	fileToDB(std::fstream &file, std::map<std::string, float> &map, std::string delimiter);
-		void	fileToMap(std::fstream &file, std::map<std::string, float> &map, std::string delimiter);
+		void	fileToMap(std::fstream &file, std::multimap<std::string, float> &map, std::string delimiter);
 		static bool	isValidDate(std::string date);
-		static bool	isValidValue(std::string value);
+		static bool	isValidValue(float value);
 		int			closer_date();
 		
 		void		convertBitcoinOnDate(std::string inputDate, float amount);
