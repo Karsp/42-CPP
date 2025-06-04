@@ -11,8 +11,4 @@ typename T::iterator easyfind(T &container, int key)
 	if (it == container.end())
 		throw std::out_of_range("Key not found.");
 	return (it);
-
-
-
-   
 }
