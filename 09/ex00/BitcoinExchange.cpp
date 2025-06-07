@@ -31,7 +31,6 @@ BitcoinExchange::BitcoinExchange()
 	{
 		std::cerr << e.what() << '\n';
 	}
-	// std::cout << _db["2009-01-11"] << std::endl;
 }
 
 BitcoinExchange::BitcoinExchange(std::string file_path)
@@ -91,9 +90,6 @@ void	BitcoinExchange::fileToDB(std::fstream &file, std::map<std::string, float> 
 			
 			if (value.empty() || isEmpty(value))
 				throw std::runtime_error("File error: Empty value.");
-			std::cout << "key: " << key << std::endl;
-			std::cout << "value: " << value << std::endl;
-
 			if (!BitcoinExchange::isValidDate(key))
 				throw std::runtime_error("Fatal error: Database creation error.");
 			if (check_value)
@@ -105,7 +101,6 @@ void	BitcoinExchange::fileToDB(std::fstream &file, std::map<std::string, float> 
 		{
 			throw std::runtime_error("File error: Missing separator.");
 		}
-		// std::cout << "Key: " << key << " Value: " << value << std::endl;
 	}
 }
 
@@ -131,21 +126,12 @@ void	BitcoinExchange::fileToMap(std::fstream &file, std::multimap<std::string, f
 			
 			if (value.empty() || isEmpty(value))
 				throw std::runtime_error("File error: Empty value.");	
-				// std::cout << "Parsing error: Empty value on key: " << key << std::endl;
-			// std::cout << "key: " << key << std::endl;
-			// std::cout << "value: " << value << std::endl;
-
-			// BitcoinExchange::isValidDate(key);
-			// if (check_value)
-			// 	BitcoinExchange::isValidValue(value);
-			// map[key] = atof(value.c_str());
 			map.insert(std::make_pair(key, atof(value.c_str())));
 		}
 		else	
 		{
 			throw std::runtime_error("File error: Missing separator.");
 		}
-		// std::cout << "Key: " << key << " Value: " << value << std::endl;
 	}
 }
 
@@ -217,7 +203,7 @@ void	BitcoinExchange::convertBitcoinOnDate(std::string inputDate, float amount)
 	float	result;
 	std::multimap<std::string, float>::iterator it;
 
-	std::cout << "Input Date " << inputDate << " amount: " << amount  << std::endl;
+	// std::cout << "Input Date " << inputDate << " amount: " << amount  << std::endl;
 	//check valid input
 	if (!isValidDate(inputDate) || !isValidValue(amount))
 		return ;
@@ -226,7 +212,6 @@ void	BitcoinExchange::convertBitcoinOnDate(std::string inputDate, float amount)
 	{
 		it = _db.find(inputDate);
 		result = it->second;
-		// std::cout << "Found Date " << _db.find(inputDate)->first << std::endl;
 	}
 	else
 	{
@@ -234,7 +219,6 @@ void	BitcoinExchange::convertBitcoinOnDate(std::string inputDate, float amount)
 		if (it != _db.end() && it->first == inputDate) 
 		{
 			result = it->second;
-	        // std::cout << "Exact date found: " << it->first << " -> " << it->second << std::endl;
 		}
 		else 
 		{
@@ -249,13 +233,10 @@ void	BitcoinExchange::convertBitcoinOnDate(std::string inputDate, float amount)
 				return;
 			}
 		}
-		// result = it->second;
 	}
 	result *= amount;
 
 	std::cout << it->first << " => " << amount << " = " << result << std::endl;
-	// std::cout << "Final Result " << result << std::endl;
-
 }
 
 bool BitcoinExchange::isEmpty(std::string value)
@@ -279,4 +260,16 @@ bool BitcoinExchange::isEmpty(std::string value)
 std::map<std::string, float> & BitcoinExchange::getDB()
 {
 	return (_db);
+}
+
+void BitcoinExchange::printDB()
+{
+	std::map<std::string, float>:: iterator itr;
+
+	itr = _db.begin();
+		while (itr != _db.end())
+		{
+			std::cout << "DB: " << itr->first << " Value: " << itr->second << std::endl;
+			itr++;
+		}
 }

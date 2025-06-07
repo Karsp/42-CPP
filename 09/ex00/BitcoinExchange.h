@@ -43,6 +43,7 @@ class BitcoinExchange
 		void		convertBitcoinOnDate(std::string inputDate, float amount);
 
 		static bool	isEmpty(std::string value);
+		void 		printDB();
 
 		std::map<std::string, float> & getDB();
 		

@@ -14,7 +14,6 @@
 int main(int argc, char **argv)
 {
     std::fstream    inFile;
-	std::map<std::string, float>:: iterator itr;
 	std::multimap<std::string, float>:: iterator itr2;
 	std::multimap<std::string, float> inputData;
 
@@ -33,26 +32,18 @@ int main(int argc, char **argv)
 		std::cout << "DB creation failed. Exiting program." << std::endl;
 		return (1);
 	}
-	itr = btc.getDB().begin();
-		while (itr != btc.getDB().end())
-		{
-			std::cout << "DB: " << itr->first << " Value: " << itr->second << std::endl;
-			itr++;
-		}
+	// btc.printDB();
 	try
 	{
 		btc.fileToMap(inFile, inputData, "|");
 		std::cout << ">> The input file has been successfully loaded." << std::endl;
-
-
 
 		itr2 = inputData.begin();
 		while (itr2 != inputData.end())
 		{
 			// std::cout << "INPUT MAP: " << itr2->first << " Value: " << itr2->second << std::endl;
 			btc.convertBitcoinOnDate(itr2->first, itr2->second);
-			
-			itr2++;
+			++itr2;
 		}
 	}
 	catch(const std::exception& e)
