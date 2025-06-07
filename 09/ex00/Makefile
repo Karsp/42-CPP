@@ -3,18 +3,6 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: daviles- <marvin@42.fr>                    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/11/18 15:40:47 by daviles-          #+#    #+#              #
-#    Updated: 2024/11/18 15:40:54 by daviles-         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
 #    By: daviles- <daviles-@student.madrid42.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/05 14:55:03 by daviles-          #+#    #+#              #
@@ -27,7 +15,7 @@ NAME = btc
 ##########################   COMPILING SETTINGS   #########################
 
 CC = c++
-CFLAGS = -Werror -Wextra -Wall -std=c++98 #-fsanitize=address -g3
+CFLAGS = -Werror -Wextra -Wall -std=c++98 -fsanitize=address -g3
 CPPFLAGS = -MMD -MP
 RM = rm -f
 

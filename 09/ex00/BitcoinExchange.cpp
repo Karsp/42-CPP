@@ -55,13 +55,27 @@ BitcoinExchange::BitcoinExchange(std::string file_path)
 	}
 }
 
-
-
 BitcoinExchange::~BitcoinExchange()
-
 {
-
 }
+
+
+BitcoinExchange::BitcoinExchange(BitcoinExchange const &copy)
+{
+	std::cout << "BitcoinExchange copy constructor called" << std::endl;
+	*this = copy;
+}
+
+BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange const &rhs)
+{
+	std::cout <<  "Copy assigment operator for BitcoinExchange Class called" << std::endl;
+	if (this != &rhs)
+	{
+		*this = rhs;
+	}
+	return (*this);	
+}
+
 
 
 void	BitcoinExchange::fileToDB(std::fstream &file, std::map<std::string, float> &map, std::string delimiter)
