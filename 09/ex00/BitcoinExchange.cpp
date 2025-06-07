@@ -217,14 +217,15 @@ void	BitcoinExchange::convertBitcoinOnDate(std::string inputDate, float amount)
 	float	result;
 	std::multimap<std::string, float>::iterator it;
 
+	std::cout << "Input Date " << inputDate << " amount: " << amount  << std::endl;
 	//check valid input
 	if (!isValidDate(inputDate) || !isValidValue(amount))
 		return ;
 
-	std::cout << "Input Date " << inputDate << " amount: " << amount  << std::endl;
 	if (_db.find(inputDate) != _db.end())
 	{
-		result = _db.find(inputDate)->second;
+		it = _db.find(inputDate);
+		result = it->second;
 		// std::cout << "Found Date " << _db.find(inputDate)->first << std::endl;
 	}
 	else
