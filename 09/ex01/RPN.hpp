@@ -32,7 +32,6 @@ class RPN
 		std::list<std::string> _tokens;
 
 	public:
-		// RPN();
 		RPN(std::string input);
 		RPN(RPN const &other);
 		RPN & operator=(RPN const &rhs);

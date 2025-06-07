@@ -42,7 +42,6 @@ RPN &RPN::operator=(RPN const &rhs)
 void RPN::parseInput(std::string input)
 {
 	size_t	size = 0;
-	// size_t	end;
 	char *str;
 
 	if (isEmpty(input))
@@ -51,13 +50,9 @@ void RPN::parseInput(std::string input)
 	str = const_cast<char *>(input.c_str());
 	str = strtok(str, " ");
 	if (!str)
-	{
-		std::cout << 0 << std::endl;
-		return ;
-	}
+		throw std::runtime_error("Error: empty input.");
 	while (str != NULL)
 	{
-	// std::cout << str << std::endl;
 	if (isOperator(str))
 	{
 		if (size < 2)
@@ -95,7 +90,6 @@ void RPN::doRPN()
 			_stack.pop();
 			nb2 = _stack.top();
 			_stack.pop();
-			std::cout << nb1 << "  " << nb2 << std::endl;
 			result = operate(nb1, nb2, *it);
 			_stack.push(result);
 		}
@@ -133,7 +127,6 @@ long RPN::operate(long nb1, long nb2, std::string op)
 			result = ((nb2 / nb1));
 			break;
 	}
-	std::cout << result << std::endl;
 	return result;
 }
 
