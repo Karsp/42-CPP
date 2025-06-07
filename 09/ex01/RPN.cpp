@@ -14,7 +14,8 @@
 RPN::RPN(std::string input)
 {
 	parseInput(input);
-
+	// printTokens();
+	doRPN();
 }
 
 RPN::~RPN()
@@ -40,7 +41,7 @@ RPN &RPN::operator=(RPN const &rhs)
 
 void RPN::parseInput(std::string input)
 {
-	// size_t	start = 0;
+	size_t	size = 0;
 	// size_t	end;
 	char *str;
 
@@ -54,28 +55,90 @@ void RPN::parseInput(std::string input)
 		std::cout << 0 << std::endl;
 		return ;
 	}
-  while (str != NULL)
-  {
-    std::cout << str << std::endl;
-    str = strtok (NULL, " ");
-  }
+	while (str != NULL)
+	{
+	// std::cout << str << std::endl;
+	if (isOperator(str))
+	{
+		if (size < 2)
+			throw std::runtime_error("Parsing error: insufficient numbers for operation.");
+		_tokens.push_back(str);
+	}
+	else
+	{
+		isValidNumber(str);
+		++size;
+		_tokens.push_back(str);
+	}
+	str = strtok (NULL, " ");
+	}
+	if (size >= 10)
+		throw std::runtime_error("Parsing error: too many numbers to operate.");
+}
 
-	// while (input[start])
-	// {
-	// 	if (input[start] == ' ')
-	// 		while(input[start] == ' ')
-	// 			++start;
-		
-	// 	end = input.find(' ', start);
-	// 	if (end == std::string::npos)
-	// 		end = input.size();
-	// 	_tokens.push_back(input.substr(start, end));
-	// 	std::cout << input.substr(start, end) << std::endl;
-	// 	input.erase(start, end);
-	// 	start = 0;
-	// }
+// RPN simplifica la evaluación de expresiones mediante una pila. Cuando se encuentra un número,
+// se empuja a la pila; cuando se encuentra un operador, se toman los dos últimos elementos de la 
+//pila, se aplica el operador y el resultado se empuja nuevamente a la pila
+void RPN::doRPN()
+{
+	long result = 0;
+	long nb1;
+	long nb2;
+
+	for (std::list<std::string>::iterator it = _tokens.begin(); it != _tokens.end(); it++)
+	{
+		if (isOperator(*it))
+		{
+			if (_stack.size() < 2)
+				throw std::runtime_error("Operation error: non valid operation.");
+			nb1 = _stack.top();
+			_stack.pop();
+			nb2 = _stack.top();
+			_stack.pop();
+			std::cout << nb1 << "  " << nb2 << std::endl;
+			result = operate(nb1, nb2, *it);
+			_stack.push(result);
+		}
+		else
+		{
+			_stack.push(std::atol(it->c_str()));
+		}
+	}
+	if (_stack.size() > 1)
+		throw std::runtime_error("Operation error: non valid operation.");
+	std::cout << "Result: " << this->_stack.top() << std::endl;
 	
 }
+
+long RPN::operate(long nb1, long nb2, std::string op)
+{
+	char *c = const_cast<char *>(op.c_str());
+	long result;
+
+	switch (*c)
+	{
+		case '+':
+			result = ((nb1 + nb2));
+			break;
+		
+		case '-':
+			result = ((nb2 - nb1));
+			break;
+		
+		case '*':
+			result = ((nb1 * nb2));
+			break;
+		
+		case '/':
+			result = ((nb2 / nb1));
+			break;
+	}
+	std::cout << result << std::endl;
+	return result;
+}
+
+
+
 
 
 bool RPN::isEmpty(std::string value)
@@ -94,4 +157,57 @@ bool RPN::isEmpty(std::string value)
 	if (spaces == value.size())
 		return true;
 	return false;
+}
+
+void RPN::isValidNumber(std::string value)
+{
+	long result = atol(value.c_str());
+
+	if (result > INT_MAX || result < INT_MIN)
+		throw std::runtime_error("Invalid number. Use INT number to operate.");
+	if (result == 0 && value.size() > 1)
+		throw std::runtime_error("Invalid input. Use INT number to operate.");
+	
+	char *str = const_cast<char *>(value.c_str());
+	for (size_t i = 0; i < value.size(); i++)
+	{
+		if (i == 0 && value[0] == '-')
+			continue;
+		else if (!isdigit(str[i]))
+			throw std::runtime_error("Invalid input. Use INT number to operate.");
+	}
+}
+
+void RPN::isValidOperation(std::string value)
+{
+	std::string operators[] = {"+", "-", "*", "/"};
+
+	for (size_t i = 0; i < 4; i++) 
+	{
+		if (operators[i] == value)
+			return ;
+	}
+	throw std::runtime_error("Invalid operator sign. Allow operations: + - * /.");
+}
+
+bool RPN::isOperator(std::string value) {
+  std::string operators[] = {"+", "-", "*", "/"};
+
+  for (size_t i = 0; i < 4; i++) 
+  {
+    if (operators[i] == value)
+		return true;
+  }
+  return false;
+}
+
+void RPN::printTokens()
+{
+	std::cout << "<<<    List content    >>>>" << std::endl;
+	for (std::list<std::string>::iterator it = _tokens.begin(); it != _tokens.end(); it++)
+	{
+		std::cout << *it << std::endl;
+	}
+	std::cout << "<<<    List content end    >>>>" << std::endl;
+	
 }

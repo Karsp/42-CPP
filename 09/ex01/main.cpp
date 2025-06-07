@@ -16,7 +16,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 	{
 		std::cerr << "Error: invalid arguments" << std::endl;
-    	std::cerr << "usage: ./RPN [expr]" << std::endl;
+    	std::cerr << "Usage: ./RPN [int to operate in RPN]" << std::endl;
 		return (1);
 	}
 	else
@@ -27,7 +27,8 @@ int	main(int argc, char **argv)
 		}
 		catch (const std::exception& e)
 		{
-			std::cout << "Error" <<std::endl;
+			std::cerr << e.what() << '\n';
+			std::cout << "Operation error, exiting program." <<std::endl;
 		}
 	}
 	return (0);
