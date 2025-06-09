@@ -11,3 +11,58 @@
 /* ************************************************************************** */
 
 
+#pragma once
+#ifndef _PmergeMe_HPP
+# define _PmergeMe_HPP
+
+# include <iostream>
+# include <algorithm>
+# include <bits/types/clock_t.h>
+# include <string>
+# include <vector>
+# include <deque>
+
+class PmergeMe
+{
+	private:
+		std::vector<unsigned int> _vector;
+		std::deque<unsigned int> _deque;
+
+	public:
+		PmergeMe(std::string input);
+		PmergeMe(PmergeMe const &other);
+		PmergeMe & operator=(PmergeMe const &rhs);
+		~PmergeMe();
+
+		void parseInput(std::string input);
+		void sortVector();
+		void sortDeque();
+		
+
+
+};
+
+		template <typename T>
+		void sortTwo(typename T::iterator &it1,typename T::iterator &it2)
+		{
+			if (*it1 > *it2)
+			{
+				int	tmp = *it2;
+				*it2 = *it1;
+				*it1 = tmp;
+			}
+			return ;
+		};
+
+		template <typename T>
+		void printContainer(typename T &list)
+		{
+			for (typename T::iterator &it = list.begin(); it != list.end(); it++)
+			{
+				std::cout << it* << " " << std::endl;
+			}
+			
+		};
+
+
+#endif
