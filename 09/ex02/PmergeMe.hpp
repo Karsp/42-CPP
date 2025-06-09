@@ -20,7 +20,9 @@
 # include <bits/types/clock_t.h>
 # include <string>
 # include <vector>
+# include <cstring>
 # include <deque>
+# include <limits.h>
 
 class PmergeMe
 {
@@ -39,30 +41,33 @@ class PmergeMe
 		void sortDeque();
 		
 
+		void isValidNumber(std::string value);
+
 
 };
 
-		template <typename T>
-		void sortTwo(typename T::iterator &it1,typename T::iterator &it2)
-		{
-			if (*it1 > *it2)
-			{
-				int	tmp = *it2;
-				*it2 = *it1;
-				*it1 = tmp;
-			}
-			return ;
-		};
 
-		template <typename T>
-		void printContainer(typename T &list)
-		{
-			for (typename T::iterator &it = list.begin(); it != list.end(); it++)
-			{
-				std::cout << it* << " " << std::endl;
-			}
-			
-		};
+template <typename T>
+void sortTwo(typename T::iterator &it1,typename T::iterator &it2)
+{
+	if (*it1 > *it2)
+	{
+		int	tmp = *it2;
+		*it2 = *it1;
+		*it1 = tmp;
+	}
+	return ;
+};
+
+template <typename T>
+void printContainer(T &list)
+{
+	for (typename T::iterator<unsigned int> &it = list.begin(); it != list.end(); it++)
+	{
+		std::cout << *it << " " << std::endl;
+	}
+	
+};
 
 
 #endif
