@@ -29,6 +29,8 @@ class PmergeMe
 	private:
 		std::vector<unsigned int> _vector;
 		std::deque<unsigned int> _deque;
+		clock_t start_vec;
+		clock_t start_deq;
 
 	public:
 		PmergeMe(std::string input);
@@ -48,7 +50,7 @@ class PmergeMe
 
 
 template <typename T>
-void sortTwo(typename T::iterator &it1,typename T::iterator &it2)
+static void sortSwapTwo(typename T::iterator &it1,typename T::iterator &it2)
 {
 	if (*it1 > *it2)
 	{
@@ -60,14 +62,32 @@ void sortTwo(typename T::iterator &it1,typename T::iterator &it2)
 };
 
 template <typename T>
-void printContainer(T &list)
+static void printContainer(T container)
 {
-	for (typename T::iterator<unsigned int> &it = list.begin(); it != list.end(); it++)
+	size_t i = 0;
+	// typename T::const_iterator end = container.end();
+
+	for (typename T::iterator it = container.begin(); it != container.end(); it++)
 	{
-		std::cout << *it << " " << std::endl;
+		// if (i >= 10)
+		// {
+		// 	std::cout << "[...]" ;
+		// 	break;
+		// }
+		std::cout << *it << " " ;
+		++i;
 	}
-	
+	std::cout << "" << std::endl;
 };
+
+template <typename T>
+static bool isSorted(T& container) {
+  typename T::iterator it = container.begin();
+  for (; it != container.end() - 1; it++) {
+    if (*it > *(it + 1)) return false;
+  }
+  return true;
+}
 
 
 #endif

@@ -30,6 +30,7 @@ int	main(int argc, char **argv)
 		{
 			std::cerr << e.what() << '\n';
 			std::cout << "Operation error, exiting program." <<std::endl;
+			// clear deque and vector?
 		}
 	}
 	return (0);

@@ -16,7 +16,12 @@
 PmergeMe::PmergeMe(std::string input)
 {
 	parseInput(input);
-	printContainer<const std::deque<unsigned int> >(_deque);
+	// printContainer<std::deque<unsigned int> >(_deque);
+	std::cout << "Before:" << std::endl;
+	printContainer<std::vector<unsigned int> >(_vector);
+	sortVector();
+	std::cout << "After:" << std::endl;
+	printContainer<std::vector<unsigned int> >(_vector);
 	// sort();
 }
 
@@ -55,6 +60,7 @@ void PmergeMe::parseInput(std::string input)
 		isValidNumber(str);
 		// ++size;
 		_deque.push_back(atoi(str));
+		_vector.insert(_vector.end(), atoi(str));
 		str = strtok (NULL, " ");
 	}
 	// if (size >= 10)
@@ -78,5 +84,19 @@ void PmergeMe::isValidNumber(std::string value)
 			continue;
 		else if (!isdigit(str[i]))
 			throw std::runtime_error("Invalid input. Use positive INT number to operate.");
+	}
+}
+
+void PmergeMe::sortVector()
+{
+	bool is_odd = _vector.size() % 2;
+	std::vector<unsigned int>::iterator it2;
+
+	for (std::vector<unsigned int>::iterator it1 = _vector.begin(); it1 != _vector.end(); std::advance(it1,2))
+	{
+		it2 = it1 + 1;
+		if (is_odd && it2 + 1 == _vector.end())
+			break;
+		sortSwapTwo<std::vector<unsigned int> >(it1, it2);
 	}
 }
