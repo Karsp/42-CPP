@@ -63,8 +63,8 @@ void PmergeMe::parseInput(std::string input)
 		_vector.insert(_vector.end(), atoi(str));
 		str = strtok (NULL, " ");
 	}
-	// if (size >= 10)
-	// 	throw std::runtime_error("Parsing error: too many numbers to operate.");
+	// Check repeated?
+
 }
 
 
