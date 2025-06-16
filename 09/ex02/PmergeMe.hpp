@@ -50,8 +50,11 @@ class PmergeMe
 
 
 template <typename T>
-static void sortSwapTwo(typename T::iterator &it1,typename T::iterator &it2)
+static void sortSwapTwo(size_t id1,size_t id2, T &container)
 {
+	typename T::iterator it1 = container.begin() + id1;
+	typename T::iterator it2 = container.begin() + id2;
+
 	if (*it1 > *it2)
 	{
 		int	tmp = *it2;

@@ -90,13 +90,13 @@ void PmergeMe::isValidNumber(std::string value)
 void PmergeMe::sortVector()
 {
 	bool is_odd = _vector.size() % 2;
-	std::vector<unsigned int>::iterator it2;
+	size_t id2;
 
-	for (std::vector<unsigned int>::iterator it1 = _vector.begin(); it1 != _vector.end(); std::advance(it1,2))
+	for (size_t id1 = 0; id1 < _vector.size(); id1 += 2)
 	{
-		it2 = it1 + 1;
-		if (is_odd && it2 + 1 == _vector.end())
+		id2 = id1 + 1;
+		if (is_odd && id2 + 1 >= _vector.size())
 			break;
-		sortSwapTwo<std::vector<unsigned int> >(it1, it2);
+		sortSwapTwo<std::vector<unsigned int> >(id1, id2, _vector);
 	}
 }
