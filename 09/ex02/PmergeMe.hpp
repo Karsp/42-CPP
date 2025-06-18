@@ -39,8 +39,9 @@ class PmergeMe
 		~PmergeMe();
 
 		void parseInput(std::string input);
-		void sortVector();
+		void sortVector(std::vector<unsigned int> container);
 		void sortDeque();
+		void sortPairs();
 		
 
 		void isValidNumber(std::string value);

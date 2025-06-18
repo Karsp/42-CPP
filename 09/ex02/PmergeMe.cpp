@@ -19,7 +19,7 @@ PmergeMe::PmergeMe(std::string input)
 	// printContainer<std::deque<unsigned int> >(_deque);
 	std::cout << "Before:" << std::endl;
 	printContainer<std::vector<unsigned int> >(_vector);
-	sortVector();
+	sortVector(_vector);
 	std::cout << "After:" << std::endl;
 	printContainer<std::vector<unsigned int> >(_vector);
 	// sort();
@@ -87,16 +87,60 @@ void PmergeMe::isValidNumber(std::string value)
 	}
 }
 
-void PmergeMe::sortVector()
+void PmergeMe::sortVector(std::vector<unsigned int> container)
 {
-	bool is_odd = _vector.size() % 2;
+	bool is_odd = container.size() % 2;
 	size_t id2;
+	std::vector<unsigned int> a; //mayores
+	std::vector<unsigned int> b; //menores
 
-	for (size_t id1 = 0; id1 < _vector.size(); id1 += 2)
+	if (container.size() / 2 < 2)
+		return; 
+	
+	for (size_t id1 = 0; id1 < container.size(); id1 += 2)
 	{
 		id2 = id1 + 1;
-		if (is_odd && id2 + 1 >= _vector.size())
+		if (is_odd && id2 + 1 >= container.size())
+		{
+			b.push_back(container[id1]);
 			break;
-		sortSwapTwo<std::vector<unsigned int> >(id1, id2, _vector);
+		}
+		if (container[id1] > container[id2])
+		{
+			a.push_back(container[id1]);
+			b.push_back(container[id2]);
+		}
+		else
+		{
+			a.push_back(container[id2]);
+			b.push_back(container[id1]);
+		}
+		// sortSwapTwo<std::vector<unsigned int> >(id1, id2, _vector);
 	}
+	sortVector(a);
+	sortVector(b);
+	std::cout << "Recursive" << std::endl;
+	printContainer(a);
+	printContainer(b);
+
+	// Merge insertion
+	// if (a.size() == 0 || b.size() == 0)
+	if (b.size() == 0)
+		return;
+	for (size_t id1 = 0; id1 < b.size(); ++id1)
+	{
+		if (id1 == 0)
+		{
+			a.insert(a.begin(), b[0]);
+		}
+		else
+		{
+			
+			a.push_back(b[id1]);
+		}
+		// sortSwapTwo<std::vector<unsigned int> >(id1, id2, _vector);
+	}
+
+	std::cout << "Insertion" << std::endl;
+	printContainer(a);
 }
