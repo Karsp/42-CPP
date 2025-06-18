@@ -31,6 +31,7 @@ class PmergeMe
 		std::deque<unsigned int> _deque;
 		clock_t start_vec;
 		clock_t start_deq;
+		long _jacobsthal_number(long n);
 
 	public:
 		PmergeMe(std::string input);
@@ -51,6 +52,18 @@ class PmergeMe
 
 
 template <typename T>
+static void sortSwap(typename T::iterator &it1,typename T::iterator &it2)
+{
+	if (*it1 > *it2)
+	{
+		int	tmp = *it2;
+		*it2 = *it1;
+		*it1 = tmp;
+	}
+	return ;
+};
+
+template <typename T>
 static void sortSwapTwo(size_t id1,size_t id2, T &container)
 {
 	typename T::iterator it1 = container.begin() + id1;
@@ -62,6 +75,7 @@ static void sortSwapTwo(size_t id1,size_t id2, T &container)
 		*it2 = *it1;
 		*it1 = tmp;
 	}
+	// std::cout << *it1 << " - " << *it2 << std::endl;
 	return ;
 };
 

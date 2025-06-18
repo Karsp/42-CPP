@@ -95,7 +95,16 @@ void PmergeMe::sortVector(std::vector<unsigned int> container)
 	std::vector<unsigned int> b; //menores
 
 	if (container.size() / 2 < 2)
+	{
+		// Sort the shortest container
+		for (size_t i = 0; i < container.size(); i++)
+		{
+			if (isSorted<std::vector<unsigned int> >(container))
+				break;
+			sortSwapTwo<std::vector<unsigned int> >(i, i + 1, container);
+		}
 		return; 
+	}
 	
 	for (size_t id1 = 0; id1 < container.size(); id1 += 2)
 	{
@@ -115,7 +124,6 @@ void PmergeMe::sortVector(std::vector<unsigned int> container)
 			a.push_back(container[id2]);
 			b.push_back(container[id1]);
 		}
-		// sortSwapTwo<std::vector<unsigned int> >(id1, id2, _vector);
 	}
 	sortVector(a);
 	sortVector(b);
@@ -127,6 +135,9 @@ void PmergeMe::sortVector(std::vector<unsigned int> container)
 	// if (a.size() == 0 || b.size() == 0)
 	if (b.size() == 0)
 		return;
+	
+	int prev_jacobsthal = _jacobsthal_number(1);
+    int inserted_numbers = 0;
 	for (size_t id1 = 0; id1 < b.size(); ++id1)
 	{
 		if (id1 == 0)
@@ -135,7 +146,7 @@ void PmergeMe::sortVector(std::vector<unsigned int> container)
 		}
 		else
 		{
-			
+
 			a.push_back(b[id1]);
 		}
 		// sortSwapTwo<std::vector<unsigned int> >(id1, id2, _vector);
