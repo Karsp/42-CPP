@@ -14,7 +14,7 @@
 
 int	main(int argc, char **argv)
 {
-	if (argc != 2)
+	if (argc < 2)
 	{
 		std::cerr << "Error: invalid arguments" << std::endl;
     	std::cerr << "Usage: ./PmergeMe [unsigned int to operate in PmergeMe]" << std::endl;
@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 	{
 		try
 		{
-			PmergeMe	tmp(argv[1]);
+			PmergeMe	tmp(++argv);
 		}
 		catch (const std::exception& e)
 		{
