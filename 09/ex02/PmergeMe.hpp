@@ -23,6 +23,7 @@
 # include <cstring>
 # include <deque>
 # include <limits.h>
+# include <cmath>
 
 class PmergeMe
 {
@@ -31,7 +32,7 @@ class PmergeMe
 		std::deque<unsigned int> _deque;
 		clock_t start_vec;
 		clock_t start_deq;
-		long _jacobsthal_number(long n);
+		// long _jacobsthal_number(long n);
 
 	public:
 		PmergeMe(std::string input);
@@ -40,15 +41,19 @@ class PmergeMe
 		~PmergeMe();
 
 		void parseInput(std::string input);
-		void sortVector(std::vector<unsigned int> container);
+		void sortVector(std::vector<unsigned int> &container);
 		void sortDeque();
 		void sortPairs();
 		
 
 		void isValidNumber(std::string value);
 
+		/* Gives an index of the nth Jacobsthal number, starting from 1.
+ * round((pow(2, n) + pow(-1, n - 1)) / 3) means that it starts from 0.*/
+		static long _jacobsthal_number(long n) { return round((pow(2, n + 1) + pow(-1, n)) / 3); }
 
 };
+
 
 
 template <typename T>
@@ -78,6 +83,12 @@ static void sortSwapTwo(size_t id1,size_t id2, T &container)
 	// std::cout << *it1 << " - " << *it2 << std::endl;
 	return ;
 };
+
+template <typename T> T itNext(T it, int steps)
+{
+    std::advance(it, steps);
+    return it;
+}
 
 template <typename T>
 static void printContainer(T container)
