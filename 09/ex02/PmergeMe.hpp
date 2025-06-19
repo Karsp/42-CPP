@@ -36,7 +36,7 @@ class PmergeMe
 		int _count;
 
 	public:
-		PmergeMe(char **argv);
+		PmergeMe(std::string input);
 		PmergeMe(PmergeMe const &other);
 		PmergeMe & operator=(PmergeMe const &rhs);
 		~PmergeMe();
@@ -210,6 +210,9 @@ void sortFordJohnson(T &container)
 		offset = 0;
 	}
 
+	std::cout << "Before last insertion" << std::endl;
+	printContainer< std::vector<unsigned int> >(a);
+	printContainer< std::vector<unsigned int> >(b);
 	/* Insert the remaining elements in the reversed order. Here we also want to
        perform as less comparisons as possible, so we calculate the starting bound
        to insert pend number to be the pair of the first pend number. If the first

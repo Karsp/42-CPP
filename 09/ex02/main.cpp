@@ -24,7 +24,20 @@ int	main(int argc, char **argv)
 	{
 		try
 		{
-			PmergeMe	tmp(++argv);
+			std::string input;
+			// while (*argv)
+			// {
+			// 	input += *argv;
+			// 	input += " ";
+			// 	argv++;
+			// }
+
+			for (int i = 1; i < argc; ++i) {
+				input += argv[i];
+				if (i < argc - 1)
+					input += " ";
+			}
+			PmergeMe	tmp(input);
 		}
 		catch (const std::exception& e)
 		{

@@ -13,22 +13,16 @@
 #include "PmergeMe.hpp"
 
 
-PmergeMe::PmergeMe(char **argv)
+PmergeMe::PmergeMe(std::string input)
 {
-	std::string input;
-	while (*argv)
-	{
-		input += *argv;
-		input += " ";
-		argv++;
-	}
+	std::cout << "input" << input << std::endl;
 	parseInputFillContainers(input);
 	_count = 0;
-	printContainer<std::deque<unsigned int> >(_deque);
+	// printContainer<std::deque<unsigned int> >(_deque);
 	std::cout << "Before:" << std::endl;
 	printContainer<std::vector<unsigned int> >(_vector);
-	// sortVector(_vector);
-	sortFordJohnson<std::vector<unsigned int> >(_vector);
+	sortVector(_vector);
+	// sortFordJohnson<std::vector<unsigned int> >(_vector);
 	std::cout << "After:" << std::endl;
 	printContainer<std::vector<unsigned int> >(_vector);
 	if (isSorted<std::vector<unsigned int> >(_vector))
@@ -52,7 +46,8 @@ PmergeMe &PmergeMe::operator=(PmergeMe const &rhs)
 	std::cout <<  "Copy assigment operator for PmergeMe Class called" << std::endl;
 	if (this != &rhs)
 	{
-		*this = rhs;
+		_vector = rhs._vector;
+		_deque = rhs._deque;
 	}
 	return (*this);	
 }
@@ -98,13 +93,13 @@ void PmergeMe::sortVector(std::vector<unsigned int> &container)
 {
 	bool is_odd = container.size() % 2;
 	size_t id2;
-	std::vector<unsigned int> a; //mayores
-	std::vector<unsigned int> b; //menores
+	std::vector<unsigned int> a; //biggers
+	std::vector<unsigned int> b; //smallers
 
 	if (container.size() / 2 < 2)
 	{
 		// Sort the shortest container
-		for (size_t i = 0; i < container.size(); i++)
+		for (size_t i = 0; i + 1 < container.size(); i++)
 		{
 			if (isSorted<std::vector<unsigned int> >(container))
 				break;
@@ -147,20 +142,25 @@ void PmergeMe::sortVector(std::vector<unsigned int> &container)
 
 	if (!b.empty())
 	{
-		a.insert(a.begin(), b[0]);
-		b.erase(b.begin());
+		if (*a.begin() > *b.begin())
+		{
+			a.insert(a.begin(), *b.begin());
+			b.erase(b.begin());
+		}
 	}
 
 	int prev_jacobsthal = getJacobsthalNumber(1);
     int inserted_numbers = 0;
 
+	// std::cout << "Before  insertion" << std::endl;
+	// printContainer< std::vector<unsigned int> >(a);
+	// printContainer< std::vector<unsigned int> >(b);
 	for (size_t k = 2;; ++k)
 	{
 		int curr_jacobsthal = getJacobsthalNumber(k);
         int jacobsthal_diff = curr_jacobsthal - prev_jacobsthal;
 		int offset = 0;
 	//    std::cout << "size " << b.size() << " jacob " << jacobsthal_diff << std::endl;
-
         if (jacobsthal_diff > static_cast<int>(b.size()))
             break;
         int nbr_of_times = jacobsthal_diff;
@@ -170,10 +170,10 @@ void PmergeMe::sortVector(std::vector<unsigned int> &container)
 		itNext(a.begin(), curr_jacobsthal + inserted_numbers );
         while (nbr_of_times)
         {
-			std::cout << "Recursive level " << _count << std::endl;
-			printContainer(a);
-			printContainer(b);
-			std::cout << "Insert: " << *pend_it << " on " << curr_jacobsthal + inserted_numbers -1 << std::endl;
+			// std::cout << "Recursive level " << _count << std::endl;
+			// printContainer(a);
+			// printContainer(b);
+			// std::cout << "Insert: " << *pend_it << " on " << curr_jacobsthal + inserted_numbers -1 << std::endl;
 			
             std::vector<unsigned int>::iterator idx =
                 std::upper_bound(a.begin(), bound_it, *pend_it);
@@ -193,6 +193,9 @@ void PmergeMe::sortVector(std::vector<unsigned int> &container)
 		// a.push_back(b[k]);
 	}
 
+	// std::cout << "Before last insertion" << std::endl;
+	// printContainer< std::vector<unsigned int> >(a);
+	// printContainer< std::vector<unsigned int> >(b);
 	/* Insert the remaining elements in the reversed order. Here we also want to
        perform as less comparisons as possible, so we calculate the starting bound
        to insert pend number to be the pair of the first pend number. If the first
@@ -211,8 +214,8 @@ void PmergeMe::sortVector(std::vector<unsigned int> &container)
         a.insert(idx, *curr_pend);
     }
 
-	std::cout << "After Insertion" << std::endl;
-	printContainer(a);
+	// std::cout << "After Insertion" << std::endl;
+	// printContainer(a);
 	container = a;
 }
 
