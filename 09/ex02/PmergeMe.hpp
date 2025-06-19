@@ -33,6 +33,7 @@ class PmergeMe
 		clock_t start_vec;
 		clock_t start_deq;
 		// long _jacobsthal_number(long n);
+		int _count;
 
 	public:
 		PmergeMe(std::string input);

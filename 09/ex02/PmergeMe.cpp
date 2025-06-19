@@ -16,6 +16,7 @@
 PmergeMe::PmergeMe(std::string input)
 {
 	parseInput(input);
+	_count = 0;
 	// printContainer<std::deque<unsigned int> >(_deque);
 	std::cout << "Before:" << std::endl;
 	printContainer<std::vector<unsigned int> >(_vector);
@@ -105,12 +106,14 @@ void PmergeMe::sortVector(std::vector<unsigned int> &container)
 		}
 		return; 
 	}
+	_count++;
 	
 	for (size_t id1 = 0; id1 < container.size(); id1 += 2)
 	{
 		id2 = id1 + 1;
 		if (is_odd && id2 + 1 >= container.size())
 		{
+			// std::cout << "ODD: " << container[id1] << std::endl;
 			b.push_back(container[id1]);
 			break;
 		}
@@ -125,11 +128,11 @@ void PmergeMe::sortVector(std::vector<unsigned int> &container)
 			b.push_back(container[id1]);
 		}
 	}
-	sortVector(a);
+	// std::cout << "Recursive level " << _count << std::endl;
+	// printContainer(a);
+	// printContainer(b);
 	sortVector(b);
-	std::cout << "Recursive" << std::endl;
-	printContainer(a);
-	printContainer(b);
+	sortVector(a);
 
 	// Merge insertion
 	// if (a.size() == 0 || b.size() == 0)
@@ -152,7 +155,7 @@ void PmergeMe::sortVector(std::vector<unsigned int> &container)
 		int curr_jacobsthal = _jacobsthal_number(k);
         int jacobsthal_diff = curr_jacobsthal - prev_jacobsthal;
 		int offset = 0;
-	   std::cout << "size " << b.size() << " jacob " << jacobsthal_diff << std::endl;
+	//    std::cout << "size " << b.size() << " jacob " << jacobsthal_diff << std::endl;
 
         if (jacobsthal_diff > static_cast<int>(b.size()))
             break;
@@ -160,9 +163,14 @@ void PmergeMe::sortVector(std::vector<unsigned int> &container)
 		
 		std::vector<unsigned int>::iterator pend_it = itNext(b.begin(), jacobsthal_diff - 1);
         std::vector<unsigned int>::iterator bound_it =
-		itNext(a.begin(), curr_jacobsthal + inserted_numbers);
+		itNext(a.begin(), curr_jacobsthal + inserted_numbers );
         while (nbr_of_times)
         {
+			std::cout << "Recursive level " << _count << std::endl;
+			printContainer(a);
+			printContainer(b);
+			std::cout << "Insert: " << *pend_it << " on " << curr_jacobsthal + inserted_numbers -1 << std::endl;
+			
             std::vector<unsigned int>::iterator idx =
                 std::upper_bound(a.begin(), bound_it, *pend_it);
             std::vector<unsigned int>::iterator inserted = a.insert(idx, *pend_it);
@@ -195,11 +203,11 @@ void PmergeMe::sortVector(std::vector<unsigned int> &container)
         std::vector<unsigned int>::iterator idx =
             std::upper_bound(a.begin(), curr_bound, *curr_pend);
 
-		std::cout << "Insert: " << *curr_pend << " on " << *idx << std::endl;
+		// std::cout << "Insert: " << *curr_pend << " on " << *idx << std::endl;
         a.insert(idx, *curr_pend);
     }
 
 	std::cout << "After Insertion" << std::endl;
 	printContainer(a);
-	_vector = a;
+	container = a;
 }
