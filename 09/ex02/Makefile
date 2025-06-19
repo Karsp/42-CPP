@@ -5,23 +5,23 @@
 #                                                     +:+ +:+         +:+      #
 #    By: daviles- <daviles-@student.madrid42.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/11/05 14:55:03 by daviles-          #+#    #+#              #
-#    Updated: 2024/11/05 14:55:07 by daviles-         ###   ########.fr        #
+#    Created: 2025/06/07 18:52:22 by daviles-          #+#    #+#              #
+#    Updated: 2025/06/07 18:52:25 by daviles-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = btc
+NAME = PmergeMe
 
 ##########################   COMPILING SETTINGS   #########################
 
 CC = c++
-CFLAGS = -Werror -Wextra -Wall -std=c++98 -fsanitize=address -g3
+CFLAGS = -Werror -Wextra -Wall -std=c++98 # -fsanitize=address -g3
 CPPFLAGS = -MMD -MP
 RM = rm -f
 
 ###########################    FILES   ####################################
 
-SRCS =	 BitcoinExchange.cpp main.cpp
+SRCS =	 PmergeMe.cpp main.cpp
 OBJS = $(SRCS:.cpp=.o)	
 DEPS = $(SRCS:.cpp=.d)
 
@@ -80,9 +80,4 @@ re: fclean all
 
 .PHONY: all clean fclean re
 
-
 #Silent prints:  > /dev/null
-	
-
-
-
