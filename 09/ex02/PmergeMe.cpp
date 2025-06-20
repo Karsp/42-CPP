@@ -15,15 +15,32 @@
 
 PmergeMe::PmergeMe(std::string input)
 {
-	std::cout << "input" << input << std::endl;
+	// std::cout << "input" << input << std::endl;
 	parseInputFillContainers(input);
 	_count = 0;
 	// printContainer<std::deque<unsigned int> >(_deque);
-	std::cout << "Before:" << std::endl;
-	printContainer<std::vector<unsigned int> >(_vector);
+	
+	// clock_t start_vec = clock();
 	sortVector(_vector);
+    // clock_t end_vec = clock();
+    // double time_elapsed_vec = static_cast<double>(end_vec - start_vec) / CLOCKS_PER_SEC;
+
 	// sortFordJohnson<std::vector<unsigned int> >(_vector);
-	std::cout << "After:" << std::endl;
+	// std::cout << "After:" << std::endl;
+	// printContainer<std::vector<unsigned int> >(_vector);
+	
+	
+    // std::cout << "\033[31mBefore\033[00m: " << std::endl;
+	// printContainer<std::vector<unsigned int> >(_vector);
+    // std::cout << "\033[32mAfter\033[00m:  " << std::endl;
+	// printContainer<std::vector<unsigned int> >(_vector);
+
+    // std::cout << "Time to process a range of " << _vector.size()
+    //           << " elements with std::vector: " << std::fixed << std::setprecision(6)
+    //           << time_elapsed_vec << "s\n";
+    // std::cout << "Time to process a range of " << _vector.size()
+    //           << " elements with std::deque:  " << std::fixed << std::setprecision(6)
+    //           << time_elapsed_deque << "s\n";
 	printContainer<std::vector<unsigned int> >(_vector);
 	if (isSorted<std::vector<unsigned int> >(_vector))
 		std::cout << "Sorted" << std::endl;

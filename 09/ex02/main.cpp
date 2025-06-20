@@ -25,14 +25,9 @@ int	main(int argc, char **argv)
 		try
 		{
 			std::string input;
-			// while (*argv)
-			// {
-			// 	input += *argv;
-			// 	input += " ";
-			// 	argv++;
-			// }
 
-			for (int i = 1; i < argc; ++i) {
+			for (int i = 1; i < argc; ++i) 
+			{
 				input += argv[i];
 				if (i < argc - 1)
 					input += " ";

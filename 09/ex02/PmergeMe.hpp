@@ -24,6 +24,7 @@
 # include <deque>
 # include <limits.h>
 # include <cmath>
+# include <iomanip> //setprecision
 
 class PmergeMe
 {
