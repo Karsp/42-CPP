@@ -21,7 +21,8 @@ PmergeMe::PmergeMe(std::string input)
 	// printContainer<std::deque<unsigned int> >(_deque);
 	
 	// clock_t start_vec = clock();
-	sortVector(_vector);
+	// sortVector(_vector);
+	 sortFordJohnson<std::vector<unsigned int> >(_vector, 1);
     // clock_t end_vec = clock();
     // double time_elapsed_vec = static_cast<double>(end_vec - start_vec) / CLOCKS_PER_SEC;
 
@@ -32,8 +33,8 @@ PmergeMe::PmergeMe(std::string input)
 	
     // std::cout << "\033[31mBefore\033[00m: " << std::endl;
 	// printContainer<std::vector<unsigned int> >(_vector);
-    // std::cout << "\033[32mAfter\033[00m:  " << std::endl;
-	// printContainer<std::vector<unsigned int> >(_vector);
+    std::cout << "\033[32mAfter\033[00m:  " << std::endl;
+	printContainer<std::vector<unsigned int> >(_vector);
 
     // std::cout << "Time to process a range of " << _vector.size()
     //           << " elements with std::vector: " << std::fixed << std::setprecision(6)
@@ -41,7 +42,7 @@ PmergeMe::PmergeMe(std::string input)
     // std::cout << "Time to process a range of " << _vector.size()
     //           << " elements with std::deque:  " << std::fixed << std::setprecision(6)
     //           << time_elapsed_deque << "s\n";
-	printContainer<std::vector<unsigned int> >(_vector);
+	// printContainer<std::vector<unsigned int> >(_vector);
 	if (isSorted<std::vector<unsigned int> >(_vector))
 		std::cout << "Sorted" << std::endl;
 	// sort();
@@ -106,258 +107,6 @@ void PmergeMe::isValidNumber(std::string value)
 	}
 }
 
-void PmergeMe::sortVector(std::vector<unsigned int> &container)
-{
-	bool is_odd = container.size() % 2;
-	size_t id2;
-	std::vector<unsigned int> a; //biggers
-	std::vector<unsigned int> b; //smallers
-
-	if (container.size() / 2 < 2)
-	{
-		// Sort the shortest container
-		for (size_t i = 0; i + 1 < container.size(); i++)
-		{
-			if (isSorted<std::vector<unsigned int> >(container))
-				break;
-			sortSwapTwo<std::vector<unsigned int> >(i, i + 1, container);
-		}
-		return; 
-	}
-	_count++;
-	
-	for (size_t id1 = 0; id1 < container.size(); id1 += 2)
-	{
-		id2 = id1 + 1;
-		if (is_odd && id2 + 1 >= container.size())
-		{
-			// std::cout << "ODD: " << container[id1] << std::endl;
-			b.push_back(container[id1]);
-			break;
-		}
-		if (container[id1] > container[id2])
-		{
-			a.push_back(container[id1]);
-			b.push_back(container[id2]);
-		}
-		else
-		{
-			a.push_back(container[id2]);
-			b.push_back(container[id1]);
-		}
-	}
-	// std::cout << "Recursive level " << _count << std::endl;
-	// printContainer(a);
-	// printContainer(b);
-	sortVector(b);
-	sortVector(a);
-
-	// Merge insertion
-	// if (a.size() == 0 || b.size() == 0)
-	// if (b.size() == 0)
-	// 	return;
-
-	if (!b.empty())
-	{
-		if (*a.begin() > *b.begin())
-		{
-			a.insert(a.begin(), *b.begin());
-			b.erase(b.begin());
-		}
-	}
-
-	int prev_jacobsthal = getJacobsthalNumber(1);
-    int inserted_numbers = 0;
-
-	// std::cout << "Before  insertion" << std::endl;
-	// printContainer< std::vector<unsigned int> >(a);
-	// printContainer< std::vector<unsigned int> >(b);
-	for (size_t k = 2;; ++k)
-	{
-		int curr_jacobsthal = getJacobsthalNumber(k);
-        int jacobsthal_diff = curr_jacobsthal - prev_jacobsthal;
-		int offset = 0;
-	//    std::cout << "size " << b.size() << " jacob " << jacobsthal_diff << std::endl;
-        if (jacobsthal_diff > static_cast<int>(b.size()))
-            break;
-        int nbr_of_times = jacobsthal_diff;
-		
-		std::vector<unsigned int>::iterator pend_it = itNext(b.begin(), jacobsthal_diff - 1);
-        std::vector<unsigned int>::iterator bound_it =
-		itNext(a.begin(), curr_jacobsthal + inserted_numbers );
-        while (nbr_of_times)
-        {
-			// std::cout << "Recursive level " << _count << std::endl;
-			// printContainer(a);
-			// printContainer(b);
-			// std::cout << "Insert: " << *pend_it << " on " << curr_jacobsthal + inserted_numbers -1 << std::endl;
-			
-            std::vector<unsigned int>::iterator idx =
-                std::upper_bound(a.begin(), bound_it, *pend_it);
-            std::vector<unsigned int>::iterator inserted = a.insert(idx, *pend_it);
-            nbr_of_times--;
-            pend_it = b.erase(pend_it);
-            std::advance(pend_it, -1);
-            /* Sometimes the inserted number in inserted at the exact index of where the bound should be.
-			   When this happens, it eclipses the bound of the next pend, and it does more comparisons
-			   than it should. We need to offset when this happens. */
-            offset += (inserted - a.begin()) == curr_jacobsthal + inserted_numbers;
-			bound_it = itNext(a.begin(), curr_jacobsthal + inserted_numbers - offset);
-        }
-        prev_jacobsthal = curr_jacobsthal;
-        inserted_numbers += jacobsthal_diff;
-		offset = 0;
-		// a.push_back(b[k]);
-	}
-
-	// std::cout << "Before last insertion" << std::endl;
-	// printContainer< std::vector<unsigned int> >(a);
-	// printContainer< std::vector<unsigned int> >(b);
-	/* Insert the remaining elements in the reversed order. Here we also want to
-       perform as less comparisons as possible, so we calculate the starting bound
-       to insert pend number to be the pair of the first pend number. If the first
-       pend number is b8, the bound is a8, if the pend number is b7, the bound is a7 etc.
-       With the way I do it the index of bound is
-       size_of_main - size_of_pend + index_of_current_pend. */
-    for (ssize_t i = b.size() - 1; i >= 0; i--)
-    {
-        std::vector<unsigned int>::iterator curr_pend = itNext(b.begin(), i);
-        std::vector<unsigned int>::iterator curr_bound =
-            itNext(a.begin(), a.size() - b.size() + i + is_odd);
-        std::vector<unsigned int>::iterator idx =
-            std::upper_bound(a.begin(), curr_bound, *curr_pend);
-
-		// std::cout << "Insert: " << *curr_pend << " on " << *idx << std::endl;
-        a.insert(idx, *curr_pend);
-    }
-
-	// std::cout << "After Insertion" << std::endl;
-	// printContainer(a);
-	container = a;
-}
-
-// template <typename T>
-// void sortFordJohnson(T &container)
-// {
-// 	typedef typename T::iterator Iterator;
-
-// 	bool is_odd = container.size() % 2;
-// 	size_t id2;
-// 	T a; //mayores
-// 	T b; //menores
-
-// 	if (container.size() / 2 < 2)
-// 	{
-// 		// Sort the shortest container
-// 		for (size_t i = 0; i < container.size(); i++)
-// 		{
-// 			if (isSorted<T>(container))
-// 				break;
-// 			sortSwapTwo<T>(i, i + 1, container);
-// 		}
-// 		return; 
-// 	}
-	
-// 	for (size_t id1 = 0; id1 < container.size(); id1 += 2)
-// 	{
-// 		id2 = id1 + 1;
-// 		if (is_odd && id2 + 1 >= container.size())
-// 		{
-// 			// std::cout << "ODD: " << container[id1] << std::endl;
-// 			b.push_back(container[id1]);
-// 			break;
-// 		}
-// 		if (container[id1] > container[id2])
-// 		{
-// 			a.push_back(container[id1]);
-// 			b.push_back(container[id2]);
-// 		}
-// 		else
-// 		{
-// 			a.push_back(container[id2]);
-// 			b.push_back(container[id1]);
-// 		}
-// 	}
-// 	// std::cout << "Recursive level " << _count << std::endl;
-// 	// printContainer(a);
-// 	// printContainer(b);
-// 	sortVector(b);
-// 	sortVector(a);
-
-// 	// Merge insertion
-// 	// if (a.size() == 0 || b.size() == 0)
-// 	// if (b.size() == 0)
-// 	// 	return;
-
-// 	if (!b.empty())
-// 	{
-// 		a.insert(a.begin(), b[0]);
-// 		b.erase(b.begin());
-// 	}
-
-// 	// Iterator aStart = a.begin();
-// 	// Iterator bStart = b.begin();
-// 	int prev_jacobsthal = getJacobsthalNumber(1);
-//     int inserted_numbers = 0;
-
-// 	for (size_t k = 2;; ++k)
-// 	{
-// 		int curr_jacobsthal = getJacobsthalNumber(k);
-//         int jacobsthal_diff = curr_jacobsthal - prev_jacobsthal;
-// 		int offset = 0;
-// 	//    std::cout << "size " << b.size() << " jacob " << jacobsthal_diff << std::endl;
-
-//         if (jacobsthal_diff > static_cast<int>(b.size()))
-//             break;
-//         int nbr_of_times = jacobsthal_diff;
-		
-// 		Iterator pend_it = itNext(b.begin(), jacobsthal_diff - 1);
-//         Iterator bound_it =
-// 		itNext(a.begin(), curr_jacobsthal + inserted_numbers );
-//         while (nbr_of_times)
-//         {
-// 			std::cout << "Recursive level " << _count << std::endl;
-// 			printContainer(a);
-// 			printContainer(b);
-// 			std::cout << "Insert: " << *pend_it << " on " << curr_jacobsthal + inserted_numbers -1 << std::endl;
-			
-//             Iterator idx =
-//                 std::upper_bound(a.begin(), bound_it, *pend_it);
-//             Iterator inserted = a.insert(idx, *pend_it);
-//             nbr_of_times--;
-//             pend_it = b.erase(pend_it);
-//             std::advance(pend_it, -1);
-//             /* Sometimes the inserted number in inserted at the exact index of where the bound should be.
-// 			   When this happens, it eclipses the bound of the next pend, and it does more comparisons
-// 			   than it should. We need to offset when this happens. */
-//             offset += (inserted - a.begin()) == curr_jacobsthal + inserted_numbers;
-// 			bound_it = itNext(a.begin(), curr_jacobsthal + inserted_numbers - offset);
-//         }
-//         prev_jacobsthal = curr_jacobsthal;
-//         inserted_numbers += jacobsthal_diff;
-// 		offset = 0;
-// 		// a.push_back(b[k]);
-// 	}
-
-// 	/* Insert the remaining elements in the reversed order. Here we also want to
-//        perform as less comparisons as possible, so we calculate the starting bound
-//        to insert pend number to be the pair of the first pend number. If the first
-//        pend number is b8, the bound is a8, if the pend number is b7, the bound is a7 etc.
-//        With the way I do it the index of bound is
-//        size_of_main - size_of_pend + index_of_current_pend. */
-//     for (ssize_t i = b.size() - 1; i >= 0; i--)
-//     {
-//         Iterator curr_pend = itNext(b.begin(), i);
-//         Iterator curr_bound =
-//             itNext(a.begin(), a.size() - b.size() + i + is_odd);
-//         Iterator idx =
-//             std::upper_bound(a.begin(), curr_bound, *curr_pend);
-
-// 		// std::cout << "Insert: " << *curr_pend << " on " << *idx << std::endl;
-//         a.insert(idx, *curr_pend);
-//     }
-
-// 	std::cout << "After Insertion" << std::endl;
-// 	printContainer(a);
-// 	container = a;
-// }
+/* Gives an index of the nth Jacobsthal number, starting from 1.
+ * round((pow(2, n) + pow(-1, n - 1)) / 3) means that it starts from 0.*/
+long _jacobsthal_number(long n) { return round((pow(2, n + 1) + pow(-1, n)) / 3); }

@@ -43,55 +43,40 @@ class PmergeMe
 		~PmergeMe();
 
 		void parseInputFillContainers(std::string input);
-		void sortVector(std::vector<unsigned int> &container);
-		void sortDeque();
-		void sortPairs();
+		// void sortVector(std::vector<unsigned int> &container);
+		// void sortDeque();
 		
-
+		void sortPairs();
 		void isValidNumber(std::string value);
+		
+		template <typename T> void sortFordJohnson(T& container, int pair_level);
 
-		/* Gives an index of the nth Jacobsthal number, starting from 1.
- * round((pow(2, n) + pow(-1, n - 1)) / 3) means that it starts from 0.*/
-		// static long getJacobsthalNumber(long n) { return round((pow(2, n + 1) + pow(-1, n)) / 3); }
+    	template <typename T> void sortSwap(T it, int pair_level);
 
 };
 
 
-static long getJacobsthalNumber(long n) { return round((pow(2, n + 1) + pow(-1, n)) / 3); }
+// static long getJacobsthalNumber(long n) { return round((pow(2, n + 1) + pow(-1, n)) / 3); }
 
+long _jacobsthal_number(long n);
 
-template <typename T>
-static void sortSwap(typename T::iterator &it1,typename T::iterator &it2)
-{
-	if (*it1 > *it2)
-	{
-		int	tmp = *it2;
-		*it2 = *it1;
-		*it1 = tmp;
-	}
-	return ;
-};
-
-template <typename T>
-static void sortSwapTwo(size_t id1,size_t id2, T &container)
-{
-	typename T::iterator it1 = container.begin() + id1;
-	typename T::iterator it2 = container.begin() + id2;
-
-	if (*it1 > *it2)
-	{
-		int	tmp = *it2;
-		*it2 = *it1;
-		*it1 = tmp;
-	}
-	// std::cout << *it1 << " - " << *it2 << std::endl;
-	return ;
-};
 
 template <typename T> T itNext(T it, int steps)
 {
     std::advance(it, steps);
     return it;
+}
+
+
+template <typename T> void PmergeMe::sortSwap(T it, int pair_level)
+{
+    T start = itNext(it, -pair_level + 1);
+    T end = itNext(start, pair_level);
+    while (start != end)
+    {
+        std::iter_swap(start, itNext(start, pair_level));
+        start++;
+    }
 }
 
 template <typename T>
@@ -122,117 +107,151 @@ static bool isSorted(T& container) {
   return true;
 }
 
+template <typename T> bool compVals(T lv, T rv) {
+	return *lv < *rv;
+}
 
-template <typename T>
-void sortFordJohnson(T &container)
+template <typename T> void PmergeMe::sortFordJohnson(T& container, int pair_level)
 {
-	typedef typename T::iterator Iterator;
+    typedef typename T::iterator Iterator;
 
-	bool is_odd = container.size() % 2;
-	size_t id2;
-	T a; //mayores
-	T b; //menores
+    int pair_units_nbr = container.size() / pair_level;
+    if (pair_units_nbr < 2)
+        return;
+	/* If there is an odd pair, we ignore it during swapping.
+       It will go to the pend as the last pair. */
+    bool is_odd = pair_units_nbr % 2 == 1;
 
-	if (container.size() / 2 < 2)
-	{
-		// Sort the shortest container
-		for (size_t i = 0; i < container.size(); i++)
-		{
-			if (isSorted<T>(container))
-				break;
-			sortSwapTwo<T>(i, i + 1, container);
-		}
-		return; 
-	}
-	
-	for (size_t id1 = 0; id1 < container.size(); id1 += 2)
-	{
-		id2 = id1 + 1;
-		if (is_odd && id2 + 1 >= container.size())
-		{
-			// std::cout << "ODD: " << container[id1] << std::endl;
-			b.push_back(container[id1]);
-			break;
-		}
-		if (container[id1] > container[id2])
-		{
-			a.push_back(container[id1]);
-			b.push_back(container[id2]);
-		}
-		else
-		{
-			a.push_back(container[id2]);
-			b.push_back(container[id1]);
-		}
-	}
-	sortFordJohnson(b);
-	sortFordJohnson(a);
+	 /* It's important to caluclate the end position until which we should iterate.
+       We can have a set of values like:
+       ((1 2) (3 4)) ((3 8) (2 6)) | 0
+       where there are numbers (0 in this case) which can't even form a pair.
+       Those values should be ignored. */
+    Iterator start = container.begin();
+    Iterator last = itNext(container.begin(), pair_level * (pair_units_nbr));
+    Iterator end = itNext(last, -(is_odd * pair_level));
 
-	// Merge insertion with Jaconbsthal number of elements
-	if (!b.empty())
-	{
-		a.insert(a.begin(), b[0]);
-		b.erase(b.begin());
-	}
+	/* Swap pairs of numbers, pairs, pairs of pairs etc by the biggest pair
+       number. After each swap we recurse. */
+    int jump = 2 * pair_level;
+    for (Iterator it = start; it != end; std::advance(it, jump))
+    {
+        Iterator this_pair = itNext(it, pair_level - 1);
+        Iterator next_pair = itNext(it, pair_level * 2 - 1);
+        if (compVals(next_pair, this_pair))
+        {
+            sortSwap(this_pair, pair_level);
+        }
+    }
+    sortFordJohnson(container, pair_level * 2);
 
-	int prev_jacobsthal = getJacobsthalNumber(1);
+    /* Main contains an already sorted sequence.
+       Pend stores a yet to be sorted numbers.
+       List data structure for quick random insertion and deletion.
+       They contain iterators instead of the numbers themselves because
+       iterators + pair_level contain all the information about the stored
+       ranges of numbers. */
+    std::vector<Iterator> main;
+    std::vector<Iterator> pend;
+
+    /* Initialize the main chain with the {b1, a1}. */
+    main.insert(main.end(), itNext(container.begin(), pair_level - 1));
+    main.insert(main.end(), itNext(container.begin(), pair_level * 2 - 1));
+
+    /* Insert the rest of a's into the main chain.
+       Insert the rest of b's into the pend. */
+    for (int i = 4; i <= pair_units_nbr; i += 2)
+    {
+        pend.insert(pend.end(), itNext(container.begin(), pair_level * (i - 1) - 1));
+        main.insert(main.end(), itNext(container.begin(), pair_level * i - 1));
+    }
+
+    /* Insert an odd element to the pend, if there are any. */
+    if (is_odd)
+    {
+        pend.insert(pend.end(), itNext(end, pair_level - 1));
+    }
+
+    /* Insert the pend into the main in the order determined by the
+       Jacobsthal numbers. For example: 3 2 -> 5 4 -> 11 10 9 8 7 6 -> etc.
+       During insertion, main numbers serve as an upper bound for inserting numbers,
+       in order to save number of comparisons, as we know already that, for example,
+       b5 is lesser than a5, we binary search only until a5, not until the end
+       of the container.
+           We can calculate the index of the bound element. With the way I do it,
+           the index of the bound is inserted_numbers + current_jacobsthal_number. */
+    int prev_jacobsthal = _jacobsthal_number(1);
     int inserted_numbers = 0;
-
-	for (size_t k = 2;; ++k)
-	{
-		int curr_jacobsthal = getJacobsthalNumber(k);
+    for (int k = 2;; k++)
+    {
+        int curr_jacobsthal = _jacobsthal_number(k);
         int jacobsthal_diff = curr_jacobsthal - prev_jacobsthal;
 		int offset = 0;
-
-        if (jacobsthal_diff > static_cast<int>(b.size()))
+        if (jacobsthal_diff > static_cast<int>(pend.size()))
             break;
-
-		int nbr_of_times = jacobsthal_diff;
-		
-		Iterator pend_it = itNext(b.begin(), jacobsthal_diff - 1);
-        Iterator bound_it =
-		itNext(a.begin(), curr_jacobsthal + inserted_numbers );
+        int nbr_of_times = jacobsthal_diff;
+        typename std::vector<Iterator>::iterator pend_it = itNext(pend.begin(), jacobsthal_diff - 1);
+        typename std::vector<Iterator>::iterator bound_it =
+            itNext(main.begin(), curr_jacobsthal + inserted_numbers);
         while (nbr_of_times)
         {
-            Iterator idx =
-                std::upper_bound(a.begin(), bound_it, *pend_it);
-            Iterator inserted = a.insert(idx, *pend_it);
+            typename std::vector<Iterator>::iterator idx =
+                std::upper_bound(main.begin(), bound_it, *pend_it, compVals<Iterator>);
+            typename std::vector<Iterator>::iterator inserted = main.insert(idx, *pend_it);
             nbr_of_times--;
-            pend_it = b.erase(pend_it);
+            pend_it = pend.erase(pend_it);
             std::advance(pend_it, -1);
             /* Sometimes the inserted number in inserted at the exact index of where the bound should be.
 			   When this happens, it eclipses the bound of the next pend, and it does more comparisons
 			   than it should. We need to offset when this happens. */
-            offset += (inserted - a.begin()) == curr_jacobsthal + inserted_numbers;
-			bound_it = itNext(a.begin(), curr_jacobsthal + inserted_numbers - offset);
+            offset += (inserted - main.begin()) == curr_jacobsthal + inserted_numbers;
+			bound_it = itNext(main.begin(), curr_jacobsthal + inserted_numbers - offset);
         }
         prev_jacobsthal = curr_jacobsthal;
         inserted_numbers += jacobsthal_diff;
 		offset = 0;
-	}
+    }
 
-	std::cout << "Before last insertion" << std::endl;
-	printContainer< std::vector<unsigned int> >(a);
-	printContainer< std::vector<unsigned int> >(b);
-	/* Insert the remaining elements in the reversed order. Here we also want to
+    /* Insert the remaining elements in the reversed order. Here we also want to
        perform as less comparisons as possible, so we calculate the starting bound
        to insert pend number to be the pair of the first pend number. If the first
        pend number is b8, the bound is a8, if the pend number is b7, the bound is a7 etc.
        With the way I do it the index of bound is
        size_of_main - size_of_pend + index_of_current_pend. */
-    for (ssize_t i = b.size() - 1; i >= 0; i--)
+    for (ssize_t i = pend.size() - 1; i >= 0; i--)
     {
-        Iterator curr_pend = itNext(b.begin(), i);
-        Iterator curr_bound =
-            itNext(a.begin(), a.size() - b.size() + i + is_odd);
-        Iterator idx =
-            std::upper_bound(a.begin(), curr_bound, *curr_pend);
-        a.insert(idx, *curr_pend);
+        typename std::vector<Iterator>::iterator curr_pend = itNext(pend.begin(), i);
+        typename std::vector<Iterator>::iterator curr_bound =
+            itNext(main.begin(), main.size() - pend.size() + i + is_odd);
+        typename std::vector<Iterator>::iterator idx =
+            std::upper_bound(main.begin(), curr_bound, *curr_pend, compVals<Iterator>);
+        main.insert(idx, *curr_pend);
     }
 
-	container = a;
-}
+    /* Use copy vector to store all the numbers, in order not to overwrite the
+       original iterators. */
+    std::vector<int> copy;
+    copy.reserve(container.size());
+    for (typename std::vector<Iterator>::iterator it = main.begin(); it != main.end(); it++)
+    {
+        for (int i = 0; i < pair_level; i++)
+        {
+            Iterator pair_start = *it;
+            std::advance(pair_start, -pair_level + i + 1);
+            copy.insert(copy.end(), *pair_start);
+        }
+    }
 
+    /* Replace values in the original container. */
+    Iterator container_it = container.begin();
+    std::vector<int>::iterator copy_it = copy.begin();
+    while (copy_it != copy.end())
+    {
+        *container_it = *copy_it;
+        container_it++;
+        copy_it++;
+    }
+}
 
 
 #endif
