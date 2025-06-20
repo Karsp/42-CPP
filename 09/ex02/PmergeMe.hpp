@@ -31,10 +31,6 @@ class PmergeMe
 	private:
 		std::vector<unsigned int> _vector;
 		std::deque<unsigned int> _deque;
-		clock_t start_vec;
-		clock_t start_deq;
-		// long _jacobsthal_number(long n);
-		int _count;
 
 	public:
 		PmergeMe(std::string input);
@@ -55,18 +51,13 @@ class PmergeMe
 
 };
 
-
-// static long getJacobsthalNumber(long n) { return round((pow(2, n + 1) + pow(-1, n)) / 3); }
-
 long _jacobsthal_number(long n);
-
 
 template <typename T> T itNext(T it, int steps)
 {
     std::advance(it, steps);
     return it;
 }
-
 
 template <typename T> void PmergeMe::sortSwap(T it, int pair_level)
 {
@@ -83,15 +74,14 @@ template <typename T>
 static void printContainer(T container)
 {
 	size_t i = 0;
-	// typename T::const_iterator end = container.end();
 
 	for (typename T::iterator it = container.begin(); it != container.end(); it++)
 	{
-		// if (i >= 10)
-		// {
-		// 	std::cout << "[...]" ;
-		// 	break;
-		// }
+		if (i >= 10)
+		{
+			std::cout << "[...]" ;
+			break;
+		}
 		std::cout << *it << " " ;
 		++i;
 	}
@@ -252,6 +242,5 @@ template <typename T> void PmergeMe::sortFordJohnson(T& container, int pair_leve
         copy_it++;
     }
 }
-
 
 #endif
