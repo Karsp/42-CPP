@@ -14,7 +14,7 @@
 
 int	main(int argc, char **argv)
 {
-	if (argc != 2)
+	if (argc < 2)
 	{
 		std::cerr << "Error: invalid arguments" << std::endl;
     	std::cerr << "Usage: ./PmergeMe [unsigned int to operate in PmergeMe]" << std::endl;
@@ -24,13 +24,20 @@ int	main(int argc, char **argv)
 	{
 		try
 		{
-			PmergeMe	tmp(argv[1]);
+			std::string input;
+
+			for (int i = 1; i < argc; ++i) 
+			{
+				input += argv[i];
+				if (i < argc - 1)
+					input += " ";
+			}
+			PmergeMe	tmp(input);
 		}
 		catch (const std::exception& e)
 		{
 			std::cerr << e.what() << '\n';
 			std::cout << "Operation error, exiting program." <<std::endl;
-			// clear deque and vector?
 		}
 	}
 	return (0);
